@@ -1,0 +1,47 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * ContolSwitches
+ * com.acropolis.location.module.controller
+ * ContolSwitches.java
+ * Created - 2013-08-21 2:01:51 PM	
+ * Modified - 2013-08-21 2:01:51 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.location.module.controller;
+
+import android.content.Context;
+import android.content.Intent;
+import android.telephony.TelephonyManager;
+
+import com.acropolis.location.module.MainActivity;
+
+public class ContolSwitches 
+{
+
+	static Context appContext=null;
+	static Intent appIntent=null;
+	{
+		appContext = MainActivity.getAppContext();
+		appIntent = MainActivity.getAppIntent();
+		teleManager = appContext.getSystemService(Context.TELEPHONY_SERVICE);
+	}
+	
+	static TelephonyManager teleManager=null;
+	
+	public static boolean switchON()
+	{
+	
+		
+		
+		return true;
+	}
+	
+	
+	public static boolean switchOFF()
+	{
+		
+		return false;
+	}
+	
+}

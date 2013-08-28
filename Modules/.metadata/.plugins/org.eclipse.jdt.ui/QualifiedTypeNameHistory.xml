@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.Interceptor.CallStateListener"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.Interceptor"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.Interceptor.ServiceStateListener"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.DataInterecptor.DataConnectionState"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.DataInterecptor"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.DataInterecptor.DataActivityMonitor"/>
+<fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.RadioEngine"/>
+<fullyQualifiedTypeName name="android.telephony.TelephonyManager"/>
+<fullyQualifiedTypeName name="android.net.TrafficStats"/>
+<fullyQualifiedTypeName name="android.provider.CallLog"/>
+<fullyQualifiedTypeName name="android.telephony.SmsManager"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.MessageInterceptor"/>
+<fullyQualifiedTypeName name="com.module.testapp.R.id"/>
+<fullyQualifiedTypeName name="com.module.testapp.R.style"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="android.app.Service"/>
+<fullyQualifiedTypeName name="android.net.Uri"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.MainActivity"/>
+<fullyQualifiedTypeName name="android.telephony.PhoneStateListener"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.controller.ControlSwitches"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.R"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.R.layout"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.layout"/>
+<fullyQualifiedTypeName name="android.R.id"/>
+<fullyQualifiedTypeName name="logger.Logger"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
+<fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase.CursorFactory"/>
+<fullyQualifiedTypeName name="android.os.Environment"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.logger.Logger"/>
+<fullyQualifiedTypeName name="android.database.Cursor"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.Locale"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.RadioModuleActivity"/>
+<fullyQualifiedTypeName name="java.lang.Long"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.global.DBConstants"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.global.Common"/>
+</qualifiedTypeNameHistroy>

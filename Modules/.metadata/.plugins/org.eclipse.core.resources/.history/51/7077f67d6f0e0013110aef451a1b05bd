@@ -1,0 +1,64 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * DBConstants
+ * com.acropolis.radio.module.model
+ * DBConstants.java
+ * Created - 2013-08-26 12:18:04 PM	
+ * Modified - 2013-08-26 12:18:04 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.radio.module.model;
+
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public final class DBConstants 
+{
+
+	final static String dbName = "RadioModuleDatabase";
+	final static String tableName = "MonitoredRadioCollector";
+	final static String dbPath = 
+			Environment.getDataDirectory( )+
+			"/data/databases/"+dbName;
+	
+	
+	/*SQLiteDatabase args*/
+	/*	@see android.database.sqlite.SQLiteDatabase.*	*/
+	final static SQLiteDatabase.CursorFactory cursorFactory = null;
+	final static int dbVersion = 1;
+	
+	
+	/*SQLite Transact queries*/
+	final static String CREATETABLE =
+			"CREATE TABLE " + tableName +
+			"{ _id INTEGER AUTOINCREMENT," +
+			"timestamp TEXT NOT NULL," +
+			"phonenumber TEXT NOT NULL," +
+			"roaming TEXT NOT NULL," +
+			"incomingcall TEXT NOT NULL," +
+			"outgoingcall TEXT NOT NULL," +
+			"receivedmsg TEXT NOT NULL," +
+			"sentmsg TEXT NOT NULL," +
+			"downloaded TEXT NOT NULL," +
+			"uploaded TEXT NOT NULL }";
+	final static String DROPTABLE = "";
+	
+	
+	/*COLUMN INDEXES*/
+	final int ID = 1;
+	final int TIMESTAMP = 2;
+	final int PHONENUMBER = 3;
+	final int ROAMING = 4;
+	final int INCOMINGCALL = 5;
+	final int OUTGOINGCALL = 6;
+	final int RECEIVEDMSG = 7;
+	final int SENTMSG = 8;
+	final int DOWNLOADED = 9;
+	final int UPLOADED = 10;
+
+}

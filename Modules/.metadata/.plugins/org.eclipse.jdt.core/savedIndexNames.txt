@@ -1,0 +1,8 @@
+INDEX VERSION 1.126+/Users/CPH-iMac/Documents/Workspace/inProgress/Android/Modules/.metadata/.plugins/org.eclipse.jdt.core
+3769464156.index
+1580826512.index
+865556448.index
+2660941367.index
+3980479826.index
+702638341.index
+1589153854.index

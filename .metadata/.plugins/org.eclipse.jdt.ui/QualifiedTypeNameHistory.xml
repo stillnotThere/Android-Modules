@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.acropolis.module.listener.minutes.MinutesModuleActivity"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.telephony.TelephonyManager"/>
+<fullyQualifiedTypeName name="com.acropolis.module.logger.Logger"/>
+<fullyQualifiedTypeName name="android.telephony.PhoneStateListener"/>
+<fullyQualifiedTypeName name="com.acropolis.module.listener.minutes.controller.CellStateListener"/>
+<fullyQualifiedTypeName name="com.acropolis.module.listener.minutes.controller.CellStateListener.CellPhoneStateListener"/>
+<fullyQualifiedTypeName name="com.acropolis.module.listener.minutes.controller.CellStateListener.ServiceStateListener"/>
+</qualifiedTypeNameHistroy>

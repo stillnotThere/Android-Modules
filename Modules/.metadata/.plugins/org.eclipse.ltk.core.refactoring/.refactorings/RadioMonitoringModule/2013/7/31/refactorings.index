@@ -1,0 +1,10 @@
+1375231797826	Rename type 'IncomingSecondsRunnable'
+1375286534863	Rename type 'Engine'
+1375286911205	Rename package 'com.acropolis.module.listener.minutes'
+1375286929756	Rename package 'com.acropolis.module.listener.minutes.controller'
+1375286941634	Rename package 'com.acropolis.module.radio.controller'
+1375286990485	Rename package 'com.acropolis.module.radio.monitoring.controller'
+1375287005285	Rename package 'com.acropolis.module.logger'
+1375287369893	Delete element
+1375291244479	Rename type 'MinutesModuleActivity'
+1375305089696	Rename type 'Interceptor'

@@ -1,0 +1,48 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * Common
+ * com.acropolis.radio.module.global
+ * Common.java
+ * Created - 2013-08-26 4:39:33 PM	
+ * Modified - 2013-08-26 4:39:33 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.radio.module.global;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class Common 
+{
+	
+	/*DUMMY VALUES*/
+	final String DUMMY_ID = "0";
+	final String DUMMY_TIMESTAMP = datePattern;
+	final String DUMMY_PHONENUMBER = "";
+
+	public final static String datePattern = "yyyyMMddHHmm";
+	public final static SimpleDateFormat sdf = new SimpleDateFormat(datePattern,
+			Locale.CANADA);
+	
+	public static String getConvertedDate(int milli)
+	{
+		return (String)sdf.format(new Date(milli));
+	}
+	
+	public String getDevicePhoneNumber(Context context)
+	{
+		return ((TelephonyManager)context.getApplicationContext().
+				getSystemService(Context.TELEPHONY_SERVICE)).
+				getLine1Number();
+	}
+	
+}

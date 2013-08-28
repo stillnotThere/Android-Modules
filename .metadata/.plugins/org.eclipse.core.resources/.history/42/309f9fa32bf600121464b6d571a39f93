@@ -1,0 +1,26 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * MinutesListenerModule
+ * com.acropolis.module.listener.minutes.controller
+ * CallLogFetcher.java
+ * Created - 2013-07-26	
+ * Modified - 2013-07-26
+ * TODO
+ */
+package com.acropolis.module.listener.minutes.controller;
+
+import java.util.Vector;
+
+public class CallLogFetcher 
+{
+
+	final static detailLength = 2;
+	static Vector outgoingCallDetails = new Vector(2);
+	static Vector incomingCallDetails = new Vector(2);
+	
+	public void checkLog()
+	{
+		
+	}
+	
+}

@@ -1,0 +1,34 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * Common
+ * com.acropolis.radio.module.global
+ * Common.java
+ * Created - 2013-08-26 4:39:33 PM	
+ * Modified - 2013-08-26 4:39:33 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.radio.module.global;
+
+import java.text.SimpleDateFormat;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class Common 
+{
+
+	final static String dateFormat = "";
+	final static SimpleDateFormat sdf = new SimpleDateFormat(dateFormate);
+	
+	public static String getConvertedDate(int milli)
+	{
+		
+		String convertedDate = "";
+		
+		
+	}
+	
+	
+}

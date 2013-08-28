@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TelephonyListener/TelephonyListener.iml" filepath="$PROJECT_DIR$/TelephonyListener/TelephonyListener.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TelephonyListenerProject.iml" filepath="$PROJECT_DIR$/TelephonyListenerProject.iml" />
+    </modules>
+  </component>
+</project>
+

@@ -1,0 +1,19 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * DBConstants
+ * com.acropolis.radio.module.model
+ * DBConstants.java
+ * Created - 2013-08-26 12:18:04 PM	
+ * Modified - 2013-08-26 12:18:04 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.radio.module.model;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class DBConstants {
+
+}

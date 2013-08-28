@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;DBConstants.java&apos; to &apos;RadioMonitoringModule/src/com.acropolis.radio.module.global&apos;&#x0A;- Original project: &apos;RadioMonitoringModule&apos;&#x0A;- Destination element: &apos;RadioMonitoringModule/src/com.acropolis.radio.module.global&apos;&#x0A;- Original element: &apos;com.acropolis.radio.module.model.DBConstants.java&apos;&#x0A;- Update references to refactored element&#x0A;- Update fully qualified names in &apos;*&apos; files" description="Move compilation unit" destination="/src&lt;com.acropolis.radio.module.global" element1="/src&lt;com.acropolis.radio.module.model{DBConstants.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="true" references="true" stamp="1377535776878" units="1" version="1.0"/>
+</session>

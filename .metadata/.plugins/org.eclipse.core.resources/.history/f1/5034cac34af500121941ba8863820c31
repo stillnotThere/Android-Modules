@@ -1,0 +1,57 @@
+package com.acropolis.module.listener.minutes.controller;
+
+import android.telephony.PhoneStateListener;
+import android.telephony.ServiceState;
+import android.telephony.TelephonyManager;
+
+public class CellStateListener 
+{
+	
+	final static int IDLE_STATE = 10;
+	final static int RINGING_STATE = 11;
+	final static int OFFHOOK_STATE = 12;
+	static boolean CURRENT_SERVICE_STATE = false;
+	static int CURRENT_STATE = 0;
+	
+	public class CellPhoneStateListener extends PhoneStateListener
+	{
+		public void onCallStateChanged(int state,String incomingNumber)
+		{
+			switch(state)
+			{
+			case TelephonyManager.CALL_STATE_IDLE:
+			{CURRENT_STATE = IDLE_STATE;};
+			
+			case TelephonyManager.CALL_STATE_RINGING:
+			{CURRENT_STATE = RINGING_STATE;};
+			
+			case TelephonyManager.CALL_STATE_OFFHOOK:
+			{CURRENT_STATE = OFFHOOK_STATE;};
+			
+			}
+		}
+		
+		public void onServiceStateChanged(ServiceState serviceState)
+		{
+			switch(serviceState.getState())
+			{
+			case ServiceState.STATE_IN_SERVICE:
+			{
+				
+			}
+		}
+		
+		
+	}
+	
+	public static boolean getServiceState()
+	{
+		return CURRENT_SERVICE_STATE;
+	}
+	
+	public static int getCurrentState()
+	{
+		return CURRENT_STATE;
+	}
+	
+}

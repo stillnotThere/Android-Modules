@@ -1,0 +1,14 @@
+<component name="CopyrightManager">
+  <settings default="CPH (c)">
+    <module2copyright>
+      <element module="All" copyright="CPH (c)" />
+    </module2copyright>
+    <LanguageOptions name="JAVA">
+      <option name="fileTypeOverride" value="3" />
+      <option name="fileLocation" value="2" />
+      <option name="separateBefore" value="true" />
+      <option name="separateAfter" value="true" />
+    </LanguageOptions>
+    <LanguageOptions name="XML" />
+  </settings>
+</component>

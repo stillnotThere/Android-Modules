@@ -1,0 +1,88 @@
+package com.acropolis.module.listener.minutes.controller;
+
+import android.telephony.PhoneStateListener;
+import android.telephony.ServiceState;
+import android.telephony.TelephonyManager;
+
+public class CellStateListener 
+{
+	
+	final static int IDLE_STATE = 10;
+	final static int RINGING_STATE = 11;
+	final static int OFFHOOK_STATE = 12;
+	final static int ACTIVE_SERVICE = 21;
+	final static int INACTIVE_SERVICE = 22;
+	final static int INACTIVE_POWER_OFF = 25;
+	static int CURRENT_SERVICE_STATE = 0;
+	static int CURRENT_STATE = 0;
+	
+	/**
+	 *	Listens for Phone state activities (ringing,idle,offhook)
+	 */
+	public class CellPhoneStateListener extends PhoneStateListener
+	{
+		public void onCallStateChanged(int state,String incomingNumber)
+		{
+			switch(state)
+			{
+			
+			case TelephonyManager.CALL_STATE_IDLE:
+			{CURRENT_STATE = IDLE_STATE;};
+			
+			case TelephonyManager.CALL_STATE_RINGING:
+			{CURRENT_STATE = RINGING_STATE;};
+			
+			case TelephonyManager.CALL_STATE_OFFHOOK:
+			{CURRENT_STATE = OFFHOOK_STATE;};
+			
+			}
+		}
+	
+	}
+	
+	/**
+	 *	Listens for Radio Service changes 
+	 */
+	public class ServiceStateListener extends PhoneStateListener
+	{
+		public void onServiceStateChanged(ServiceState serviceState)
+		{
+			switch(serviceState.getState())
+			{
+			
+			case ServiceState.STATE_IN_SERVICE:
+			{CURRENT_SERVICE_STATE = ACTIVE_SERVICE;};
+			
+			case ServiceState.STATE_POWER_OFF:
+			{CURRENT_SERVICE_STATE = INACTIVE_POWER_OFF;};
+			
+			case ServiceState.STATE_OUT_OF_SERVICE:
+			{CURRENT_SERVICE_STATE = INACTIVE_SERVICE;};
+			
+			case ServiceState.STATE_EMERGENCY_ONLY:
+			{CURRENT_SERVICE_STATE = INACTIVE_SERVICE;};
+			
+			}
+		}
+	}
+	
+
+	/**
+	 * fetch device's active service state
+	 * @return CURRENT_SERVICE_STATE
+	 */
+	public static int getServiceState()
+	{
+		return CURRENT_SERVICE_STATE;
+	}
+	
+	/**
+	 * fetch device's active call state
+	 * @return
+	 */
+	public static int getCurrentState()
+	{
+		return CURRENT_STATE;
+	}
+	
+}

@@ -1,0 +1,22 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * DBErrorHandler
+ * com.acropolis.radio.module.model
+ * DBErrorHandler.java
+ * Created - 2013-08-23 3:45:38 PM	
+ * Modified - 2013-08-23 3:45:38 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.radio.module.model;
+
+import android.database.DatabaseErrorHandler;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class DBErrorHandler implements DatabaseErrorHandler 
+{
+
+}

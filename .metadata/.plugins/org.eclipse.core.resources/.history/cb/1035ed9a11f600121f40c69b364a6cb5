@@ -1,0 +1,12 @@
+package com.acropolis.module.listener.minutes.controller;
+
+import com.acropolis.module.listener.minutes.MinutesModuleActivity;
+
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
+public class PhoneState
+{
+	
+	
+}

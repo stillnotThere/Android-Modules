@@ -1,0 +1,54 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * MinutesListenerModule
+ * com.acropolis.module.listener.minutes.controller
+ * CallLogFetcher.java
+ * Created - 2013-07-26	
+ * Modified - 2013-07-26
+ * TODO
+ */
+package com.acropolis.module.listener.minutes.controller;
+
+import java.util.Vector;
+
+public class CallLogFetcher 
+{
+
+	final static int detailLength = 2;
+	static Vector outgoingCallDetails = new Vector(detailLength);
+	static Vector incomingCallDetails = new Vector(detailLength);
+	
+	public void checkLog()
+	{
+		
+	}
+
+	/**
+	 * @return the _outgoingCallDetails
+	 */
+	public static Vector getOutgoingCallDetails() {
+		return outgoingCallDetails;
+	}
+
+	/**
+	 * @param _outgoingCallDetails the _outgoingCallDetails to set
+	 */
+	public static void setOutgoingCallDetails(Vector _outgoingCallDetails) {
+		outgoingCallDetails = _outgoingCallDetails;
+	}
+
+	/**
+	 * @return the _incomingCallDetails
+	 */
+	public static Vector getIncomingCallDetails() {
+		return incomingCallDetails;
+	}
+
+	/**
+	 * @param _incomingCallDetails the _incomingCallDetails to set
+	 */
+	public static void setIncomingCallDetails(Vector<String> _incomingCallDetails) {
+		incomingCallDetails = _incomingCallDetails;
+	}
+	
+}

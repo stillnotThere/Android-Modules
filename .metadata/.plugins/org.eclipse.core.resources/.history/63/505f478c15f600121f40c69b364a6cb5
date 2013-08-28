@@ -1,0 +1,120 @@
+package com.acropolis.module.listener.minutes.controller;
+
+import com.acropolis.module.logger.Logger;
+
+import android.telephony.PhoneStateListener;
+import android.telephony.ServiceState;
+import android.telephony.TelephonyManager;
+
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * MinutesListenerModule
+ * com.acropolis.module.listener.minutes.controller
+ * CellStateListener.java
+ * Created - 18 July,2013
+ * Modified - 26July,2013	
+ * TODO - class implementation
+ */
+public class CellStateListener 
+{
+	
+	final static int IDLE_STATE = 10;
+	final static int RINGING_STATE = 11;
+	final static int OFFHOOK_STATE = 12;
+	final static int ACTIVE_SERVICE = 21;
+	final static int INACTIVE_SERVICE = 22;
+	final static int INACTIVE_POWER_OFF = 25;
+	static String INCOMING_NUMBER;
+	static int CURRENT_SERVICE_STATE = 0;
+	static int CURRENT_STATE = 0;
+	
+	/**
+	 *	Listens for Phone state activities (ringing,idle,offhook)
+	 */
+	public static class CellPhoneStateListener extends PhoneStateListener
+	{
+		/**
+		 * {@link android.telephony.PhoneStateListener#onCallStateChanged(int, String)}
+		 * call state active monitoring
+		 * states::
+		 * 	CALL_STATE_IDLE
+		 * 	CALL_STATE_RINGING
+		 * 	CALL_STATE_OFFHOOK
+		 */
+		public void onCallStateChanged(int state,String incomingNumber)
+		{
+			Logger.Information("Call state changed\nSTATE::"+state+"\t#"+incomingNumber);
+			switch(state)
+			{
+			
+			case TelephonyManager.CALL_STATE_IDLE:
+			{CURRENT_STATE = IDLE_STATE;INCOMING_NUMBER = "";};
+			
+			case TelephonyManager.CALL_STATE_RINGING:
+			{CURRENT_STATE = RINGING_STATE;INCOMING_NUMBER = "";};
+			
+			case TelephonyManager.CALL_STATE_OFFHOOK:
+			{CURRENT_STATE = OFFHOOK_STATE;INCOMING_NUMBER = incomingNumber;};
+			
+			}
+			Logger.Debug(this.getClass().toString()+"\tCURRENT_STATE::" + CURRENT_STATE);
+		}
+	
+	}
+	
+	/**
+	 *	Listens for Radio Service changes 
+	 */
+	public static class ServiceStateListener extends PhoneStateListener
+	{
+		/**
+		 * {@link android.telephony.PhoneStateListener#onServiceStateChanged(ServiceState)}
+		 * radio-registration active monitoring incld. radio off(explicitly)
+		 * states::
+		 * 	ACITVE_SERVICE
+		 * 	INACTIVE_SERVICE
+		 * 	INACTIVE_POWER_OFF
+		 */
+		public void onServiceStateChanged(ServiceState serviceState)
+		{
+			Logger.Information("ServiceState changed");
+			switch(serviceState.getState())
+			{
+			
+			case ServiceState.STATE_IN_SERVICE:
+			{CURRENT_SERVICE_STATE = ACTIVE_SERVICE;};
+			
+			case ServiceState.STATE_POWER_OFF:
+			{CURRENT_SERVICE_STATE = INACTIVE_POWER_OFF;};
+			
+			case ServiceState.STATE_OUT_OF_SERVICE:
+			{CURRENT_SERVICE_STATE = INACTIVE_SERVICE;};
+			
+			case ServiceState.STATE_EMERGENCY_ONLY:
+			{CURRENT_SERVICE_STATE = INACTIVE_SERVICE;};
+			
+			}
+		}
+	}
+
+	/**
+	 * fetch device's active service state or radio off
+	 * (SIM active/absent deduction)
+	 * @return CURRENT_SERVICE_STATE
+	 */
+	public static int getServiceState()
+	{
+		return CURRENT_SERVICE_STATE;
+	}
+	
+	/**
+	 * fetch device's active call state and incoming number(if applicable)
+	 * @return stateNinfo (String[])
+	 */
+	public static String[] getCurrentState()
+	{
+		String[] stateNinfo = {String.valueOf(CURRENT_STATE),INCOMING_NUMBER};
+		return stateNinfo;
+	}
+	
+}

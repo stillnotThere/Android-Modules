@@ -1,0 +1,16 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * ContolSwitches
+ * com.acropolis.location.module.controller
+ * ContolSwitches.java
+ * Created - 2013-08-21 2:01:51 PM	
+ * Modified - 2013-08-21 2:01:51 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.location.module.controller;
+
+public class ContolSwitches 
+{
+
+}

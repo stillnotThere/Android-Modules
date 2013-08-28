@@ -1,0 +1,30 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * MinutesListenerModule
+ * com.acropolis.module.listener.minutes.controller
+ * Engine.java
+ * Created - 2013-07-26	
+ * Modified - 2013-07-26
+ * TODO
+ */
+package com.acropolis.module.listener.minutes.controller;
+
+import android.telephony.PhoneStateListener;
+
+public class Engine 
+{
+
+	public void Ignite()
+	{
+		Interceptor.FetchManager().listen(
+				new CellStateListener.CellPhoneStateListener(), PhoneStateListener.LISTEN_CALL_STATE);
+		Interceptor.FetchManager().listen(
+				new CellStateListener.ServiceStateListener(), PhoneStateListener.LISTEN_SERVICE_STATE);
+	}
+
+	public boolean killEngine()
+	{
+		
+	}
+	
+}

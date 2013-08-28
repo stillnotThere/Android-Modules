@@ -1,0 +1,25 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * MinutesListenerModule
+ * com.acropolis.module.listener.minutes.controller
+ * CallLogFetcher.java
+ * Created - 2013-07-26	
+ * Modified - 2013-07-26
+ * TODO
+ */
+package com.acropolis.module.listener.minutes.controller;
+
+public class CallLogFetcher 
+{
+
+	static String outgoingNumber = "";
+	static String incomingNumber = "";
+	static String outgoingCallTime = "";
+	static String incomingCallTime = "";
+	
+	public void checkLog()
+	{
+		
+	}
+	
+}

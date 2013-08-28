@@ -1,0 +1,55 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * DBConstants
+ * com.acropolis.radio.module.model
+ * DBConstants.java
+ * Created - 2013-08-26 12:18:04 PM	
+ * Modified - 2013-08-26 12:18:04 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.radio.module.model;
+
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+final class DBConstants 
+{
+
+	final static String dbName = "RadioModuleDatabase";
+	final static String tableName = "MonitoredRadioCollector";
+	final static String dbPath = 
+			Environment.getDataDirectory( )+
+			"/data/databases/"+dbName;
+	
+	
+	/*SQLiteDatabase args*/
+	/*	@see android.database.sqlite.SQLiteDatabase.*	*/
+	final static SQLiteDatabase.CursorFactory cursorFactory = null;
+	final static int dbVersion = 1;
+	
+	
+	/*SQLite Transact queries*/
+	final static String CREATETABLE =
+			"CREATE TABLE " + tableName +
+			"{ _id INTEGER AUTOINCREMENT," +
+			"timestamp TEXT NOT NULL," +
+			"phonenumber TEXT NOT NULL," +
+			"roaming TEXT NOT NULL," +
+			"incomingcalls TEXT NOT NULL," +
+			"outgoingcalls TEXT NOT NULL," +
+			"receivedmsgs TEXT NOT NULL," +
+			"sentmsgs TEXT NOT NULL," +
+			"downloaded TEXT NOT NULL," +
+			"uploaded TEXT NOT NULL }";
+	final static String DROPTABLE = "";
+	
+	
+	/*ROW INDEXES*/
+	
+	
+}

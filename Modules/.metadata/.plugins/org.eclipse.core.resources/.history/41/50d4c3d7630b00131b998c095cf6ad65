@@ -1,0 +1,71 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * DBHelper
+ * com.acropolis.radio.module.model
+ * DBHelper.java
+ * Created - 2013-08-22 3:07:27 PM	
+ * Modified - 2013-08-22 3:07:27 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.radio.module.model;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class DBOpenHelper extends SQLiteOpenHelper
+{
+
+	final String tableName = "RadioModuleTable";
+	final String createTable = "CREATE TABLE " + tableName +
+			"{ _id INTEGER AUTOINCREMENT," +
+			"timestamp TEXT NOT NULL," +
+			"phonenumber TEXT NOT NULL," +
+			"roaming TEXT NOT NULL," +
+			"incomingcalls TEXT NOT NULL," +
+			"outgoingcalls TEXT NOT NULL," +
+			"receivedmsgs TEXT NOT NULL," +
+			"sentmsgs TEXT NOT NULL," +
+			"downloaded TEXT NOT NULL," +
+			"uploaded TEXT NOT NULL }";
+	
+	final String updateTable = "UPDATE " + tableName + 
+			;
+	
+	/**
+	 * @param context
+	 * @param name
+	 * @param factory
+	 * @param version
+	 */
+	public DBOpenHelper(Context context, String name, CursorFactory factory,
+			int version) {
+		super(context, name, factory, version);
+		// TODO Auto-generated constructor stub
+	}
+
+	/* (non-Javadoc)
+	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
+	 */
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)
+	 */
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
