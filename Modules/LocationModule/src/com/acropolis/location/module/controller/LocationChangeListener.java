@@ -17,6 +17,8 @@ import android.os.Bundle;
 public class LocationChangeListener implements LocationListener 
 {
 
+	Location location = null;
+	
 	/* (non-Javadoc)
 	 * @see android.location.LocationListener#onLocationChanged(android.location.Location)
 	 */

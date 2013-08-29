@@ -40,4 +40,5 @@
 <fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.DBConstants"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.Common"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.view.LocationModuleActivity"/>
 </qualifiedTypeNameHistroy>

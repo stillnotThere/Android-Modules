@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
 
 import com.acropolis.module.listener.minutes.R;
@@ -48,19 +47,28 @@ public class RadioModuleActivity extends Activity {
 	{
 		if(DBAdapter.isEmpty())
 		{
-			
-			DBAdapter.insertValues(DBConstants.ID,Common.DUMMY_ID);
-			DBAdapter.insertValues(DBConstants.TIMESTAMP, Common.DUMMY_TIMESTAMP);
+			DBAdapter.insertValues(DBConstants.ID,
+					Common.DUMMY_ID);
+			DBAdapter.insertValues(DBConstants.TIMESTAMP, 
+					Common.DUMMY_TIMESTAMP);
 			DBAdapter.insertValues(DBConstants.PHONENUMBER, 
 					Common.getDevicePhoneNumber(this));
-			DBAdapter.insertValues(DBConstants.ROAMING, "false");
-			
-			
+			DBAdapter.insertValues(DBConstants.ROAMING, 
+					Common.DUMMY_ROAMING);
+			DBAdapter.insertValues(DBConstants.INCOMINGCALL, 
+					Common.DUMMY_INCOMING);
+			DBAdapter.insertValues(DBConstants.OUTGOINGCALL, 
+					Common.DUMMY_OUTGOING);
+			DBAdapter.insertValues(DBConstants.RECEIVEDMSG, 
+					Common.DUMMY_RECEIVED);
+			DBAdapter.insertValues(DBConstants.SENTMSG, 
+					Common.DUMMY_SENT);
+			DBAdapter.insertValues(DBConstants.DOWNLOADED,
+					Common.DUMMY_DOWNLOADED);
+			DBAdapter.insertValues(DBConstants.UPLOADED, 
+					Common.DUMMY_UPLOADED);
 		}
 	}
-	
-
-	
 	
 	public static Intent getAppIntent()
 	{
