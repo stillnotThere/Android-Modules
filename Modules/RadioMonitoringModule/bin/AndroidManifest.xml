@@ -7,13 +7,15 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
-  	<!-- <permission/> -->
 	
 	<uses-permission android:name="android.permission.READ_LOGS"/>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.LOCATION_HARDWARE"/>
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 	<uses-permission android:name="android.permission.RECEIVE_MMS"/>
 	<uses-permission android:name="android.permission.RECEIVE_SMS"/>
-	<uses-permission android:name="android.permission.READ_LOGS"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESSS_NETWORK_STATE"/>
 	
     <application
         android:allowBackup="true"

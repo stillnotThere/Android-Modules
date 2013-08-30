@@ -23,10 +23,10 @@ public class LocationChangeListener implements LocationListener
 	 * @see android.location.LocationListener#onLocationChanged(android.location.Location)
 	 */
 	@Override
-	public void onLocationChanged(Location location) 
+	public void onLocationChanged(Location _location) 
 	{
 		// TODO Auto-generated method stub
-		
+		location = _location;
 	}
 
 	/* (non-Javadoc)

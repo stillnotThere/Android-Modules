@@ -37,6 +37,7 @@ public class ControlSwitches
 		Logger.Debug("listening for SERVICE STATE");
 		teleManager.listen(new RoamingListener(), 
 				PhoneStateListener.LISTEN_SERVICE_STATE);
+		LocationHub.start();
 		return true;
 	}
 	
@@ -45,6 +46,7 @@ public class ControlSwitches
 	{	
 		teleManager.listen(new RoamingListener(),
 				PhoneStateListener.LISTEN_NONE);
+		LocationHub.stop();
 		return false;
 	}
 	
