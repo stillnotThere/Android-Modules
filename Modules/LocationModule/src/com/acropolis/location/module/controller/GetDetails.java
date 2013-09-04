@@ -16,37 +16,73 @@ package com.acropolis.location.module.controller;
  */
 public class GetDetails 
 {
-	public double latitude = 0;
-	public double longitude = 0;
+	public static boolean locationChipAvailable = false;
+	public static double accuracy = 0;
+	public static double latitude = 0;
+	public static double longitude = 0;
+	
+	/**
+	 * @param _locationChipAvailable the locationChipAvailable to set
+	 */
+	public static void setLocationChipAvailable(boolean _locationChipAvailable) 
+	{
+		locationChipAvailable = _locationChipAvailable;
+	}
+	
+	/**
+	 * @return the locationChipAvailable
+	 */
+	public static boolean isLocationChipAvailable()
+	{
+		return locationChipAvailable;
+	}
+
+	/**
+	 * @param _accuracy the accuracy to set
+	 */
+	public static void setAccuracy(double _accuracy) 
+	{
+		accuracy = _accuracy;
+	}
+	
+	/**
+	 * @return the accuracy
+	 */
+	public static double getAccuracy() 
+	{
+		return accuracy;
+	}
+
+	/**
+	 * @param _latitude
+	 */
+	public static void setLatitude(double _latitude) 
+	{
+		latitude = _latitude;
+	}
 	
 	/**
 	 * @return the latitude
 	 */
-	public double getLatitude() 
+	public static double getLatitude() 
 	{
 		return latitude;
 	}
 	
 	/**
-	 * @return the longitude
-	 */
-	public double getLongitude() 
-	{
-		return longitude;
-	}
-	/**
-	 * @param _latitude
-	 */
-	public void setLatitude(double _latitude) 
-	{
-		latitude = _latitude;
-	}
-	/**
 	 * @param _longitude
 	 */
-	public void setLongitude(double _longitude) 
+	public static void setLongitude(double _longitude) 
 	{
 		longitude = _longitude;
+	}
+	
+	/**
+	 * @return the longitude
+	 */
+	public static double getLongitude() 
+	{
+		return longitude;
 	}
 	
 }

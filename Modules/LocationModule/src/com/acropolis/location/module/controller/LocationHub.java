@@ -10,10 +10,15 @@
  */
 package com.acropolis.location.module.controller;
 
+import logger.Logger;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
+import android.os.Bundle;
 
 import com.acropolis.location.module.view.LocationModuleActivity;
 
@@ -29,18 +34,18 @@ public class LocationHub
 	static LocationManager locationManager = null;
 	static Criteria criteria = null;
 	static String provider = null;
-	static LocationChangeListener locationListener = null;
+	public static LocationChangeListener locationListener = null;
 	static long timeIntervals = 0;	//milliseconds
 	static float distanceIntervals = 0;
 
-	protected static void setupCriteria()
+	public static void setupCriteria()
 	{
 		criteria = new Criteria();
 		criteria.isCostAllowed();
 		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
 	}
 	
-	protected static void setupManager()
+	public static void setupManager()
 	{
 		locationManager = (LocationManager) _context.
 				getSystemService(Context.LOCATION_SERVICE);
@@ -50,10 +55,10 @@ public class LocationHub
 				provider,
 				timeIntervals, 
 				distanceIntervals, 
-				locationListener );
+				locationListener);
 	}
 	
-	protected static void start()
+	public static void start()
 	{
 		_context = LocationModuleActivity.getAppContext();
 		_intent = LocationModuleActivity.getAppIntent();
@@ -61,9 +66,58 @@ public class LocationHub
 		setupManager();
 	}
 	
-	protected static void stop()
+	public static void stop()
 	{
 		locationManager.removeUpdates(locationListener);
+	}
+	
+	public static class LocationChangeListener implements LocationListener
+	{
+
+		/* (non-Javadoc)
+		 * @see android.location.LocationListener#onLocationChanged(android.location.Location)
+		 */
+		@Override
+		public void onLocationChanged(Location location)
+		{
+			Logger.Debug(this.getClass()+"\nlocation contents::"+location.describeContents());
+			
+			GetDetails.setAccuracy(location.getAccuracy());
+			GetDetails.setLatitude(location.getLatitude());
+			GetDetails.setLongitude(location.getLongitude());
+		}
+
+		/* (non-Javadoc)
+		 * @see android.location.LocationListener#onStatusChanged(java.lang.String, int, android.os.Bundle)
+		 */
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) 
+		{
+			switch(status)
+			{
+			case LocationProvider.AVAILABLE:
+				GetDetails.setLocationChipAvailable(true);
+				
+			case LocationProvider.OUT_OF_SERVICE:
+				GetDetails.setLocationChipAvailable(false);
+				
+			case LocationProvider.TEMPORARILY_UNAVAILABLE:
+				GetDetails.setLocationChipAvailable(false);
+			}
+		}
+		
+		/* (non-Javadoc)
+		 * @see android.location.LocationListener#onProviderDisabled(java.lang.String)
+		 */
+		@Override
+		public void onProviderDisabled(String provider) {}
+
+		/* (non-Javadoc)
+		 * @see android.location.LocationListener#onProviderEnabled(java.lang.String)
+		 */
+		@Override
+		public void onProviderEnabled(String provider) {}
+		
 	}
 	
 }
