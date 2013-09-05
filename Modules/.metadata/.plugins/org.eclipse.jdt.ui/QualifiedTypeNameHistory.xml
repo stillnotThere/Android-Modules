@@ -26,7 +26,6 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.layout"/>
 <fullyQualifiedTypeName name="android.R.id"/>
-<fullyQualifiedTypeName name="logger.Logger"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase.CursorFactory"/>
@@ -41,4 +40,11 @@
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.DBConstants"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.Common"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.view.LocationModuleActivity"/>
+<fullyQualifiedTypeName name="android.location.LocationProvider"/>
+<fullyQualifiedTypeName name="logger.Logger"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.controller.LocationHub.LocationChangeListener"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.controller.LocationHub"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.R.menu"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.R.id"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.R.string"/>
 </qualifiedTypeNameHistroy>

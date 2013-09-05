@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.ServiceState;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.MenuItem;
 
 import com.acropolis.location.module.R;
 import com.acropolis.location.module.controller.ControlSwitches;
+import com.acropolis.location.module.controller.LocationHub;
 
 public class LocationModuleActivity extends Activity {
 
@@ -25,6 +25,7 @@ public class LocationModuleActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		Logger.Verbose("LocationModule activity loaded");
+		LocationHub.start();
 		getAllServiceState();
 		_context = this.getApplicationContext();
 		_intent = this.getIntent();
@@ -79,13 +80,37 @@ public class LocationModuleActivity extends Activity {
 		//		return stateInfos;
 	}
 
+	boolean stopL = false;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean locationAct = false;
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	public boolean onOptionsItemSelected(MenuItem menuItem)
+	{
+		boolean selected = false;
+		
+		if(menuItem.getItemId() == R.id.start_stop)
+		{
+			if(stopL)
+			{
+				menuItem.setTitle(R.string.start);
+				stopL = false;
+			}
+			else
+			{
+				menuItem.setTitle(R.string.stop);
+				stopL = true;
+			}
+		}
+		
+		return selected;
+	}
+	
+	
 	public static Context getAppContext()
 	{
 		return _context;
@@ -96,4 +121,6 @@ public class LocationModuleActivity extends Activity {
 		return _intent;
 	}
 
+	
+	
 }

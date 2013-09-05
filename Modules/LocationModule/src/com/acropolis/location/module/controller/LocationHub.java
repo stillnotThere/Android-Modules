@@ -28,7 +28,7 @@ import com.acropolis.location.module.view.LocationModuleActivity;
  */
 public class LocationHub 
 {
-	
+	public static int counter = 0;
 	static Context _context = null;
 	static Intent _intent = null;
 	static LocationManager locationManager = null;
@@ -42,7 +42,8 @@ public class LocationHub
 	{
 		criteria = new Criteria();
 		criteria.isCostAllowed();
-		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+//		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
 	}
 	
 	public static void setupManager()
@@ -85,6 +86,14 @@ public class LocationHub
 			GetDetails.setAccuracy(location.getAccuracy());
 			GetDetails.setLatitude(location.getLatitude());
 			GetDetails.setLongitude(location.getLongitude());
+			
+			++counter;
+			Logger.Information("location updated" +
+					"\nlatitude::"+location.getLatitude() +
+					"\nlongitude::"+location.getLongitude() +
+					"\naccuracy::"+location.getAccuracy() +
+					"\ncounter:::"+counter);
+			
 		}
 
 		/* (non-Javadoc)

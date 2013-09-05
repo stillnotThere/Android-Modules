@@ -13,26 +13,26 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="PersistValues" key="selection"/>
+		<item value="stopL" key="selection"/>
 		<list key="findhistory">
+			<item value="pressedBefore"/>
+			<item value="protected"/>
 			<item value="StoreValues"/>
 			<item value="calltype"/>
 			<item value="current"/>
 			<item value="callduration"/>
 			<item value="call"/>
 			<item value="int"/>
-			<item value="final"/>
-			<item value="dbOH"/>
 		</list>
 		<list key="replacehistory">
+			<item value="stopL"/>
+			<item value="public"/>
 			<item value="PersistValues"/>
 			<item value="String"/>
 			<item value="public final"/>
 			<item value="dbOpenHelper"/>
 			<item value="Debug"/>
 			<item value="protected static"/>
-			<item value="protected final static"/>
-			<item value="protected"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
