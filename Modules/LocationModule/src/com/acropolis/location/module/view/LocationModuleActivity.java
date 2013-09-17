@@ -1,48 +1,104 @@
 package com.acropolis.location.module.view;
 
+import java.util.TimerTask;
+
 import logger.Logger;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.ServiceState;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.acropolis.location.module.R;
-import com.acropolis.location.module.controller.ControlSwitches;
+import com.acropolis.location.module.controller.GetDetails;
 import com.acropolis.location.module.controller.LocationHub;
 
 public class LocationModuleActivity extends Activity {
 
 	static Context _context = null;
+	static Context serviceContext = null;
 	static Intent _intent = null;
+	static Intent serviceIntent = null;
 
+	
+	public static Handler screenHandler = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		Logger.Verbose("LocationModule activity loaded");
-		LocationHub.start();
-		getAllServiceState();
 		_context = this.getApplicationContext();
 		_intent = this.getIntent();
-		Logger.Debug(this.getClass().toString());
-		ControlSwitches.setupMainBoard();
-		ControlSwitches.switchON();
+		Logger.Verbose("LocationModule activity loaded");
 
-		//		String[] allServiceState = getAllServiceState();
-		//		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-		//				getApplicationContext(),
-		//				android.R.layout.simple_list_item_1,
-		//				allServiceState);
-		//		ListView listView = (ListView) findViewById(android.R.id.list);
-		//		listView.setAdapter(arrayAdapter);
+		serviceContext = _context;
+		serviceIntent = new Intent(serviceContext,LocationHub.class);
+		serviceContext.startService(serviceIntent);
+		
+		updateScreen();
+		
+		Logger.Verbose("Timer starting");
 
+		screenHandler = new Handler();
+		screenHandler.post(updateScreen);
+//		new ScreenLooper().start();
 	}
 
+	public Runnable updateScreen = new Runnable() 
+	{
+		public void run()
+		{
+			updateScreen();
+			screenHandler.postDelayed(this, 100*1000);
+		}
+	};
+		
+	public void updateScreen()
+	{
+		
+		TextView latitudeText = (TextView) findViewById(R.id.txtLat);
+		TextView longitudeText = (TextView) findViewById(R.id.txtLng);
+		TextView accuracyText = (TextView) findViewById(R.id.txtAcc);
+		final String waiting = "Waiting...";
+		
+		if(GetDetails.getLatitude()==0) 
+		{
+			latitudeText.setText(waiting);
+			longitudeText.setText(waiting);
+			accuracyText.setText(waiting);
+		}
+		else
+		{
+			latitudeText.setText(String.valueOf(GetDetails.getLatitude()));
+			longitudeText.setText(String.valueOf(GetDetails.getLongitude()));
+			accuracyText.setText(String.valueOf(GetDetails.getAccuracy()));
+		}
+	}
+	
+	public class ScreenLooper extends TimerTask//Thread 
+	{
+		public void run()
+		{
+			while(true)
+			{
+				updateScreen();
+				try {
+					Thread.sleep(100*1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@SuppressWarnings("unused")
 	public void getAllServiceState()
 	{
 		Logger.Verbose("getAllServiceState()");
@@ -76,14 +132,16 @@ public class LocationModuleActivity extends Activity {
 			}
 		}
 		else
+		{
 			Logger.Verbose("ServiceState null");
+		}
 		//		return stateInfos;
 	}
 
-	boolean stopL = false;
+	boolean startL = true;
+	boolean stopL = true;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean locationAct = false;
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -93,23 +151,46 @@ public class LocationModuleActivity extends Activity {
 	{
 		boolean selected = false;
 		
+		
 		if(menuItem.getItemId() == R.id.start_stop)
 		{
-			if(stopL)
-			{
-				menuItem.setTitle(R.string.start);
-				stopL = false;
-			}
-			else
+			if(menuItem.getTitle() == 
+					Resources.getSystem().getString(R.string.start))
 			{
 				menuItem.setTitle(R.string.stop);
-				stopL = true;
+				new LocationHub().stop();
+				startL = false;
+			}
+			else if(menuItem.getTitle() == 
+					Resources.getSystem().getString(R.string.stop))
+			{
+//				serviceContext.startService(serviceIntent);
+				menuItem.setTitle(R.string.start);
+				startL = true;
 			}
 		}
 		
 		return selected;
 	}
 	
+	public boolean onKeyDown(int keyCode,KeyEvent event)
+	{
+		if(keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			new LocationHub().stop();
+//			System.exit(0);
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	public void onBackPressed()
+	{
+		super.onBackPressed();
+		Logger.Verbose("service kiiled");
+		serviceContext.stopService(serviceIntent);
+//		System.exit(0);
+	}
+
 	
 	public static Context getAppContext()
 	{

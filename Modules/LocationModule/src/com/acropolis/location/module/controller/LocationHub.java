@@ -11,6 +11,7 @@
 package com.acropolis.location.module.controller;
 
 import logger.Logger;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -19,6 +20,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
 
 import com.acropolis.location.module.view.LocationModuleActivity;
 
@@ -26,7 +29,7 @@ import com.acropolis.location.module.view.LocationModuleActivity;
  * @author CPH-iMac
  *
  */
-public class LocationHub 
+public class LocationHub extends Service
 {
 	public static int counter = 0;
 	static Context _context = null;
@@ -34,45 +37,59 @@ public class LocationHub
 	static LocationManager locationManager = null;
 	static Criteria criteria = null;
 	static String provider = null;
-	public static LocationChangeListener locationListener = null;
-	static long timeIntervals = 0;	//milliseconds
-	static float distanceIntervals = 0;
-
-	public static void setupCriteria()
+	static long timeIntervals = 10000;	//milliseconds
+	static float distanceIntervals = 0;	//meters
+	
+	/* (non-Javadoc)
+	 * @see android.app.Service#onBind(android.content.Intent)
+	 */
+	@Override
+	public IBinder onBind(Intent arg0) 
 	{
-		criteria = new Criteria();
-		criteria.isCostAllowed();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-//		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	public static void setupManager()
+	public void onCreate()
 	{
+		Logger.Verbose("service onCreate");
+
+		_context = this.getApplicationContext();
+		setupCriteria();
+		
+		Logger.Verbose("fetching system service");
 		locationManager = (LocationManager) _context.
 				getSystemService(Context.LOCATION_SERVICE);
 		provider = locationManager.getBestProvider(criteria, false);
-		locationListener = new LocationChangeListener();
 		locationManager.requestLocationUpdates(
 				provider,
 				timeIntervals, 
 				distanceIntervals, 
-				locationListener);
+				new LocationChangeListener());
 	}
 	
-	public static void start()
+	public int onStartCommand(Intent intent,int flags,int startId)
 	{
-		_context = LocationModuleActivity.getAppContext();
-		_intent = LocationModuleActivity.getAppIntent();
-		setupCriteria();
-		setupManager();
+		Logger.Verbose("service onStartCommand");
+		return START_STICKY;
 	}
 	
-	public static void stop()
+	public void setupCriteria()
 	{
-		locationManager.removeUpdates(locationListener);
+		criteria = new Criteria();
+		criteria.setCostAllowed(true);
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+		Logger.Verbose("Criteria set");
 	}
 	
-	public static class LocationChangeListener implements LocationListener
+	public void stop()
+	{
+		locationManager.removeUpdates(new LocationChangeListener());
+		this.stopSelf();
+		Logger.Verbose("stop");
+	}
+	
+	public class LocationChangeListener implements LocationListener
 	{
 
 		/* (non-Javadoc)
@@ -81,18 +98,26 @@ public class LocationHub
 		@Override
 		public void onLocationChanged(Location location)
 		{
-			Logger.Debug(this.getClass()+"\nlocation contents::"+location.describeContents());
+			Logger.Debug(this.getClass()+"\nlocation contents::"+location.
+					describeContents());
 			
-			GetDetails.setAccuracy(location.getAccuracy());
-			GetDetails.setLatitude(location.getLatitude());
-			GetDetails.setLongitude(location.getLongitude());
+			
+			Handler handler = LocationModuleActivity.screenHandler;
+			
+			double acc = location.getAccuracy();
+			double lat = location.getLatitude();
+			double lng = location.getLongitude();
+			
+			GetDetails.setAccuracy(acc);
+			GetDetails.setLatitude(lat);
+			GetDetails.setLongitude(lng);
 			
 			++counter;
 			Logger.Information("location updated" +
-					"\nlatitude::"+location.getLatitude() +
-					"\nlongitude::"+location.getLongitude() +
-					"\naccuracy::"+location.getAccuracy() +
-					"\ncounter:::"+counter);
+					"\nlatitude::"+ lat +
+					"\nlongitude::"+ lng +
+					"\naccuracy::"+ acc +
+					"\ncounter:::"+ counter );
 			
 		}
 
@@ -106,12 +131,15 @@ public class LocationHub
 			{
 			case LocationProvider.AVAILABLE:
 				GetDetails.setLocationChipAvailable(true);
+				Logger.Verbose("GPS Available");
 				
 			case LocationProvider.OUT_OF_SERVICE:
 				GetDetails.setLocationChipAvailable(false);
+				Logger.Verbose("GPS out-of-service");
 				
 			case LocationProvider.TEMPORARILY_UNAVAILABLE:
 				GetDetails.setLocationChipAvailable(false);
+				Logger.Verbose("GPS Unavailable");
 			}
 		}
 		
@@ -128,5 +156,5 @@ public class LocationHub
 		public void onProviderEnabled(String provider) {}
 		
 	}
-	
+
 }

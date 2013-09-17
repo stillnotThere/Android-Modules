@@ -30,16 +30,6 @@ public class RadioEngine
 	protected static ConnectivityManager _connectivityManager = null;
 	protected static SmsManager _smsManager = null;
 	protected static IntentFilter _callLogIF = null;
-	{
-		_intent = (Intent) com.acropolis.radio.module.
-				RadioModuleActivity.getAppIntent();
-		_context = (Context) RadioModuleActivity.getAppContext();
-		_teleManager = (TelephonyManager)
-				_context.getSystemService(Context.TELEPHONY_SERVICE);
-		_connectivityManager = (ConnectivityManager) 
-				_context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		_smsManager = (SmsManager) SmsManager.getDefault();
-	}
 	
 	/**************************************************************************/
 	/**Radio Service Constants*/
@@ -118,6 +108,14 @@ public class RadioEngine
 	 */
 	public boolean igniteEngine()
 	{
+		_intent = (Intent) com.acropolis.radio.module.
+				RadioModuleActivity.getAppIntent();
+		_context = (Context) RadioModuleActivity.getAppContext();
+		_teleManager = (TelephonyManager)
+				_context.getSystemService(Context.TELEPHONY_SERVICE);
+		_connectivityManager = (ConnectivityManager) 
+				_context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		_smsManager = (SmsManager) SmsManager.getDefault();
 //		IntentFilter intentFilter = new IntentFilter(android.intet.);
 		_teleManager.listen(
 				new com.acropolis.radio.module.monitor.controller.

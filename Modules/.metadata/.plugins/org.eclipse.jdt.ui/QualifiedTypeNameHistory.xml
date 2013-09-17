@@ -16,7 +16,6 @@
 <fullyQualifiedTypeName name="com.module.testapp.R.id"/>
 <fullyQualifiedTypeName name="com.module.testapp.R.style"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
-<fullyQualifiedTypeName name="android.app.Service"/>
 <fullyQualifiedTypeName name="android.net.Uri"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.MainActivity"/>
 <fullyQualifiedTypeName name="android.telephony.PhoneStateListener"/>
@@ -26,7 +25,6 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.layout"/>
 <fullyQualifiedTypeName name="android.R.id"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase.CursorFactory"/>
 <fullyQualifiedTypeName name="android.os.Environment"/>
@@ -39,12 +37,20 @@
 <fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.DBConstants"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.Common"/>
-<fullyQualifiedTypeName name="com.acropolis.location.module.view.LocationModuleActivity"/>
 <fullyQualifiedTypeName name="android.location.LocationProvider"/>
-<fullyQualifiedTypeName name="logger.Logger"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.controller.LocationHub.LocationChangeListener"/>
-<fullyQualifiedTypeName name="com.acropolis.location.module.controller.LocationHub"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.menu"/>
-<fullyQualifiedTypeName name="com.acropolis.location.module.R.id"/>
+<fullyQualifiedTypeName name="logger.Logger"/>
+<fullyQualifiedTypeName name="android.app.Service"/>
+<fullyQualifiedTypeName name="android.content.res.Resources"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.string"/>
+<fullyQualifiedTypeName name="android.os.Looper"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.controller.GetDetails"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.R.id"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.view.LocationModuleActivity.ScreenLooper"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.view.LocationModuleActivity"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="com.acropolis.location.module.controller.LocationHub"/>
 </qualifiedTypeNameHistroy>
