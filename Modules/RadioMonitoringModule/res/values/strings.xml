@@ -6,19 +6,24 @@
     
     <string name="screenHeading">Monitored Values</string>
     
+    <!-- Standard constants -->
+    <string name="fetching">Fetching values</string>
+    <string name="strTotal">Total</string>
+    <string name="btnstrRefresh">Refresh</string>
+    
     <!-- Voice Call -->
-    <string name="strCallHeading">Voice Calls (seconds)</string>
-    <string name="strIncomingCallSeconds">Incoming Call</string>
-    <string name="callTypeString">Outgoing Call</string>
+    <string name="strCallHeading">Voice Calls (minutes)</string>
+    <string name="strIncoming">Incoming Call</string>
+    <string name="strOutgoing">Outgoing Call</string>
     
     <!-- Messaging -->
     <string name="strMessageHeading">Messages (units)</string> 
-    <string name="strReceivedMessages">Received Messages</string>
-    <string name="strSentMessages">Sent Messages</string>
+    <string name="strReceived">Received Messages</string>
+    <string name="strSent">Sent Messages</string>
     
     <!-- Data  -->
     <string name="strDataHeading">Data (kilobytes)</string>
-    <string name="strDownloadedData">Downloaded</string>
-    <string name="strUploadedData">Uploaded</string>
+    <string name="strDownloaded">Downloaded</string>
+    <string name="strUploaded">Uploaded</string>
     
 </resources>

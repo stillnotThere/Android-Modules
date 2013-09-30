@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">Radio Monitoring Module</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="screenHeading">Monitored Values</string>
+    
+    <!-- Standard constants -->
+    <string name="fetching">Fetching values</string>
+    <string name="strTotal">Total</string>
+    
+    <!-- Voice Call -->
+    <string name="strCallHeading">Voice Calls (seconds)</string>
+    <string name="strIncoming">Incoming Call</string>
+    <string name="strOutgoing">Outgoing Call</string>
+    
+    <!-- Messaging -->
+    <string name="strMessageHeading">Messages (units)</string> 
+    <string name="strReceivedMessages">Received Messages</string>
+    <string name="strSentMessages">Sent Messages</string>
+    
+    <!-- Data  -->
+    <string name="strDataHeading">Data (kilobytes)</string>
+    <string name="strDownloadedData">Downloaded</string>
+    <string name="strUploadedData">Uploaded</string>
+    
+</resources>
