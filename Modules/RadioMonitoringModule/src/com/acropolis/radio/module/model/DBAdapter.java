@@ -50,8 +50,23 @@ public class DBAdapter
 	public static boolean isEmpty()
 	{
 		boolean dbEmpty = false;
-
-
+		String[] selectAll = new String[200];
+		int colCount = 0;
+		SQLiteDatabase db = OpenDB();
+		db.beginTransactionWithListener(dbTransactionListener);
+		Cursor cursor = db.rawQuery(DBConstants.SELECTALL, null);
+		cursor.moveToFirst();
+		if(cursor.getCount() != 0)
+		{
+			dbEmpty = true;
+		}
+		else
+		{
+			dbEmpty = false;
+		}
+			
+		cursor.close();
+		CloseDB(db);
 
 		return dbEmpty;
 	}

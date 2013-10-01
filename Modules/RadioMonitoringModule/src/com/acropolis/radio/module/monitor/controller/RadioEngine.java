@@ -26,7 +26,7 @@ public class RadioEngine
 	/*singleton initialization*/
 	protected static Intent _intent = null;
 	protected static Context _context = null;
-	protected static TelephonyManager _teleManager = null;
+	protected static TelephonyManager _telephonyManager = null;
 	protected static ConnectivityManager _connectivityManager = null;
 	protected static SmsManager _smsManager = null;
 	protected static IntentFilter _callLogIF = null;
@@ -104,65 +104,98 @@ public class RadioEngine
 	
 	/**
 	 * START YOUR ENGINES!!!!!
+	 * IGNITES
+	 * Connection Service state
+	 * Data connection state
+	 * Data activity/monitoring
+	 * 
+	 * 
 	 * @return true
 	 */
-	public boolean igniteEngine()
+	public static boolean igniteEngine()
 	{
 		_intent = (Intent) com.acropolis.radio.module.
 				RadioModuleActivity.getAppIntent();
 		_context = (Context) RadioModuleActivity.getAppContext();
-		_teleManager = (TelephonyManager)
+		
+		_telephonyManager = (TelephonyManager)
 				_context.getSystemService(Context.TELEPHONY_SERVICE);
-		_connectivityManager = (ConnectivityManager) 
-				_context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		_smsManager = (SmsManager) SmsManager.getDefault();
-//		IntentFilter intentFilter = new IntentFilter(android.intet.);
-		_teleManager.listen(
-				new com.acropolis.radio.module.monitor.controller.
-				CallInterceptor.ServiceStateListener(),
-				PhoneStateListener.LISTEN_SERVICE_STATE);
-		Logger.Debug("Service State mode successful");
-		_teleManager.listen(
-				new com.acropolis.radio.module.monitor.controller.
-				DataInterecptor.DataConnectionState(),
-				PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
-		_teleManager.listen(
-				new com.acropolis.radio.module.monitor.controller.
-				DataInterecptor.DataActivityMonitor(),
-				PhoneStateListener.LISTEN_DATA_ACTIVITY);
-		Logger.Debug("Data connection activity mode successful");
-		Logger.Debug("Data connection state mode successful");
-		_teleManager.listen(
-				new com.acropolis.radio.module.monitor.controller.
-				CallInterceptor.CallStateListener(),
-				PhoneStateListener.LISTEN_CALL_STATE);
-		Logger.Debug("Call State mode successful");
+		
+		StartServiceListener();
+//		StartCallStateListener();
+		StartDataConnectionListener();
+		StartDataActivityListener();
+		
 		Logger.Debug("Engine started");
 		return true;
 	}
 
+	private static void StartServiceListener()
+	{
+		_telephonyManager.listen(
+				new com.acropolis.radio.module.monitor.controller.
+				CallInterceptor.ServiceStateListener() ,
+				PhoneStateListener.LISTEN_SERVICE_STATE
+				);
+		Logger.Debug("Active Listener::ServiceState");
+	}
+	
+	private static void StartDataActivityListener()
+	{
+		_telephonyManager.listen(
+				new com.acropolis.radio.module.monitor.controller.
+				DataInterecptor.DataActivityMonitor(),
+				PhoneStateListener.LISTEN_DATA_ACTIVITY
+				);
+		Logger.Debug("Active Listener::DataActivity");
+	}
+	
+	private static void StartDataConnectionListener()
+	{
+		_telephonyManager.listen(
+				new com.acropolis.radio.module.monitor.controller.
+				DataInterecptor.DataConnectionState(), 
+				PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
+				);
+		Logger.Debug("Active Listener::DataConnection");
+	}
+	
+	private static void StartCallStateListener()
+	{
+		_telephonyManager.listen(
+				new com.acropolis.radio.module.monitor.controller.
+				CallInterceptor.CallStateListener(),
+				PhoneStateListener.LISTEN_CALL_STATE);
+		Logger.Debug("Active Listener::CallState");
+	}
+	
 	/**
 	 * KILL KILLL!!!!!
 	 * @return true
 	 */
-	public boolean killEngine()
+	public static boolean killEngine()
 	{
-		_teleManager.listen(
+		//ServiceState
+		_telephonyManager.listen(
 				new com.acropolis.radio.module.monitor.controller.
 				CallInterceptor.ServiceStateListener(), 
 				PhoneStateListener.LISTEN_NONE);
-		_teleManager.listen(
+		//DataState
+		_telephonyManager.listen(
 				new com.acropolis.radio.module.monitor.controller.
 				DataInterecptor.DataConnectionState(),
 				PhoneStateListener.LISTEN_NONE);
-		_teleManager.listen(
+		//DataActivity
+		_telephonyManager.listen(
 				new com.acropolis.radio.module.monitor.controller.
 				DataInterecptor.DataActivityMonitor(),
 				PhoneStateListener.LISTEN_NONE);
-		_teleManager.listen(
+		//CallState
+		_telephonyManager.listen(
 				new com.acropolis.radio.module.monitor.controller.
 				CallInterceptor.CallStateListener(),
 				PhoneStateListener.LISTEN_NONE);
+		
 		Logger.Debug("Engine stopped");
 		return true;
 	}

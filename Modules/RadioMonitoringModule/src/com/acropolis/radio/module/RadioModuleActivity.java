@@ -8,15 +8,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.acropolis.module.listener.minutes.R;
+import com.acropolis.module.radio.R;
 import com.acropolis.radio.module.global.Common;
 import com.acropolis.radio.module.global.DBConstants;
 import com.acropolis.radio.module.logger.Logger;
 import com.acropolis.radio.module.model.DBAdapter;
 
-public class RadioModuleActivity extends Activity {
+public class RadioModuleActivity extends Activity
+{
 
 	static Context appContext = null;
 	static Intent appIntent = null;
@@ -26,30 +29,44 @@ public class RadioModuleActivity extends Activity {
 	String fetchedCallTimeStamp = "";
 
 	//Minutes
-	TextView inValue = (TextView) this.findViewById(R.id.valueIn);
-	TextView outValue = (TextView) this.findViewById(R.id.valueOut);
-	TextView totalVoiceValue = (TextView) this.findViewById(R.id.txtVTotal);
+	TextView inValue = null;
+	TextView outValue = null;
+	TextView totalVoiceValue = null;
 
 	//Messages
-	TextView rcvValue = (TextView) this.findViewById(R.id.valueRcv);
-	TextView sntValue = (TextView) this.findViewById(R.id.valueSnt);
-	TextView totalMsgValue = (TextView) this.findViewById(R.id.valueMTotal);
+	TextView rcvValue = null;
+	TextView sntValue = null;
+	TextView totalMsgValue = null;
 
 	//Data
-	TextView downValue = (TextView) this.findViewById(R.id.valueDown);
-	TextView upValue = (TextView) this.findViewById(R.id.valueUp);
-	TextView totalDataValue = (TextView) this.findViewById(R.id.valueDTotal);
+	TextView downValue = null;
+	TextView upValue = null;
+	TextView totalDataValue = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		appContext = this.getApplicationContext();
-		appIntent = this.getIntent();
-		StartMessagingEngine();
 		setContentView(R.layout.activity_minutes_module);
+		
+		inValue = (TextView) this.findViewById(R.id.valueIn);
+		outValue = (TextView) this.findViewById(R.id.valueOut);
+		totalVoiceValue = (TextView) this.findViewById(R.id.txtVTotal);
 
-		fetchCurrentMonitoredValues();
+		rcvValue = (TextView) this.findViewById(R.id.valueRcv);
+		sntValue = (TextView) this.findViewById(R.id.valueSnt);
+		totalMsgValue = (TextView) this.findViewById(R.id.valueMTotal);
+
+		downValue = (TextView) this.findViewById(R.id.valueDown);
+		upValue = (TextView) this.findViewById(R.id.valueUp);
+		totalDataValue = (TextView) this.findViewById(R.id.valueDTotal);
+		
+		appContext = getApplicationContext();
+		appIntent = getIntent();
+		FirstRunDBSetup();
+//		RadioEngine.igniteEngine();
+		StartMessagingEngine();
+//		fetchCurrentMonitoredValues();
 	}
 
 	@Override
@@ -62,8 +79,10 @@ public class RadioModuleActivity extends Activity {
 
 	public void FirstRunDBSetup()
 	{
+		Logger.Debug("FirstRunDBSetup");
 		if(DBAdapter.isEmpty())
 		{
+			Logger.Debug("DB empty");
 			DBAdapter.insertValues(DBConstants.ID,
 					Common.DUMMY_ID);
 			DBAdapter.insertValues(DBConstants.TIMESTAMP, 
@@ -85,6 +104,7 @@ public class RadioModuleActivity extends Activity {
 			DBAdapter.insertValues(DBConstants.UPLOADED, 
 					Common.DUMMY_UPLOADED);
 		}
+		
 	}
 
 	public static Intent getAppIntent()
@@ -171,9 +191,10 @@ public class RadioModuleActivity extends Activity {
 	/**
 	 * R.id.bttnRefresh onClick
 	 */
-	public void refreshValues()
+	public void refreshValues(View v)
 	{
-		fetchCurrentMonitoredValues();
+		Toast.makeText(getApplicationContext(), "Refreshing values", Toast.LENGTH_LONG).show();
+//		fetchCurrentMonitoredValues();
 	}
 
 }
