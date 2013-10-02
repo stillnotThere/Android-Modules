@@ -1,0 +1,47 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * MessageAT
+ * com.acropolis.module.messagemodule
+ * MessageAT.java
+ * Created - 2013-10-02 2:56:36 PM	
+ * Modified - 2013-10-02 2:56:36 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.module.message;
+
+import com.acropolis.radio.module.monitor.controller.MessageInterceptor.OutgoingMessageContentObserver;
+
+import android.app.Service;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.os.IBinder;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class OutgoingMessagingService extends Service
+{
+	/* (non-Javadoc)
+	 * @see android.app.Service#onBind(android.content.Intent)
+	 */
+	@Override
+	public IBinder onBind(Intent intent) {
+		@Override
+		public IBinder onBind(Intent intent) {
+			ContentResolver outgoingMessageCR = 
+					appContext.getContentResolver();
+			outgoingMessageCR.registerContentObserver(
+					outgoingMessageUri, true,
+					new OutgoingMessageContentObserver());
+			return null;
+		}
+	}
+
+	public void onCreate()
+	{
+		
+	}
+	
+}

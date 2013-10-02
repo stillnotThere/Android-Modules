@@ -114,18 +114,20 @@ public class CallInterceptor
 			{
 			case RadioEngine._INCOMING:
 			{
-				int dbIn = Integer.parseInt(DBAdapter.retrieveAValue(DBConstants.INCOMINGCALL));
+//				int dbIn = Integer.parseInt(DBAdapter.retrieveAValue(DBConstants.INCOMINGCALL));
 				int sessionIn = GetDetails.getCallDuration().intValue();
-				int totalIn = dbIn + sessionIn;
-				DBAdapter.updateValues(DBConstants.INCOMINGCALL, String.valueOf(totalIn));
+				Logger.Debug("incomingSeconds::"+sessionIn);
+//				int totalIn = dbIn + sessionIn;
+//				DBAdapter.updateValues(DBConstants.INCOMINGCALL, String.valueOf(totalIn));
 				GetDetails.setCallDuration(Integer.valueOf(0));
 			};
 			case RadioEngine._OUTGOING:
 			{
-				int dbOut = Integer.parseInt(DBAdapter.retrieveAValue(DBConstants.OUTGOINGCALL));
+//				int dbOut = Integer.parseInt(DBAdapter.retrieveAValue(DBConstants.OUTGOINGCALL));
 				int sessionOut = GetDetails.getCallDuration().intValue();
-				int totalOut = dbOut + sessionOut;
-				DBAdapter.updateValues(DBConstants.OUTGOINGCALL, String.valueOf(totalOut));
+				Logger.Debug("outgoingSeconds::"+sessionOut);
+//				int totalOut = dbOut + sessionOut;
+//				DBAdapter.updateValues(DBConstants.OUTGOINGCALL, String.valueOf(totalOut));
 				GetDetails.setCallDuration(Integer.valueOf(0));
 			};
 			}

@@ -1,0 +1,20 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * MessageAT
+ * com.acropolis.module.messagemodule
+ * MessageAT.java
+ * Created - 2013-10-02 2:56:36 PM	
+ * Modified - 2013-10-02 2:56:36 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.module.messagemodule;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class MessageMonitoringService extends Service
+{
+
+}

@@ -25,6 +25,7 @@ import android.telephony.SmsMessage;
 
 import com.acropolis.radio.module.RadioModuleActivity;
 import com.acropolis.radio.module.global.DBConstants;
+import com.acropolis.radio.module.logger.Logger;
 import com.acropolis.radio.module.model.DBAdapter;
 
 public class MessageInterceptor 
@@ -92,13 +93,14 @@ public class MessageInterceptor
 //							break;
 //						}
 					}
-					dbreceived = Integer.
-							parseInt(DBAdapter.retrieveAValue(
-									DBConstants.RECEIVEDMSG));
-					storetotal = sessionreceivedCounter + dbreceived;
-					DBAdapter.updateValues(DBConstants.RECEIVEDMSG, 
-							String.valueOf(storetotal));
+//					dbreceived = Integer.
+//							parseInt(DBAdapter.retrieveAValue(
+//									DBConstants.RECEIVEDMSG));
+//					storetotal = sessionreceivedCounter + dbreceived;
+//					DBAdapter.updateValues(DBConstants.RECEIVEDMSG, 
+//							String.valueOf(storetotal));
 				}
+				Logger.Debug("msgReceived::"+sessionreceivedCounter);
 			}
 		}
 	}
@@ -151,12 +153,12 @@ public class MessageInterceptor
 			smsSentText = smsSentCursor.
 					getString(smsSentCursor.getColumnIndex("body"));
 			sentcounter++;
-			
-			dbsent = Integer.parseInt(
-					DBAdapter.retrieveAValue(DBConstants.SENTMSG));
-			storetotal = dbsent + sentcounter;
-			DBAdapter.updateValues(DBConstants.SENTMSG, 
-					String.valueOf(storetotal));
+			Logger.Debug("sentcounter::::"+sentcounter);
+//			dbsent = Integer.parseInt(
+//					DBAdapter.retrieveAValue(DBConstants.SENTMSG));
+//			storetotal = dbsent + sentcounter;
+//			DBAdapter.updateValues(DBConstants.SENTMSG, 
+//					String.valueOf(storetotal));
 		}
 		
 	}

@@ -10,8 +10,11 @@
  */
 package com.acropolis.radio.module.global;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+
+import com.acropolis.radio.module.model.DBAdapter;
 
 /**
  * @author CPH-iMac
@@ -37,7 +40,8 @@ public final class DBConstants
 	/*SQLite Transact queries*/
 	public final static String CREATETABLE =
 			"CREATE TABLE " + tableName +
-			"{ _id INTEGER AUTOINCREMENT DEFAULT 0," +
+			"( " +
+			"_id INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 0," +
 			"timestamp TEXT NOT NULL DEFAULT 0," +
 			"phonenumber TEXT NOT NULL DEFAULT 0," +
 			"roaming TEXT NOT NULL DEFAULT 0," +
@@ -46,7 +50,9 @@ public final class DBConstants
 			"receivedmsg TEXT NOT NULL DEFAULT 0," +
 			"sentmsg TEXT NOT NULL DEFAULT 0," +
 			"downloaded TEXT NOT NULL DEFAULT 0," +
-			"uploaded TEXT NOT NULL DEFAULT 0}";
+			"uploaded TEXT NOT NULL DEFAULT 0 " +
+			")";
+	public final static String EMPTY_QUERY = "COUNT(*)";
 	public final static String DROPTABLE = "";
 	//to be implemented with SQLiteDatabase#rawQuery()
 	public final static String SELECTALL = "SELECT * FROM " + tableName;
@@ -65,4 +71,16 @@ public final class DBConstants
 	public final static String DOWNLOADED = "downloaded";
 	public final static String UPLOADED = "uploaded";
 
+//	
+//	public void setupDBAdapter(Context context)
+//	{
+//		DBAdapter dbAdapter = new DBAdapter(context);
+//		
+//	}
+//	
+//	public SQLiteDatabase getDBAdapter()
+//	{
+//		return dbAdapter;
+//	}
+	
 }

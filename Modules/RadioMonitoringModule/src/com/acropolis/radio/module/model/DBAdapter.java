@@ -17,6 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.acropolis.radio.module.RadioModuleActivity;
 import com.acropolis.radio.module.global.DBConstants;
+import com.acropolis.radio.module.logger.Logger;
 
 /**
  * @author CPH-iMac
@@ -27,61 +28,50 @@ public class DBAdapter
 
 	protected Context context = null;
 	/*SQLiteDatabaseOpenHelper and args*/
-	protected static DBOpenHelper dbOpenHelper = null;
+	protected DBOpenHelper dbOpenHelper = null;
 	/*SQLiteDatabase and args*/
-	private static SQLiteDatabase corruptdb = null;
-	protected static DBTransactionListener dbTransactionListener = 
-			new DBTransactionListener();
-	protected static DBErrorHandler dbErrorHandler = new DBErrorHandler();
 
-	
-	public static SQLiteDatabase OpenDB()
+	public DBAdapter(Context _context)
 	{
-		dbOpenHelper = new DBOpenHelper(RadioModuleActivity.getAppContext());
+		context = _context;
+	}
+	
+	public SQLiteDatabase OpenDB()
+	{
+		dbOpenHelper = new DBOpenHelper(context);
 		return dbOpenHelper.getWritableDatabase();
 	}
 
-	public static void CloseDB(SQLiteDatabase _db)
+	public   void CloseDB(SQLiteDatabase _db)
 	{
 		_db.close();
 	}
 
-
-	public static boolean isEmpty()
+	public boolean isEmpty()
 	{
+		Logger.Verbose("isEmpty");
 		boolean dbEmpty = false;
-		String[] selectAll = new String[200];
-		int colCount = 0;
 		SQLiteDatabase db = OpenDB();
-		db.beginTransactionWithListener(dbTransactionListener);
-		Cursor cursor = db.rawQuery(DBConstants.SELECTALL, null);
+//		db.beginTransactionWithListener(dbTransactionListener);
+		Cursor cursor = db.query(DBConstants.tableName, 
+				new String[]{DBConstants.EMPTY_QUERY}, 
+				null, null, null, null, null); 
 		cursor.moveToFirst();
-		if(cursor.getCount() != 0)
-		{
+		if(cursor.getInt(0) == 0)
 			dbEmpty = true;
-		}
 		else
-		{
 			dbEmpty = false;
-		}
-			
+		
 		cursor.close();
 		CloseDB(db);
-
+		Logger.Debug("empty=="+String.valueOf(dbEmpty));
 		return dbEmpty;
 	}
 
-	public static boolean insertValues(String colKey,String colValue)
+	public   boolean insertValues(String colKey,String colValue)
 	{
 		boolean success = true;
 		SQLiteDatabase db = OpenDB();
-//		db.beginTransactionWithListener(dbTransactionListener);
-//		if(dbTransactionListener.isCorrupted())
-//		{
-//			///ISSSUEEEEE!!!!!!!!!!!!!!!!!!!!!
-//			corruptdb = db;
-//			dbErrorHandler.onCorruption(corruptdb);
-//		}
 			ContentValues contentValues = new ContentValues();
 			contentValues.put(colKey, colValue);
 			db.insert(DBConstants.tableName, null,contentValues);
@@ -89,11 +79,10 @@ public class DBAdapter
 		return success;
 	}
 
-	public static boolean updateValues(String colKey,String colValue)
+	public   boolean updateValues(String colKey,String colValue)
 	{
 		boolean success = true;
 		SQLiteDatabase db = OpenDB();
-		db.beginTransactionWithListener(dbTransactionListener);
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(colKey, colValue);
 		db.update(DBConstants.tableName, contentValues, null, null);
@@ -105,12 +94,11 @@ public class DBAdapter
 	 * Runs query "SELECT * FROM monitoredradiocollector"
 	 * @return selectAll
 	 */
-	public static String[] retrieveAllValues()
+	public   String[] retrieveAllValues()
 	{
 		String[] selectAll = new String[200];
 		int colCount = 0;
 		SQLiteDatabase db = OpenDB();
-		db.beginTransactionWithListener(dbTransactionListener);
 		Cursor cursor = db.rawQuery(DBConstants.SELECTALL, null);
 		cursor.moveToFirst();
 		while(cursor.getColumnCount() == colCount)
@@ -125,14 +113,13 @@ public class DBAdapter
 
 	/**
 	 * Fetch value from req row and column index
-	 * @param id, columnindex
+	 * @param ID, columnindex
 	 * @return selectOne
 	 */
-	public static String retrieveAValue(String colKey)
+	public   String retrieveAValue(String colKey)
 	{
 		String selectOne = "";
 		SQLiteDatabase db = OpenDB();
-		db.beginTransactionWithListener(dbTransactionListener);
 		Cursor cursor = db.rawQuery(DBConstants.SELECTINDIVIDUAL, 
 				new String[] {colKey});
 		cursor.moveToFirst();
@@ -141,11 +128,10 @@ public class DBAdapter
 		return selectOne;
 	}
 
-	public static boolean deleteValues()
+	public   boolean deleteValues()
 	{
 		boolean success = true;
 		SQLiteDatabase db = OpenDB();
-		db.beginTransactionWithListener(dbTransactionListener);
 		db.delete(DBConstants.tableName, null, null);
 		CloseDB(db);
 		return success;

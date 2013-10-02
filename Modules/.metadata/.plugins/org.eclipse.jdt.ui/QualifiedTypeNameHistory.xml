@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.DataInterecptor.DataConnectionState"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.DataInterecptor"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.DataInterecptor.DataActivityMonitor"/>
 <fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
@@ -25,20 +24,17 @@
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase.CursorFactory"/>
 <fullyQualifiedTypeName name="android.os.Environment"/>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.logger.Logger"/>
 <fullyQualifiedTypeName name="android.database.Cursor"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Locale"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.RadioModuleActivity"/>
 <fullyQualifiedTypeName name="java.lang.Long"/>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.DBConstants"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.Common"/>
 <fullyQualifiedTypeName name="android.location.LocationProvider"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.controller.LocationHub.LocationChangeListener"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.menu"/>
 <fullyQualifiedTypeName name="logger.Logger"/>
-<fullyQualifiedTypeName name="android.app.Service"/>
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.string"/>
 <fullyQualifiedTypeName name="android.os.Looper"/>
@@ -47,12 +43,9 @@
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.id"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.view.LocationModuleActivity.ScreenLooper"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.view.LocationModuleActivity"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
-<fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.controller.LocationHub"/>
 <fullyQualifiedTypeName name="com.acropolis.module.listener.minutes.R.id"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.RadioEngine"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor.ServiceStateListener"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.DataInterecptor.DataActivityMonitor"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.DataInterecptor"/>
@@ -60,4 +53,11 @@
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor.CallStateListener"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.logger.Logger"/>
+<fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.RadioEngine"/>
+<fullyQualifiedTypeName name="android.app.Service"/>
+<fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
 </qualifiedTypeNameHistroy>

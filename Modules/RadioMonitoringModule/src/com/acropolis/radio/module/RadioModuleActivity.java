@@ -17,6 +17,7 @@ import com.acropolis.radio.module.global.Common;
 import com.acropolis.radio.module.global.DBConstants;
 import com.acropolis.radio.module.logger.Logger;
 import com.acropolis.radio.module.model.DBAdapter;
+import com.acropolis.radio.module.monitor.controller.RadioEngine;
 
 public class RadioModuleActivity extends Activity
 {
@@ -43,6 +44,8 @@ public class RadioModuleActivity extends Activity
 	TextView upValue = null;
 	TextView totalDataValue = null;
 
+	DBAdapter dbAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -63,8 +66,10 @@ public class RadioModuleActivity extends Activity
 		
 		appContext = getApplicationContext();
 		appIntent = getIntent();
-		FirstRunDBSetup();
-//		RadioEngine.igniteEngine();
+		
+		dbAdapter = new DBAdapter(getApplicationContext());
+//		FirstRunDBSetup();
+		RadioEngine.igniteEngine();
 		StartMessagingEngine();
 //		fetchCurrentMonitoredValues();
 	}
@@ -80,28 +85,28 @@ public class RadioModuleActivity extends Activity
 	public void FirstRunDBSetup()
 	{
 		Logger.Debug("FirstRunDBSetup");
-		if(DBAdapter.isEmpty())
+		if(dbAdapter.isEmpty())
 		{
 			Logger.Debug("DB empty");
-			DBAdapter.insertValues(DBConstants.ID,
+			dbAdapter.insertValues(DBConstants.ID,
 					Common.DUMMY_ID);
-			DBAdapter.insertValues(DBConstants.TIMESTAMP, 
+			dbAdapter.insertValues(DBConstants.TIMESTAMP, 
 					Common.DUMMY_TIMESTAMP);
-			DBAdapter.insertValues(DBConstants.PHONENUMBER, 
+			dbAdapter.insertValues(DBConstants.PHONENUMBER, 
 					Common.getDevicePhoneNumber(this));
-			DBAdapter.insertValues(DBConstants.ROAMING, 
+			dbAdapter.insertValues(DBConstants.ROAMING, 
 					Common.DUMMY_ROAMING);
-			DBAdapter.insertValues(DBConstants.INCOMINGCALL, 
+			dbAdapter.insertValues(DBConstants.INCOMINGCALL, 
 					Common.DUMMY_INCOMING);
-			DBAdapter.insertValues(DBConstants.OUTGOINGCALL, 
+			dbAdapter.insertValues(DBConstants.OUTGOINGCALL, 
 					Common.DUMMY_OUTGOING);
-			DBAdapter.insertValues(DBConstants.RECEIVEDMSG, 
+			dbAdapter.insertValues(DBConstants.RECEIVEDMSG, 
 					Common.DUMMY_RECEIVED);
-			DBAdapter.insertValues(DBConstants.SENTMSG, 
+			dbAdapter.insertValues(DBConstants.SENTMSG, 
 					Common.DUMMY_SENT);
-			DBAdapter.insertValues(DBConstants.DOWNLOADED,
+			dbAdapter.insertValues(DBConstants.DOWNLOADED,
 					Common.DUMMY_DOWNLOADED);
-			DBAdapter.insertValues(DBConstants.UPLOADED, 
+			dbAdapter.insertValues(DBConstants.UPLOADED, 
 					Common.DUMMY_UPLOADED);
 		}
 		
@@ -143,10 +148,10 @@ public class RadioModuleActivity extends Activity
 		/*Minutes*/
 		long incomingMin = ConvertToMinutes( 
 				Long.parseLong(
-						DBAdapter.retrieveAValue(DBConstants.INCOMINGCALL)));
+						dbAdapter.retrieveAValue(DBConstants.INCOMINGCALL)));
 		long outgoingMin = ConvertToMinutes(
 				Long.parseLong(
-						DBAdapter.retrieveAValue(DBConstants.OUTGOINGCALL)));
+						dbAdapter.retrieveAValue(DBConstants.OUTGOINGCALL)));
 		long totalMin = incomingMin + outgoingMin;
 
 		inValue.setText(String.valueOf(incomingMin));
@@ -154,8 +159,8 @@ public class RadioModuleActivity extends Activity
 		totalVoiceValue.setText(String.valueOf(totalMin));
 		
 		/*Messages*/
-		long recvMsg = Long.parseLong(DBAdapter.retrieveAValue(DBConstants.RECEIVEDMSG));
-		long sntMsg = Long.parseLong(DBAdapter.retrieveAValue(DBConstants.SENTMSG));
+		long recvMsg = Long.parseLong(dbAdapter.retrieveAValue(DBConstants.RECEIVEDMSG));
+		long sntMsg = Long.parseLong(dbAdapter.retrieveAValue(DBConstants.SENTMSG));
 		long totalMsgs = recvMsg + sntMsg;
 		
 		rcvValue.setText(String.valueOf(recvMsg));
@@ -165,10 +170,10 @@ public class RadioModuleActivity extends Activity
 		/*Data*/
 		long downloadData = ConvertToKB(
 				Long.parseLong(
-						DBAdapter.retrieveAValue(DBConstants.DOWNLOADED)));
+						dbAdapter.retrieveAValue(DBConstants.DOWNLOADED)));
 		long uploadData = ConvertToKB(
 				Long.parseLong(
-						DBAdapter.retrieveAValue(DBConstants.UPLOADED)));
+						dbAdapter.retrieveAValue(DBConstants.UPLOADED)));
 		long totalData = downloadData + uploadData;
 		
 		downValue.setText(String.valueOf(downloadData));
@@ -178,12 +183,12 @@ public class RadioModuleActivity extends Activity
 		return true;
 	}
 
-	public static long ConvertToMinutes(long seconds)
+	public long ConvertToMinutes(long seconds)
 	{
 		return TimeUnit.MINUTES.convert(seconds, TimeUnit.SECONDS);
 	}
 
-	public static long ConvertToKB(long bytes)
+	public long ConvertToKB(long bytes)
 	{
 		return (long) Math.ceil(bytes/(1024));
 	}

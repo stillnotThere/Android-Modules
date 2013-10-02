@@ -123,8 +123,8 @@ public class RadioEngine
 		
 		StartServiceListener();
 //		StartCallStateListener();
-		StartDataConnectionListener();
-		StartDataActivityListener();
+//		StartDataConnectionListener();
+//		StartDataActivityListener();
 		
 		Logger.Debug("Engine started");
 		return true;
@@ -140,25 +140,25 @@ public class RadioEngine
 		Logger.Debug("Active Listener::ServiceState");
 	}
 	
-	private static void StartDataActivityListener()
-	{
-		_telephonyManager.listen(
-				new com.acropolis.radio.module.monitor.controller.
-				DataInterecptor.DataActivityMonitor(),
-				PhoneStateListener.LISTEN_DATA_ACTIVITY
-				);
-		Logger.Debug("Active Listener::DataActivity");
-	}
+//	private static void StartDataActivityListener()
+//	{
+//		_telephonyManager.listen(
+//				new com.acropolis.radio.module.monitor.controller.
+//				DataInterecptor.DataActivityMonitor(),
+//				PhoneStateListener.LISTEN_DATA_ACTIVITY
+//				);
+//		Logger.Debug("Active Listener::DataActivity");
+//	}
 	
-	private static void StartDataConnectionListener()
-	{
-		_telephonyManager.listen(
-				new com.acropolis.radio.module.monitor.controller.
-				DataInterecptor.DataConnectionState(), 
-				PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
-				);
-		Logger.Debug("Active Listener::DataConnection");
-	}
+//	private static void StartDataConnectionListener()
+//	{
+//		_telephonyManager.listen(
+//				new com.acropolis.radio.module.monitor.controller.
+//				DataInterecptor.DataConnectionState(), 
+//				PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
+//				);
+//		Logger.Debug("Active Listener::DataConnection");
+//	}
 	
 	private static void StartCallStateListener()
 	{
@@ -180,16 +180,16 @@ public class RadioEngine
 				new com.acropolis.radio.module.monitor.controller.
 				CallInterceptor.ServiceStateListener(), 
 				PhoneStateListener.LISTEN_NONE);
-		//DataState
-		_telephonyManager.listen(
-				new com.acropolis.radio.module.monitor.controller.
-				DataInterecptor.DataConnectionState(),
-				PhoneStateListener.LISTEN_NONE);
-		//DataActivity
-		_telephonyManager.listen(
-				new com.acropolis.radio.module.monitor.controller.
-				DataInterecptor.DataActivityMonitor(),
-				PhoneStateListener.LISTEN_NONE);
+//		//DataState
+//		_telephonyManager.listen(
+//				new com.acropolis.radio.module.monitor.controller.
+//				DataInterecptor.DataConnectionState(),
+//				PhoneStateListener.LISTEN_NONE);
+//		//DataActivity
+//		_telephonyManager.listen(
+//				new com.acropolis.radio.module.monitor.controller.
+//				DataInterecptor.DataActivityMonitor(),
+//				PhoneStateListener.LISTEN_NONE);
 		//CallState
 		_telephonyManager.listen(
 				new com.acropolis.radio.module.monitor.controller.
