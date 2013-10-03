@@ -1,7 +1,6 @@
 package com.acropolis.module.message;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -25,8 +24,8 @@ public class MainActivity extends Activity {
 				intentFilter,"android.permission.RECEIVE_SMS",null);
 		Logger.Debug("sms receiver registered");
 		
-		Intent outmsgService = new Intent(getApplicationContext(),OutgoingMessagingService.class);
-		getApplicationContext().startService(outmsgService);
+		Intent outmsgService = new Intent(this,OutgoingMessagingService.class);
+		this.startService(outmsgService);
 		Logger.Debug("sms service enabled");
 	}
 
@@ -38,6 +37,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
 	public void onBackPressed()
 	{
 		Logger.Debug("Back pressed");

@@ -11,13 +11,13 @@
 package com.acropolis.module.message;
 
 import android.app.Service;
+import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Handler;
 import android.os.IBinder;
 
 /**
@@ -26,49 +26,90 @@ import android.os.IBinder;
  */
 public class OutgoingMessagingService extends Service
 {
-	Context appContext = MainActivity.getAppContext();
-	Cursor smsSentCursor = null;
-	final Uri outgoingMessageUri = Uri.parse("content://sms/out");
-	final static String[] projections = {"date","address","body"};
-	int sentcounter = 0;
-	final static String selection = null;	//row (WHERE clause)
-	final static String[] selectionArgs = null;	//conditions
-	final static String sortOrder = null;	//sorting (default last msg first)
-	
+
+	final String msgOutUri = "content://sms";
+	Uri outUri = Uri.parse(msgOutUri);
+	Context context = null;
+	Intent intent = null;
+	int outgoingCounter = 0;
+	int incomingCounter = 0;
 	/* (non-Javadoc)
 	 * @see android.app.Service#onBind(android.content.Intent)
 	 */
 	@Override
 	public IBinder onBind(Intent intent) {
-		ContentResolver outgoingMessageCR = 
-				appContext.getContentResolver();
-		outgoingMessageCR.registerContentObserver(
-				outgoingMessageUri, true,
-				new OutgoingMessageContentObserver(null));
+		// TODO Auto-generated method stub
+
+		Logger.Debug("onBind");
 		return null;
 	}
-	
+
 	public int onStartCommand(Intent intent,int flags,int startId)
 	{
-		Logger.Debug("restarting service");
-		return Service.START_STICKY;
-	}	
+		Logger.Debug("onStartCommand");
+		context = MainActivity.getAppContext();
+		this.intent = intent;
 
-	public class OutgoingMessageContentObserver extends ContentObserver
-	{
-		public OutgoingMessageContentObserver(Handler handler) {super(handler);}
+		ContentResolver contentResolver = context.getContentResolver();
+		//check device contentprovider packages
+		//		ContentProviderClient contentProviderClient = contentResolver.acquireContentProviderClient(outUri);
 
-		public void onChange(boolean selfChange)
+		contentResolver.registerContentObserver(outUri, true, new ContentObserver(null)
 		{
-			super.onChange(selfChange);
+			//TODO
+			public void onChange(boolean selfChange)
+			{
+				super.onChange(selfChange);
+				Cursor smsCursor = context.getContentResolver().query(outUri,
+						new String[]{"*"}, null, null,null);
+//						new String[]{"date","address","body,type"}, null, null,null);
 
-			smsSentCursor = appContext.getContentResolver().query(
-					outgoingMessageUri, projections, selection, 
-					selectionArgs, sortOrder);
-			smsSentCursor.moveToFirst();	//last message received
-			sentcounter++;
-			Logger.Debug("sentcounter::::"+sentcounter);
-		}
+				//				outgoingCounter++;	
 
+				String[] body = new String[smsCursor.getCount()];
+				String[] type = new String[smsCursor.getCount()];
+				String[] address = new String[smsCursor.getCount()];
+				String[] date = new String[smsCursor.getCount()];
+
+				
+				if(smsCursor.moveToFirst())
+				{
+					for(int j=0;j<smsCursor.getColumnCount();j++)
+					{
+						Logger.Debug(smsCursor.getColumnName(j));
+					}
+					for(int i=0;i<smsCursor.getColumnCount();i++)
+					{
+						body[i] = smsCursor.getString(smsCursor.getColumnIndex("body"));
+						address[i] = smsCursor.getString(smsCursor.getColumnIndex("address"));
+						type[i] = smsCursor.getString(smsCursor.getColumnIndex("type")); 
+						date[i] = smsCursor.getString(smsCursor.getColumnIndex("date"));
+
+						if(type[i].equalsIgnoreCase("1"))
+						{
+							//received
+							++incomingCounter;
+							Logger.Debug("msg received:count:"+incomingCounter+
+									"\nbody::"+ body[i]+
+									"\naddress::"+address[i]);
+						}
+						else
+						{
+							//sent
+							++outgoingCounter;
+							Logger.Debug("msg sent count:"+outgoingCounter +
+									"\nbody::"+ body[i]+
+									"\naddress::"+address[i]);
+						}
+
+					}
+				}
+
+				Logger.Debug("outgoingcounter::"+outgoingCounter);
+			}
+
+		});
+
+		return Service.START_STICKY;
 	}
 }
