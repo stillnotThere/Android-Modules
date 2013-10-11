@@ -41,8 +41,8 @@ public class CallerService extends Service
 
 	public void onCreate()
 	{
-//		setupIncomingListener();
-		setupOutgoingListener();
+		setupCallListener();
+//		setupOutgoingListener();
 	}
 
 	public int onStartCommand(Intent intent,int flags,int startId)
@@ -50,13 +50,13 @@ public class CallerService extends Service
 		return Service.START_STICKY;
 	}
 
-	public void setupIncomingListener()
+	public void setupCallListener()
 	{
 		TelephonyManager telephonyManager = (TelephonyManager)
 				getApplicationContext().
 				getSystemService(Context.TELEPHONY_SERVICE);
 
-		telephonyManager.listen(new IncomingCallListener(),
+		telephonyManager.listen(new CallStateListener(),
 				PhoneStateListener.LISTEN_CALL_STATE);
 	}
 
@@ -66,6 +66,8 @@ public class CallerService extends Service
 				new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
 		registerReceiver(new OutgoingCallReceiver(),intentFilter);
 	}
+
+	protected int outgoingcallCounter = 0;
 
 	public class OutgoingCallReceiver extends BroadcastReceiver
 	{
@@ -80,7 +82,8 @@ public class CallerService extends Service
 								{
 									Calls.NUMBER,
 									Calls.DURATION,
-									Calls.TYPE
+									Calls.TYPE,
+									Calls.DATE
 								};
 							String selection = null;
 							String[] selectionArgs = null;
@@ -98,31 +101,26 @@ public class CallerService extends Service
 							{
 								int type = outCursor.getInt(outCursor.getColumnIndex(Calls.TYPE));
 
-								
-								
-								switch(type)
+								if(type == Calls.OUTGOING_TYPE)
 								{
-
-								case Calls.OUTGOING_TYPE:
-								{
-									Logger.Debug("Outgoing Call " +
-											"\nNumber:::"+ 
-											outCursor.getString(outCursor.getColumnIndex(Calls.NUMBER))
-											+
-											"\nDuration::"+outCursor.getString(outCursor.getColumnIndex(Calls.DURATION)));
-								}
-								case Calls.INCOMING_TYPE:
-								{
-									Logger.Debug("Incoming Call " +
-											"\nNumber:::"+ 
-											outCursor.getString(outCursor.getColumnIndex(Calls.NUMBER))
-											+
-											"\nDuration::"+outCursor.getString(outCursor.getColumnIndex(Calls.DURATION)));
-								}
-
+									outgoingcallCounter++;
+									if(outgoingcallCounter<1)
+									{
+										Logger.Debug("Outgoing Call " +
+												"\nNumber:::"+ 
+												outCursor.getString(outCursor.getColumnIndex(Calls.NUMBER))
+												+
+												"\nDuration::"+outCursor.getString(outCursor.getColumnIndex(Calls.DURATION)));
+//										outgoingcallCounter = 0;
+									}
+									else if(outgoingcallCounter>=1)
+									{
+										outgoingcallCounter=0;
+									}
+									
 								}
 							}
-
+							outCursor.close();
 						}
 					});
 		}

@@ -1,0 +1,22 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * DataStateListener
+ * com.acropolis.module.data
+ * DataStateListener.java
+ * Created - 2013-10-11 1:55:59 PM	
+ * Modified - 2013-10-11 1:55:59 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.module.data;
+
+import android.telephony.PhoneStateListener;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class DataStateListener extends PhoneStateListener 
+{
+
+}

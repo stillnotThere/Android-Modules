@@ -1,0 +1,48 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * ServiceReceiver
+ * com.app.project.acropolis
+ * ServiceReceiver.java
+ * Created - 2013-10-11 6:40:12 PM	
+ * Modified - 2013-10-11 6:40:12 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class ServiceReceiver extends BroadcastReceiver 
+{
+
+	/* (non-Javadoc)
+	 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
+	 */
+	@Override
+	public void onReceive(Context context, Intent intent) 
+	{
+		AlarmManager service = (AlarmManager) context
+		        .getSystemService(Context.ALARM_SERVICE);
+		    Intent i = new Intent(context, MyStartServiceReceiver.class);
+		    PendingIntent pending = PendingIntent.getBroadcast(context, 0, i,
+		        PendingIntent.FLAG_CANCEL_CURRENT);
+		    Calendar cal = Calendar.getInstance();
+		    // Start 30 seconds after boot completed
+		    cal.add(Calendar.SECOND, 30);
+		    //
+		    // Fetch every 30 seconds
+		    // InexactRepeating allows Android to optimize the energy consumption
+		    service.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+		        cal.getTimeInMillis(), REPEAT_TIME, pending);
+
+		
+		
+	}
+
+}

@@ -1,0 +1,19 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * BootReceiver
+ * com.app.project.acropolis
+ * BootReceiver.java
+ * Created - 2013-10-11 6:29:47 PM	
+ * Modified - 2013-10-11 6:29:47 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class BootReceiver {
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;DataStateListener.java&apos; to &apos;ProjectAcropolis/src/com.app.project.acropolis&apos;&#x0A;- Original project: &apos;DataModule&apos;&#x0A;- Destination element: &apos;ProjectAcropolis/src/com.app.project.acropolis&apos;&#x0A;- Original element: &apos;com.acropolis.module.data.DataStateListener.java&apos;" description="Copy compilation unit" destination="=ProjectAcropolis/src&lt;com.app.project.acropolis" element1="/src&lt;com.acropolis.module.data{DataStateListener.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1381519457196" units="1" version="1.0"/>
+</session>
