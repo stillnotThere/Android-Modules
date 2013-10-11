@@ -1,0 +1,19 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * OutgoingCallReceiver
+ * com.acropolis.module.call
+ * OutgoingCallReceiver.java
+ * Created - 2013-10-10 6:43:22 PM	
+ * Modified - 2013-10-10 6:43:22 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.module.call;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class OutgoingCallReceiver {
+
+}

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -16,17 +18,38 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		checkPreReqs();
 		appContext = getApplicationContext();
 		
-		IntentFilter intentFilter = new IntentFilter(MSG_RECEIVED);
-		intent = registerReceiver(new IncomingMessageReceiver(),
-				intentFilter,"android.permission.RECEIVE_SMS",null);
-		Logger.Debug("sms receiver registered");
+//		IntentFilter intentFilter = new IntentFilter(MSG_RECEIVED);
+//		intent = registerReceiver(new IncomingMessageReceiver(),
+//				intentFilter,"android.permission.RECEIVE_SMS",null);
+//		Logger.Debug("sms receiver registered");
 		
 		Intent outmsgService = new Intent(this,OutgoingMessagingService.class);
 		this.startService(outmsgService);
 		Logger.Debug("sms service enabled");
+		
+	}
+	
+	public void checkPreReqs()
+	{
+		Uri msgUri = Uri.parse("content://sms");
+		String colNames = "Columns::";
+		Cursor msgCursor = getApplicationContext().
+				getContentResolver().
+				query(msgUri, new String[]{"*"}, 
+						null, null, null);
+		if(msgCursor.moveToFirst())
+		{
+			for(int i=0;i<msgCursor.getColumnCount();i++)
+			{
+				colNames = colNames.concat(msgCursor.getColumnName(i) +
+						"\t" + msgCursor.getType(i) + 
+						"\n");
+			}
+			Logger.Debug(colNames);
+		}
 	}
 
 	@Override
@@ -37,12 +60,6 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	@Override
-	public void onBackPressed()
-	{
-		Logger.Debug("Back pressed");
-	}
-	
 	public static Context getAppContext()
 	{
 		return appContext;

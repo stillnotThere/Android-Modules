@@ -15,9 +15,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 
-import com.acropolis.radio.module.global.DBConstants;
 import com.acropolis.radio.module.logger.Logger;
-import com.acropolis.radio.module.model.DBAdapter;
 
 public class CallInterceptor 
 {

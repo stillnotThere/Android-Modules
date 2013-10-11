@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.DataInterecptor"/>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.DataInterecptor.DataActivityMonitor"/>
-<fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.monitoring.controller.RadioEngine"/>
-<fullyQualifiedTypeName name="android.telephony.TelephonyManager"/>
 <fullyQualifiedTypeName name="android.net.TrafficStats"/>
-<fullyQualifiedTypeName name="android.provider.CallLog"/>
 <fullyQualifiedTypeName name="android.telephony.SmsManager"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.MessageInterceptor"/>
 <fullyQualifiedTypeName name="com.module.testapp.R.id"/>
 <fullyQualifiedTypeName name="com.module.testapp.R.style"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
-<fullyQualifiedTypeName name="android.net.Uri"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.MainActivity"/>
-<fullyQualifiedTypeName name="android.telephony.PhoneStateListener"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.controller.ControlSwitches"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.layout"/>
@@ -56,8 +48,16 @@
 <fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.logger.Logger"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.RadioEngine"/>
-<fullyQualifiedTypeName name="android.app.Service"/>
 <fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
+<fullyQualifiedTypeName name="android.net.Uri"/>
+<fullyQualifiedTypeName name="com.acropolis.module.message.Logger"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.telephony.PhoneStateListener"/>
+<fullyQualifiedTypeName name="android.telephony.TelephonyManager"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="android.app.Service"/>
+<fullyQualifiedTypeName name="android.database.ContentObserver"/>
+<fullyQualifiedTypeName name="android.provider.CallLog"/>
+<fullyQualifiedTypeName name="android.provider.CallLog.Calls"/>
 </qualifiedTypeNameHistroy>

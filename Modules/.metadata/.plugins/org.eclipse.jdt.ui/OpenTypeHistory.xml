@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=MessageModule/src&lt;com.acropolis.module.message{OutgoingMessagingService.java[OutgoingMessagingService" modifiers="1" timestamp="1380839224000"/>
+<typeInfo handle="=MessageModule/src&lt;com.acropolis.module.message{OutgoingMessagingService.java[OutgoingMessagingService" modifiers="1" timestamp="1381434388000"/>
 <typeInfo handle="=RadioMonitoringModule/src&lt;com.acropolis.radio.module.monitor.controller{MessageInterceptor.java[MessageInterceptor[OutgoingMessageService" modifiers="9" timestamp="1380739283000"/>
+<typeInfo handle="=CallModule/src&lt;com.acropolis.module.call{CallerService.java[CallerService" modifiers="1" timestamp="1381447688000"/>
 </typeInfoHistroy>
