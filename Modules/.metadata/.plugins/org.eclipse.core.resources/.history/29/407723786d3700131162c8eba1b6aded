@@ -10,8 +10,6 @@
  */
 package com.app.project.acropolis.database;
 
-import com.app.project.acropolis.Logger;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -35,7 +33,6 @@ public class DBAdapter {
 	protected SQLiteDatabase openConnection() 
 	{
 		DBOpenHelper helper = new DBOpenHelper(context);
-		Logger.Debug(context.getPackageName() + "\n" + context.getPackageResourcePath());
 		return helper.getWritableDatabase();
 	}
 	
