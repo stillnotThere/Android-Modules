@@ -28,7 +28,8 @@ public class MessageMonitoring extends ContentObserver
 	final String msgOutUri = "content://sms";
 	Uri outUri = Uri.parse(msgOutUri);
 
-	public MessageMonitoring() {
+	public MessageMonitoring() 
+	{
 		super(null);
 	}
 
@@ -38,7 +39,7 @@ public class MessageMonitoring extends ContentObserver
 		int outgoingCounter = 0;
 		int incomingCounter = 0;
 		Context context = MainActivity.getContext();
-		DBAdapter dbAdapter = new DBAdapter(context);
+		DBAdapter dbAdapter = new DBAdapter();
 
 		super.onChange(selfChange);
 		Cursor smsCursor = context.getContentResolver().query(outUri,

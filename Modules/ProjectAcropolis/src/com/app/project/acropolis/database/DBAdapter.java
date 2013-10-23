@@ -11,6 +11,7 @@
 package com.app.project.acropolis.database;
 
 import com.app.project.acropolis.Logger;
+import com.app.project.acropolis.MainActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -28,8 +29,8 @@ public class DBAdapter {
 	final String table = "MONITORED_VALUES";
 	
 	
-	public DBAdapter(Context context) {
-		this.context = context;
+	public DBAdapter() {
+		this.context = MainActivity.getContext();
 	}
 	
 	protected SQLiteDatabase openConnection() 

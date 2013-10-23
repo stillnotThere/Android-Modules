@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.module.testapp.R.style"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.MainActivity"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.controller.ControlSwitches"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.MainActivity"/>
 </qualifiedTypeNameHistroy>

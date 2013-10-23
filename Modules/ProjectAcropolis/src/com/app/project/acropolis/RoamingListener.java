@@ -14,6 +14,8 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
 import com.app.project.acropolis.database.DBAdapter;
@@ -27,32 +29,66 @@ public class RoamingListener extends BroadcastReceiver
 {
 	public final String[] CAN_OPERATORS = {"Rogers","TELUS"};
 	public boolean roaming = false;
-	
+
+	public ConnectivityManager connectivityManager = null;
+	public TelephonyManager telephonyManager = null;
+	public NetworkInfo.State state = null;
 	
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		DBAdapter dbAdapter = new DBAdapter(context);
-		TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-		
-		if(telephonyManager.getNetworkOperatorName().length()>0)
-		{
-			for(int i=0;i<CAN_OPERATORS.length;i++)
-			{
-				if(telephonyManager.
-						getNetworkOperatorName().equalsIgnoreCase(CAN_OPERATORS[i]))
-					roaming = false;
-				else
-					roaming = true;
-			}
-			ContentValues cv = new ContentValues();
-			cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
-			dbAdapter.update(cv);
-		}
-		
-		 
+		telephonyManager = (TelephonyManager)
+				MainActivity.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+		connectivityManager = (ConnectivityManager) 
+				MainActivity.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		state = connectivityManager.getActiveNetworkInfo().getState();
+		stateTheObvious();
 	}
 
-	
-	
+	public void stateTheObvious()
+	{
+		DBAdapter dbAdapter = new DBAdapter();
+		
+		if(state.compareTo(NetworkInfo.State.CONNECTED)==0)
+		{
+			if(telephonyManager.getNetworkOperatorName().length()>0)
+			{
+				for(int i=0;i<CAN_OPERATORS.length;i++)
+				{
+					if(telephonyManager.
+							getNetworkOperatorName().equalsIgnoreCase(CAN_OPERATORS[i]))
+					{
+						roaming = false;
+						break;
+					}
+					else
+						roaming = true;
+				}
+				ContentValues cv = new ContentValues();
+				cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
+				dbAdapter.update(cv);
+			}
+		}
+		else
+		{
+			new Thread(new Runnable() 
+			{
+				public void run()
+				{
+					while(state.compareTo(NetworkInfo.State.CONNECTED)!=0)
+					{
+						Logger.Debug("no service");
+						try 
+						{
+							Thread.sleep(5*1000);
+						} catch (InterruptedException e) 
+						{
+							e.printStackTrace();
+						}
+					}
+				}
+			}).start();
+		}
+	}
+
 }

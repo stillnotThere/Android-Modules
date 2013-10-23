@@ -137,7 +137,7 @@ public class CallMonitoring extends PhoneStateListener
 			Logger.Debug("last callNumber::"+lastCallnumber + 
 					"\nduration::"+lastCallduration );
 
-			dbAdapter = new DBAdapter(MainActivity.getContext());
+			dbAdapter = new DBAdapter();
 
 			//			if(!dbAdapter.isEmpty())
 			//			{
