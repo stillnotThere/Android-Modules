@@ -54,10 +54,10 @@
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.telephony.PhoneStateListener"/>
 <fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.MainActivity"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 </qualifiedTypeNameHistroy>
