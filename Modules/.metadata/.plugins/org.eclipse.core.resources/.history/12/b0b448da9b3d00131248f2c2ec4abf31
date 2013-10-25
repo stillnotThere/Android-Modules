@@ -1,0 +1,166 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * DBAdapter
+ * com.app.project.acropolis.database
+ * DBAdapter.java
+ * Created - 2013-10-11 4:10:54 PM	
+ * Modified - 2013-10-11 4:10:54 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.database;
+
+import com.app.project.acropolis.Logger;
+import com.app.project.acropolis.MainActivity;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class DBAdapter {
+
+	final static String table = "MONITORED_VALUES";
+
+	protected static SQLiteDatabase openConnection() 
+	{
+		DBOpenHelper helper = new DBOpenHelper(MainActivity.getContext());
+		Logger.Debug(MainActivity.getContext().getPackageName() + "\n" + MainActivity.getContext().getPackageResourcePath());
+		return helper.getWritableDatabase();
+	}
+
+	private static void checkDBState()
+	{
+		if(isEmpty())
+		{
+			Logger.Debug("inserting blank");
+			putBlank();
+		}
+		
+	}
+
+	private static void putBlank()
+	{
+		SQLiteDatabase db = openConnection();
+				
+	}
+
+	public static boolean isEmpty() 
+	{
+		SQLiteDatabase db = openConnection();
+		boolean result;
+
+		db.beginTransaction();	//EXCLUSIVE
+		try
+		{
+			Cursor cursor = db.query(table, new String[] {"COUNT(*)"}, null, null, null, null, null);
+			cursor.moveToFirst();
+			if(cursor.getInt(0) == 0)
+			{
+				result = true;
+			}
+			else
+			{
+				result = false;
+			}
+			cursor.close();
+
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+			db.close();	
+		}
+		return result;
+	}
+
+	public static long insert(ContentValues values) 
+	{
+		SQLiteDatabase db = openConnection();
+		long result = 0;
+		db.beginTransaction();
+		try{
+			db.delete(table, null, null);
+			result = db.insert(table, null, values);
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+			db.close();
+		}
+		return result;
+	}
+
+	public static long update(ContentValues value)
+	{
+		SQLiteDatabase db = openConnection();
+		long result=0;
+
+		db.beginTransaction();
+		try{
+			result = db.update(table, value, null, null);
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+			db.close();	
+		}
+
+		return result;
+	}
+
+	public static long delete(){
+		SQLiteDatabase db = openConnection();
+		db.beginTransaction();
+		try{
+			db.delete(table, null, null);
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+			db.close();
+		}
+		return 0;
+	}
+
+	public static String getValue(String column)
+	{
+		String value = "";
+		Cursor cursor = null;
+		SQLiteDatabase db = openConnection();
+		db.beginTransaction();
+		try {
+			cursor = db.query(table, new String[]{column},null, null, null, null, null);
+			cursor.moveToFirst();
+			value = cursor.getString(cursor.getColumnIndex(column));
+			db.setTransactionSuccessful();
+		} finally {
+			if(cursor!=null)
+			{
+				cursor.close();
+			}
+			db.endTransaction();
+			db.close();
+		}
+		return value;
+	}
+
+	public static Cursor getValues() 
+	{
+		SQLiteDatabase db = openConnection();
+		Cursor cursor =null;
+		db.beginTransaction();
+		try {
+			cursor = db.query(table, null, null, null, null, null, null);
+			cursor.moveToFirst();
+		} finally {
+			if(cursor!=null)
+			{
+				cursor.close();
+			}
+			db.endTransaction();
+			db.close();
+		}
+		return cursor;
+	}
+}

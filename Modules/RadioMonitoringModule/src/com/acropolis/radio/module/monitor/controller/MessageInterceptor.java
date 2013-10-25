@@ -24,9 +24,7 @@ import android.os.IBinder;
 import android.telephony.SmsMessage;
 
 import com.acropolis.radio.module.RadioModuleActivity;
-import com.acropolis.radio.module.global.DBConstants;
 import com.acropolis.radio.module.logger.Logger;
-import com.acropolis.radio.module.model.DBAdapter;
 
 public class MessageInterceptor 
 {
@@ -66,9 +64,7 @@ public class MessageInterceptor
 		@Override
 		public void onReceive(Context context, Intent intent) 
 		{
-			int dbreceived = 0;
 			int sessionreceivedCounter = 0;
-			int storetotal = 0;
 			if(intent.getAction().equalsIgnoreCase(
 					"android.provider.Telephony.SMS_RECEIVED"))
 			{
@@ -139,10 +135,7 @@ public class MessageInterceptor
 		
 		public void onChange(boolean selfChange)
 		{
-			int dbsent = 0;
 			int sentcounter = 0;
-			int storetotal = 0;
-			
 			super.onChange(selfChange);
 			smsSentCursor = appContext.getContentResolver().query(
 					outgoingMessageUri, projections, selection, 

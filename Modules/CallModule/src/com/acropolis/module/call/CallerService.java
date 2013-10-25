@@ -11,15 +11,10 @@
 package com.acropolis.module.call;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.ContentObserver;
-import android.database.Cursor;
 import android.os.IBinder;
-import android.provider.CallLog;
-import android.provider.CallLog.Calls;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
@@ -64,66 +59,8 @@ public class CallerService extends Service
 	{
 		IntentFilter intentFilter =
 				new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
-		registerReceiver(new OutgoingCallReceiver(),intentFilter);
-	}
-
-	protected int outgoingcallCounter = 0;
-
-	public class OutgoingCallReceiver extends BroadcastReceiver
-	{
-		public void onReceive(Context context,Intent intent)
-		{
-			getContentResolver().registerContentObserver(
-					CallLog.Calls.CONTENT_URI, true, new ContentObserver(null)
-					{
-						public void onChange(boolean selfChange)
-						{
-							String[] projection = 
-								{
-									Calls.NUMBER,
-									Calls.DURATION,
-									Calls.TYPE,
-									Calls.DATE
-								};
-							String selection = null;
-							String[] selectionArgs = null;
-							String sortOrder = CallLog.Calls.DATE+" DESC";
-
-							Cursor outCursor = 
-									getContentResolver().query(
-											android.provider.CallLog.Calls.CONTENT_URI, 
-											projection, 
-											selection, 
-											selectionArgs,
-											sortOrder);
-
-							if(outCursor.moveToFirst())
-							{
-								int type = outCursor.getInt(outCursor.getColumnIndex(Calls.TYPE));
-
-								if(type == Calls.OUTGOING_TYPE)
-								{
-									outgoingcallCounter++;
-									if(outgoingcallCounter<1)
-									{
-										Logger.Debug("Outgoing Call " +
-												"\nNumber:::"+ 
-												outCursor.getString(outCursor.getColumnIndex(Calls.NUMBER))
-												+
-												"\nDuration::"+outCursor.getString(outCursor.getColumnIndex(Calls.DURATION)));
-//										outgoingcallCounter = 0;
-									}
-									else if(outgoingcallCounter>=1)
-									{
-										outgoingcallCounter=0;
-									}
-									
-								}
-							}
-							outCursor.close();
-						}
-					});
-		}
+		registerReceiver(new OutgoingReceiver(),intentFilter,
+				"android.permission.READ_PHONE_STATE",null);
 	}
 
 }

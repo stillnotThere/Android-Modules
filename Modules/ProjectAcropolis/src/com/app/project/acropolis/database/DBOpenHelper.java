@@ -10,6 +10,8 @@
  */
 package com.app.project.acropolis.database;
 
+import com.app.project.acropolis.MainActivity;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -28,7 +30,16 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	public static final String SENT = "SENT";
 	public static final String DOWNLOADED = "DOWNLOADED";
 	public static final String UPLOADED = "UPLOADED";
-			
+	
+	//BLANK VALUES
+	protected static String blank_PHONENUMBER = "";
+	protected final static String blank_ROAMING = "FALSE";
+	protected final static String blank_INCOMING = "0";
+	protected final static String blank_OUTGOING = "0";
+	protected final static String blank_RECEIVED = "0";
+	protected final static String blank_SENT = "0";
+	protected final static String blank_DOWNLOADED = "0";
+	protected final static String blank_UPLOADED = "0";
 	
 	public static final String DB_NAME = "PROJECTACROPOLIS_DB";
 	public static final int DB_VERSION = 1;

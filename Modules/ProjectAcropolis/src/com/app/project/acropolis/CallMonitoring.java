@@ -40,8 +40,6 @@ public class CallMonitoring extends PhoneStateListener
 	boolean OUToffhook = false;
 	boolean OUTringing = false;
 
-	DBAdapter dbAdapter = null;
-
 	public void onCallStateChanged(int state,String incomingNumber)
 	{
 		switch(state)
@@ -137,17 +135,15 @@ public class CallMonitoring extends PhoneStateListener
 			Logger.Debug("last callNumber::"+lastCallnumber + 
 					"\nduration::"+lastCallduration );
 
-			dbAdapter = new DBAdapter();
-
 			//			if(!dbAdapter.isEmpty())
 			//			{
-			long previous = Long.parseLong(dbAdapter.getValue(DBOpenHelper.INCOMING));
+			long previous = Long.parseLong(DBAdapter.getValue(DBOpenHelper.INCOMING));
 			long newV = convert(Long.parseLong(lastCallduration));
 			long total = previous + newV;
 
 			ContentValues cv = new ContentValues();
 			cv.put(DBOpenHelper.INCOMING, String.valueOf(total));
-			dbAdapter.update(cv);
+			DBAdapter.update(cv);
 
 			cur.close();
 			//			}
@@ -177,13 +173,13 @@ public class CallMonitoring extends PhoneStateListener
 			Logger.Debug("last callNumber::"+lastCallnumber + 
 					"\nduration::"+lastCallduration );
 
-			long previous = Long.parseLong(dbAdapter.getValue(DBOpenHelper.OUTGOING));
+			long previous = Long.parseLong(DBAdapter.getValue(DBOpenHelper.OUTGOING));
 			long newV = convert(Long.parseLong(lastCallduration));
 			long total = previous + newV;
 
 			ContentValues cv = new ContentValues();
 			cv.put(DBOpenHelper.OUTGOING, String.valueOf(total));
-			dbAdapter.update(cv);
+			DBAdapter.update(cv);
 
 			cur.close();
 			//			}

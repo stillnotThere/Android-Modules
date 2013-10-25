@@ -1,5 +1,7 @@
 package com.app.project.acropolis;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -35,8 +37,7 @@ public class MainActivity extends Activity {
 	TextView voiceTotal;
 	TextView msgTotal;
 	TextView dataTotal;
-	
-	DBAdapter dbAdapter = null;
+
 	Handler screenHandler = null;
 
 	@Override
@@ -44,12 +45,11 @@ public class MainActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
+		DBAdapter.checkDBState();
 		setContentView(R.layout.activity_main);
 
 		Intent serviceIntent = new Intent(this,ServiceHandler.class);
 		this.startService(serviceIntent);
-
-		dbAdapter = new DBAdapter();
 
 		roaming = (TextView) findViewById(R.id.strRoaming);
 		incoming = (TextView) findViewById(R.id.valueIn);
@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
 		voiceTotal = (TextView) findViewById(R.id.valueVTotal);
 		msgTotal = (TextView) findViewById(R.id.valueMTotal);
 		dataTotal = (TextView) findViewById(R.id.valueDTotal);
-		
+
 		updateScreen();
 		screenHandler = new Handler();
 		screenHandler.post(refreshScreen);
@@ -81,51 +81,53 @@ public class MainActivity extends Activity {
 	{
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
-		int in = Integer.parseInt(dbAdapter.getValue(DBOpenHelper.INCOMING));
-		int out = Integer.parseInt(dbAdapter.getValue(DBOpenHelper.OUTGOING));
-		int rcv = Integer.parseInt(dbAdapter.getValue(DBOpenHelper.RECEIVED));
-		int snt = Integer.parseInt(dbAdapter.getValue(DBOpenHelper.SENT));
-		long down = Long.parseLong(dbAdapter.getValue(DBOpenHelper.DOWNLOADED));
-		long up = Long.parseLong(dbAdapter.getValue(DBOpenHelper.UPLOADED));
-		
-		int totalV = in + out;
-		int totalM = rcv + snt;
-		long totalD = down + up;
-		
-		roaming.setText("Roaming ::: " + isRoaming());
-
-		String phoneNumber = tm.getLine1Number();
-		if(dbAdapter.isEmpty())
+		synchronized(this)
 		{
-			ContentValues cv = new ContentValues();
-			cv.put(DBOpenHelper.PHONENUMBER, phoneNumber);
-			cv.put(DBOpenHelper.ROAMING, "fetching");
-			cv.put(DBOpenHelper.INCOMING, "0");
-			cv.put(DBOpenHelper.OUTGOING, "0");
-			cv.put(DBOpenHelper.RECEIVED, "0");
-			cv.put(DBOpenHelper.SENT, "0");
-			cv.put(DBOpenHelper.DOWNLOADED, "0");
-			cv.put(DBOpenHelper.UPLOADED, "0");
-			dbAdapter.insert(cv);
-		}
-		else
-		{
-			incoming.setText(String.valueOf(in));
-			outgoing.setText(String.valueOf(out));
-			received.setText(String.valueOf(rcv));
-			sent.setText(String.valueOf(snt));
+			int in = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.INCOMING));
+			int out = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.OUTGOING));
+			int rcv = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.RECEIVED));
+			int snt = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.SENT));
+			long down = Long.parseLong(DBAdapter.getValue(DBOpenHelper.DOWNLOADED));
+			long up = Long.parseLong(DBAdapter.getValue(DBOpenHelper.UPLOADED));
 
-			downloaded.setText(
-					humanReadableByteCount(down,true));
-			uploaded.setText(
-					humanReadableByteCount(up,true));
-			
-			voiceTotal.setText(String.valueOf(totalV));
-			msgTotal.setText(String.valueOf(totalM));
-			dataTotal.setText(humanReadableByteCount(totalD,true));
-			
-		}
+			int totalV = in + out;
+			int totalM = rcv + snt;
+			long totalD = down + up;
 
+			roaming.setText("Roaming ::: " + isRoaming());
+
+			String phoneNumber = tm.getLine1Number();
+			if(DBAdapter.isEmpty())
+			{
+				ContentValues cv = new ContentValues();
+				cv.put(DBOpenHelper.PHONENUMBER, phoneNumber);
+				cv.put(DBOpenHelper.ROAMING, "fetching");
+				cv.put(DBOpenHelper.INCOMING, "0");
+				cv.put(DBOpenHelper.OUTGOING, "0");
+				cv.put(DBOpenHelper.RECEIVED, "0");
+				cv.put(DBOpenHelper.SENT, "0");
+				cv.put(DBOpenHelper.DOWNLOADED, "0");
+				cv.put(DBOpenHelper.UPLOADED, "0");
+				DBAdapter.insert(cv);
+			}
+			else
+			{
+				incoming.setText(String.valueOf(in));
+				outgoing.setText(String.valueOf(out));
+				received.setText(String.valueOf(rcv));
+				sent.setText(String.valueOf(snt));
+
+				downloaded.setText(
+						humanReadableByteCount(down,true));
+				uploaded.setText(
+						humanReadableByteCount(up,true));
+
+				voiceTotal.setText(String.valueOf(totalV));
+				msgTotal.setText(String.valueOf(totalM));
+				dataTotal.setText(humanReadableByteCount(totalD,true));
+
+			}
+		}
 	}
 
 	@Override
@@ -199,7 +201,7 @@ public class MainActivity extends Activity {
 		if (bytes < unit) return bytes + " B";
 		int exp = (int) (Math.log(bytes) / Math.log(unit));
 		String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
-		return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+		return String.format(Locale.CANADA,"%.1f %sB", bytes / Math.pow(unit, exp), pre);
 	}
 
 	@Override

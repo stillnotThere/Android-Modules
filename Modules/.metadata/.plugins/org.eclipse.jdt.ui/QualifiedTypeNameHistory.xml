@@ -13,7 +13,6 @@
 <fullyQualifiedTypeName name="android.os.Environment"/>
 <fullyQualifiedTypeName name="android.database.Cursor"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="java.util.Locale"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.RadioModuleActivity"/>
 <fullyQualifiedTypeName name="java.lang.Long"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.global.DBConstants"/>
@@ -57,7 +56,8 @@
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.MainActivity"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
+<fullyQualifiedTypeName name="java.util.Locale"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.MainActivity"/>
 </qualifiedTypeNameHistroy>

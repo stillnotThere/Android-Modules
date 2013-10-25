@@ -10,102 +10,179 @@
  */
 package com.app.project.acropolis.database;
 
-import com.app.project.acropolis.Logger;
-import com.app.project.acropolis.MainActivity;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.telephony.TelephonyManager;
+
+import com.app.project.acropolis.Logger;
+import com.app.project.acropolis.MainActivity;
 
 /**
  * @author CPH-iMac
  *
  */
 public class DBAdapter {
-	private Context context;
-	DBOpenHelper DB;
-	SQLiteDatabase db;
-	final String table = "MONITORED_VALUES";
-	
-	
-	public DBAdapter() {
-		this.context = MainActivity.getContext();
-	}
-	
-	protected SQLiteDatabase openConnection() 
+
+	final static String table = "MONITORED_VALUES";
+
+	protected static SQLiteDatabase openConnection() 
 	{
-		DBOpenHelper helper = new DBOpenHelper(context);
-		Logger.Debug(context.getPackageName() + "\n" + context.getPackageResourcePath());
+		DBOpenHelper helper = new DBOpenHelper(MainActivity.getContext());
+		Logger.Debug(MainActivity.getContext().getPackageName() + "\n" + MainActivity.getContext().getPackageResourcePath());
 		return helper.getWritableDatabase();
 	}
-	
-	public boolean isEmpty() 
+
+	public static void checkDBState()
 	{
-		db = openConnection();
-		Cursor cursor = db.query(table, new String[] {"COUNT(*)"}, null, null, null, null, null);
-		boolean result;
+		if(isEmpty())
+		{
+			Logger.Debug("inserting blank");
+			putBlank();
+		}
 		
-		cursor.moveToFirst();
-		if(cursor.getInt(0) == 0)
-		{
-			result = true;
-		}
-		else
-		{
-			result = false;
-		}
-		cursor.close();
-		db.close();
-		return result;
 	}
-	
-	public long insert(ContentValues values) 
+
+	private static void putBlank()
 	{
-		db = openConnection();
-		db.delete(table, null, null);
-		long result = db.insert(table, null, values);
-		db.close();
-		return result;
+		SQLiteDatabase db = openConnection();
+		db.beginTransaction();
+		try {
+			DBOpenHelper.blank_PHONENUMBER = 
+					( (TelephonyManager) MainActivity.getContext().
+							getSystemService(Context.TELEPHONY_SERVICE)).
+							getLine1Number();
+			
+			ContentValues cv = new ContentValues();			
+			cv.put(DBOpenHelper.PHONENUMBER, DBOpenHelper.blank_PHONENUMBER);
+			cv.put(DBOpenHelper.ROAMING, DBOpenHelper.blank_ROAMING);
+			cv.put(DBOpenHelper.INCOMING, DBOpenHelper.blank_INCOMING);
+			cv.put(DBOpenHelper.OUTGOING, DBOpenHelper.blank_OUTGOING);
+			cv.put(DBOpenHelper.RECEIVED, DBOpenHelper.blank_RECEIVED);
+			cv.put(DBOpenHelper.SENT, DBOpenHelper.blank_SENT);
+			cv.put(DBOpenHelper.DOWNLOADED, DBOpenHelper.blank_DOWNLOADED);
+			cv.put(DBOpenHelper.UPLOADED, DBOpenHelper.blank_UPLOADED);
+			db.insert(table, null, cv);
+			
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
 	}
-	
-	public long update(ContentValues value)
+
+	public static boolean isEmpty() 
 	{
-		db = openConnection();
-		long result = db.update(table, value, null, null);
-		db.close();
+		SQLiteDatabase db = openConnection();
+		boolean result;
+
+		db.beginTransaction();	//EXCLUSIVE
+		try
+		{
+			Cursor cursor = db.query(table, new String[] {"COUNT(*)"}, null, null, null, null, null);
+			cursor.moveToFirst();
+			if(cursor.getInt(0) == 0)
+			{
+				result = true;
+			}
+			else
+			{
+				result = false;
+			}
+			cursor.close();
+
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+			db.close();	
+		}
 		return result;
 	}
-	
-	public long delete(){
-		db = openConnection();
-		db.delete(table, null, null);
-		db.close();
+
+	public static long insert(ContentValues values) 
+	{
+		SQLiteDatabase db = openConnection();
+		long result = 0;
+		db.beginTransaction();
+		try{
+			db.delete(table, null, null);
+			result = db.insert(table, null, values);
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+			db.close();
+		}
+		return result;
+	}
+
+	public static long update(ContentValues value)
+	{
+		SQLiteDatabase db = openConnection();
+		long result=0;
+
+		db.beginTransaction();
+		try{
+			result = db.update(table, value, null, null);
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+			db.close();	
+		}
+
+		return result;
+	}
+
+	public static long delete(){
+		SQLiteDatabase db = openConnection();
+		db.beginTransaction();
+		try{
+			db.delete(table, null, null);
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+			db.close();
+		}
 		return 0;
 	}
-	
-	public String getValue(String column)
+
+	public static String getValue(String column)
 	{
 		String value = "";
-		db = openConnection();
-		Cursor cursor = db.query(table, new String[]{column},null, null, null, null, null);
-		cursor.moveToFirst();
-		value = cursor.getString(cursor.getColumnIndex(column));
-		cursor.close();
-		db.close();
+		Cursor cursor = null;
+		SQLiteDatabase db = openConnection();
+		db.beginTransaction();
+		try {
+			cursor = db.query(table, new String[]{column},null, null, null, null, null);
+			cursor.moveToFirst();
+			value = cursor.getString(cursor.getColumnIndex(column));
+			db.setTransactionSuccessful();
+		} finally {
+			if(cursor!=null)
+			{
+				cursor.close();
+			}
+			db.endTransaction();
+			db.close();
+		}
 		return value;
 	}
-	
-	public Cursor getValues() 
+
+	public static Cursor getValues() 
 	{
-		db = openConnection();
-		Cursor cursor = db.query(table, null, null, null, null, null, null);
-		cursor.moveToFirst();
-		
-		//TODO
-		
-		cursor.close();
-		db.close();
+		SQLiteDatabase db = openConnection();
+		Cursor cursor =null;
+		db.beginTransaction();
+		try {
+			cursor = db.query(table, null, null, null, null, null, null);
+			cursor.moveToFirst();
+		} finally {
+			if(cursor!=null)
+			{
+				cursor.close();
+			}
+			db.endTransaction();
+			db.close();
+		}
 		return cursor;
 	}
 }

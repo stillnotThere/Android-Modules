@@ -10,6 +10,8 @@
  */
 package com.app.project.acropolis;
 
+import java.util.Locale;
+
 import android.content.ContentValues;
 import android.net.TrafficStats;
 import android.telephony.PhoneStateListener;
@@ -25,12 +27,11 @@ import com.app.project.acropolis.database.DBOpenHelper;
 public class DataMonitoring extends PhoneStateListener 
 {
 
-	DBAdapter dbAdapter = new DBAdapter();
 	long downloaded = 0;
 	long uploaded = 0;
 
-	long DB_D = Long.parseLong(dbAdapter.getValue(DBOpenHelper.DOWNLOADED));
-	long DB_U = Long.parseLong(dbAdapter.getValue(DBOpenHelper.UPLOADED));
+	long DB_D = Long.parseLong(DBAdapter.getValue(DBOpenHelper.DOWNLOADED));
+	long DB_U = Long.parseLong(DBAdapter.getValue(DBOpenHelper.UPLOADED));
 
 	long tmpD = 0;
 	long tmpU = 0;
@@ -73,7 +74,7 @@ public class DataMonitoring extends PhoneStateListener
 		
 		ContentValues cvD = new ContentValues();
 		cvD.put(DBOpenHelper.DOWNLOADED, String.valueOf(DB_D));
-		dbAdapter.update(cvD);
+		DBAdapter.update(cvD);
 	}
 
 	public void checkUpload()
@@ -85,7 +86,7 @@ public class DataMonitoring extends PhoneStateListener
 		
 		ContentValues cvU = new ContentValues();
 		cvU.put(DBOpenHelper.UPLOADED, String.valueOf(DB_U));
-		dbAdapter.update(cvU);
+		DBAdapter.update(cvU);
 	}
 
 	public static String humanReadableByteCount(long bytes, boolean si) {
@@ -93,7 +94,7 @@ public class DataMonitoring extends PhoneStateListener
 		if (bytes < unit) return bytes + " B";
 		int exp = (int) (Math.log(bytes) / Math.log(unit));
 		String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
-		return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+		return String.format(Locale.CANADA,"%.1f %sB", bytes / Math.pow(unit, exp), pre);
 	}
 
 }

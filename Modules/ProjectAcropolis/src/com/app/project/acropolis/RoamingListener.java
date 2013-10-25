@@ -38,7 +38,7 @@ public class RoamingListener extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		telephonyManager = (TelephonyManager)
-				MainActivity.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+				context.getSystemService(Context.TELEPHONY_SERVICE);
 		connectivityManager = (ConnectivityManager) 
 				MainActivity.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		state = connectivityManager.getActiveNetworkInfo().getState();
@@ -47,7 +47,7 @@ public class RoamingListener extends BroadcastReceiver
 
 	public void stateTheObvious()
 	{
-		DBAdapter dbAdapter = new DBAdapter();
+//		DBAdapter dbAdapter = new DBAdapter();
 		
 		if(state.compareTo(NetworkInfo.State.CONNECTED)==0)
 		{
@@ -66,7 +66,7 @@ public class RoamingListener extends BroadcastReceiver
 				}
 				ContentValues cv = new ContentValues();
 				cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
-				dbAdapter.update(cv);
+				DBAdapter.update(cv);
 			}
 		}
 		else

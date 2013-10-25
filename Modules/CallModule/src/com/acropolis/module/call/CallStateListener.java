@@ -22,7 +22,7 @@ import android.telephony.TelephonyManager;
  */
 public class CallStateListener extends PhoneStateListener
 {
-
+	String str = "";
 	boolean numberPresent = false;
 	boolean incoming = false;
 	boolean missed = false;
@@ -41,6 +41,7 @@ public class CallStateListener extends PhoneStateListener
 		switch(state)
 		{
 		case TelephonyManager.CALL_STATE_IDLE:
+			Logger.Debug("\n\n\n"+incomingNumber.length());
 			Logger.Debug("idle\t"+incomingNumber);
 //			ringing = false;
 //			INoffhook = false;
@@ -50,31 +51,32 @@ public class CallStateListener extends PhoneStateListener
 				{
 					if(incoming)
 					{
+						str = "incoming";
 						Handler INhandler = new Handler();
 						INhandler.postDelayed(new LogRunnable(),500);
-						Logger.Debug("call finished");
 					}
 				}
 				INoffhook = false;
 				incoming = false;
 				ringing = false;
 				
-				if(OUTringing)
-				{
-					outgoing = true;
-					Logger.Debug("Outgoing call");
-					if(outgoing)
-					{
-						Handler OUThandler = new Handler();
-						OUThandler.postDelayed(new LogRunnable(), 500);
-					}
-				}
-				OUTringing = false;
-				outgoing = false;
-				OUToffhook = false;
+//				if(OUTringing)
+//				{
+//					outgoing = true;
+//					if(outgoing)
+//					{
+//						str = "outgoing";
+//						Handler OUThandler = new Handler();
+//						OUThandler.postDelayed(new LogRunnable(), 500);
+//					}
+//				}
+//				OUTringing = false;
+//				outgoing = false;
+//				OUToffhook = false;
 			}
 
 		case TelephonyManager.CALL_STATE_OFFHOOK:
+			Logger.Debug("\n\n\n"+incomingNumber.length());
 			Logger.Debug("off hook\t"+incomingNumber);
 			if(incomingNumber.length()==0)
 			{
@@ -83,15 +85,18 @@ public class CallStateListener extends PhoneStateListener
 					INoffhook = true;
 					incoming = true;
 				}
-				else	//possible outgoing
-				{
-					OUToffhook = true;
-				}
+//				else	//possible outgoing
+//				{
+//					OUToffhook = true;
+//				}
 			}
 
 
 		case TelephonyManager.CALL_STATE_RINGING:
+			Logger.Debug("\n\n\n"+incomingNumber.length());
 			Logger.Debug("ringing\t"+incomingNumber);
+			
+			Logger.Debug(String.valueOf(incomingNumber.length()));
 			
 			if(incomingNumber.length()>0)
 			{
@@ -99,11 +104,11 @@ public class CallStateListener extends PhoneStateListener
 			}
 			else if(incomingNumber.length()==0)
 			{
-				if(OUToffhook)
-				{
-					OUTringing = true;
-				}
-				Logger.Debug("null");
+//				if(OUToffhook)
+//				{
+//					OUTringing = true;
+//				}
+				Logger.Debug("null ##");
 			}
 			
 		}
@@ -119,7 +124,8 @@ public class CallStateListener extends PhoneStateListener
 		{
 //			Logger.Debug("Incoming call");
 			// get start of cursor
-			Logger.Debug("Getting Log activity...");
+		
+			Logger.Debug("Getting Log activity..."+str);
 			String[] projection = new String[]{Calls.NUMBER,Calls.DURATION};
 			Cursor cur = MainActivity.getContext().getContentResolver().query(Calls.CONTENT_URI, projection, null, null, Calls.DATE +" desc");
 			cur.moveToFirst();
