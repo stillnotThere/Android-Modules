@@ -125,23 +125,22 @@ public class MainActivity extends Activity {
 				voiceTotal.setText(String.valueOf(totalV));
 				msgTotal.setText(String.valueOf(totalM));
 				dataTotal.setText(humanReadableByteCount(totalD,true));
-
 			}
 		}
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		bindService(new Intent(this, ServiceHandler.class), mConnection,
-				Context.BIND_AUTO_CREATE);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		unbindService(mConnection);
-	}
+//	@Override
+//	protected void onResume() {
+//		super.onResume();
+//		bindService(new Intent(this, ServiceHandler.class), mConnection,
+//				Context.BIND_AUTO_CREATE);
+//	}
+//
+//	@Override
+//	protected void onPause() {
+//		super.onPause();
+//		unbindService(mConnection);
+//	}
 
 	ServiceHandler s;
 

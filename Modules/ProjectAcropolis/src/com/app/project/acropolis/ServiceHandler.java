@@ -14,6 +14,8 @@ import android.app.Service;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
@@ -46,6 +48,7 @@ public class ServiceHandler extends Service
 
 	public void onCreate()
 	{
+		setupRoamingChanges();
 		setupCallMonitoring();
 		setupMessageMonitoring();
 		setupDataMonitoring();
@@ -62,7 +65,7 @@ public class ServiceHandler extends Service
 
 	public void setupMessageMonitoring()
 	{
-		ContentResolver contentResolver = getContentResolver();
+		ContentResolver contentResolver = MainActivity.getContext().getContentResolver();
 		contentResolver.registerContentObserver(outUri, true, 
 				new MessageMonitoring());
 	}
@@ -73,6 +76,14 @@ public class ServiceHandler extends Service
 				getSystemService(Context.TELEPHONY_SERVICE);
 		telephonyManager.listen(new DataMonitoring(), 
 				PhoneStateListener.LISTEN_DATA_ACTIVITY);
+	}
+	
+	public void setupRoamingChanges()
+	{
+		Context context = MainActivity.getContext();
+		IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		context.registerReceiver(new RoamingListener(),
+				intentFilter,"android.permission.ACCESS_NETWORK_STATE",null);
 	}
 	
 	public int onStartCommand(Intent intent,int arg0,int arg1)

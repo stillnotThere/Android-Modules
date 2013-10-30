@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.graphics.Color"/>
-<fullyQualifiedTypeName name="com.acropolis.location.module.MainActivity"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.controller.ControlSwitches"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.layout"/>
@@ -11,7 +9,6 @@
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase.CursorFactory"/>
 <fullyQualifiedTypeName name="android.os.Environment"/>
-<fullyQualifiedTypeName name="android.database.Cursor"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.RadioModuleActivity"/>
 <fullyQualifiedTypeName name="java.lang.Long"/>
@@ -41,11 +38,8 @@
 <fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.logger.Logger"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.RadioEngine"/>
-<fullyQualifiedTypeName name="android.net.Uri"/>
 <fullyQualifiedTypeName name="com.acropolis.module.message.Logger"/>
 <fullyQualifiedTypeName name="android.database.ContentObserver"/>
-<fullyQualifiedTypeName name="android.provider.CallLog"/>
-<fullyQualifiedTypeName name="android.provider.CallLog.Calls"/>
 <fullyQualifiedTypeName name="android.telephony.TelephonyManager"/>
 <fullyQualifiedTypeName name="android.net.TrafficStats"/>
 <fullyQualifiedTypeName name="android.app.Service"/>
@@ -60,4 +54,10 @@
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="java.util.Locale"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.MainActivity"/>
+<fullyQualifiedTypeName name="android.database.Cursor"/>
+<fullyQualifiedTypeName name="android.net.Uri"/>
+<fullyQualifiedTypeName name="com.acropolis.module.call.Logger"/>
+<fullyQualifiedTypeName name="android.provider.CallLog"/>
+<fullyQualifiedTypeName name="android.provider.CallLog.Calls"/>
+<fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
 </qualifiedTypeNameHistroy>

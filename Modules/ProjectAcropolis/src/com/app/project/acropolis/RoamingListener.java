@@ -33,62 +33,44 @@ public class RoamingListener extends BroadcastReceiver
 	public ConnectivityManager connectivityManager = null;
 	public TelephonyManager telephonyManager = null;
 	public NetworkInfo.State state = null;
-	
+
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
 		telephonyManager = (TelephonyManager)
 				context.getSystemService(Context.TELEPHONY_SERVICE);
-		connectivityManager = (ConnectivityManager) 
-				MainActivity.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-		state = connectivityManager.getActiveNetworkInfo().getState();
-		stateTheObvious();
-	}
-
-	public void stateTheObvious()
-	{
-//		DBAdapter dbAdapter = new DBAdapter();
-		
-		if(state.compareTo(NetworkInfo.State.CONNECTED)==0)
-		{
-			if(telephonyManager.getNetworkOperatorName().length()>0)
-			{
-				for(int i=0;i<CAN_OPERATORS.length;i++)
-				{
-					if(telephonyManager.
-							getNetworkOperatorName().equalsIgnoreCase(CAN_OPERATORS[i]))
-					{
-						roaming = false;
-						break;
-					}
-					else
-						roaming = true;
-				}
-				ContentValues cv = new ContentValues();
-				cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
-				DBAdapter.update(cv);
-			}
-		}
+		//		connectivityManager = (ConnectivityManager) 
+		//				context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if(telephonyManager.isNetworkRoaming())
+			changeRoaming();
 		else
-		{
-			new Thread(new Runnable() 
-			{
-				public void run()
-				{
-					while(state.compareTo(NetworkInfo.State.CONNECTED)!=0)
-					{
-						Logger.Debug("no service");
-						try 
-						{
-							Thread.sleep(5*1000);
-						} catch (InterruptedException e) 
-						{
-							e.printStackTrace();
-						}
-					}
-				}
-			}).start();
-		}
+			crossCheck();
 	}
 
+	public void changeRoaming()
+	{
+		if(telephonyManager.getNetworkOperatorName().length()>0)
+		{
+			for(int i=0;i<CAN_OPERATORS.length;i++)
+			{
+				if(!telephonyManager.
+						getNetworkOperatorName().equalsIgnoreCase(CAN_OPERATORS[i]))
+				{
+					roaming = true;
+					break;
+				}
+			}
+			ContentValues cv = new ContentValues();
+			cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
+			DBAdapter.update(cv);
+		}
+	}
+	
+	public void crossCheck()
+	{
+		if(telephonyManager.getNetworkOperatorName().length()>0)
+		{
+			
+		}
+	}
 }
