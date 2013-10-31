@@ -1,0 +1,45 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * SocketConnector
+ * com.acropolis.module.socket
+ * SocketConnector.java
+ * Created - 2013-10-31 2:10:52 PM	
+ * Modified - 2013-10-31 2:10:52 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.module.socket;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class SocketConnector 
+{
+	
+	public static final String domain = "http://cphcloud.biz"; 
+	public static final int port = 80;
+	public static Socket socket=null;
+	public static OutputStream output = null;
+	
+	public static void execute(String msg) throws IOException
+	{
+		String out = msg;
+		socket = new Socket(domain,port);
+		socket.setKeepAlive(true);
+		output = socket.getOutputStream();
+		
+		
+		
+	}
+	
+	public static void writeOutputStream(OutputStream out,String msg)
+	{
+		
+	}
+	
+}

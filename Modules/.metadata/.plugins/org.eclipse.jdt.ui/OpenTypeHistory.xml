@@ -5,7 +5,7 @@
 <typeInfo handle="=CallModule/src&lt;com.acropolis.module.call{CallerService.java[CallerService" modifiers="1" timestamp="1383072155000"/>
 <typeInfo handle="=DataModule/src&lt;com.acropolis.module.data{DataService.java[DataService" modifiers="1" timestamp="1381520720000"/>
 <typeInfo handle="=ProjectAcropolis/src&lt;com.app.project.acropolis{ServiceHandler.java[ServiceHandler" modifiers="1" timestamp="1383148666000"/>
-<typeInfo handle="=ProjectAcropolis/src&lt;com.app.project.acropolis{RoamingListener.java[RoamingListener" modifiers="1" timestamp="1383164949000"/>
+<typeInfo handle="=ProjectAcropolis/src&lt;com.app.project.acropolis{RoamingListener.java[RoamingListener" modifiers="1" timestamp="1383164960000"/>
 <typeInfo handle="=ProjectAcropolis/src&lt;com.app.project.acropolis{ScheduledReceiver.java[ScheduledReceiver" modifiers="1" timestamp="1383147266000"/>
 <typeInfo handle="=CallModule/src&lt;com.acropolis.module.call{OutgoingListener.java[OutgoingListener" modifiers="1" timestamp="1383071990000"/>
 </typeInfoHistroy>

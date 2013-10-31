@@ -1,0 +1,29 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * SocketConnector
+ * com.acropolis.module.socket
+ * SocketConnector.java
+ * Created - 2013-10-31 2:10:52 PM	
+ * Modified - 2013-10-31 2:10:52 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.module.socket;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class SocketConnector 
+{
+	
+	public final String domain = "http://cphcloud.biz"; 
+	
+	public static void execute(String msg)
+	{
+		String out = msg;
+		
+		
+	}
+	
+}
