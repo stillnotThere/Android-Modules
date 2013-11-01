@@ -1,0 +1,26 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * ConnStarted
+ * com.app.project.acropolis.comm
+ * ConnStarted.java
+ * Created - 2013-11-01 12:35:20 PM	
+ * Modified - 2013-11-01 12:35:20 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.comm;
+
+import java.net.Socket;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class ClientConnector
+{
+	
+	private Socket clientSocket = null;
+	
+	
+	
+}

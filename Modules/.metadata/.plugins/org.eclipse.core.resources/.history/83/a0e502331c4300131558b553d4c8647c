@@ -1,0 +1,27 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * DataCollector
+ * com.app.project.acropolis.comm
+ * DataCollector.java
+ * Created - 2013-11-01 12:35:33 PM	
+ * Modified - 2013-11-01 12:35:33 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.comm;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+abstract class DataCollector 
+{
+	String rcv = "";
+	
+	public void setReceivedCommand(String msg)
+	{
+		rcv = msg;
+	}
+	
+	
+}

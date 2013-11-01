@@ -1,0 +1,25 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * ServerConnector
+ * com.app.project.acropolis.comm
+ * ServerConnector.java
+ * Created - 2013-11-01 1:34:29 PM	
+ * Modified - 2013-11-01 1:34:29 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.comm;
+
+import java.net.ServerSocket;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class ServerConnector implements Runnable 
+{
+
+	private ServerSocket serverSocket = null;
+	
+	
+}
