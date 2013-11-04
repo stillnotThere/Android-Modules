@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase.CursorFactory"/>
-<fullyQualifiedTypeName name="android.os.Environment"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.RadioModuleActivity"/>
-<fullyQualifiedTypeName name="java.lang.Long"/>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.global.DBConstants"/>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.global.Common"/>
 <fullyQualifiedTypeName name="android.location.LocationProvider"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.controller.LocationHub.LocationChangeListener"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.menu"/>
@@ -40,9 +33,7 @@
 <fullyQualifiedTypeName name="android.telephony.PhoneStateListener"/>
 <fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="java.util.Locale"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.MainActivity"/>
 <fullyQualifiedTypeName name="android.database.Cursor"/>
@@ -52,12 +43,21 @@
 <fullyQualifiedTypeName name="android.provider.CallLog.Calls"/>
 <fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
-<fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.acropolis.module.socket.R.id"/>
 <fullyQualifiedTypeName name="java.net.UnknownHostException"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.net.InetAddress"/>
 <fullyQualifiedTypeName name="java.io.PrintWriter"/>
 <fullyQualifiedTypeName name="java.io.BufferedOutputStream"/>
+<fullyQualifiedTypeName name="com.acropolis.module.listener.minutes.R"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="java.util.TimeZone"/>
+<fullyQualifiedTypeName name="java.nio.channels.ClosedByInterruptException"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientFormatter"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.GlobalConstants"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientConnector"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientConnector.Connector"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 </qualifiedTypeNameHistroy>

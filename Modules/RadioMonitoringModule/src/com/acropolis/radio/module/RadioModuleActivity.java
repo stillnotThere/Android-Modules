@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.acropolis.module.radio.R;
+import com.acropolis.module.listener.minutes.R;
 import com.acropolis.radio.module.global.Common;
 import com.acropolis.radio.module.global.DBConstants;
 import com.acropolis.radio.module.logger.Logger;

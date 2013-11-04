@@ -10,6 +10,8 @@
  */
 package com.app.project.acropolis.comm;
 
+import com.app.project.acropolis.Logger;
+
 /**
  * @author CPH-iMac
  *
@@ -24,13 +26,14 @@ public class DataTumblr
 		rcv = msg;
 	}
 	
-	public String getReceivedServerData()
+	public static String getReceivedServerData()
 	{
 		return rcv;
 	}
 	
-	public void setSendClientData(String msg)
+	public static void setSendClientData(String msg)
 	{
+		Logger.Debug(msg);
 		snd = msg;
 	}
 	

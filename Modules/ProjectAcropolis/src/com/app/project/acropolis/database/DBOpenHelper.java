@@ -10,8 +10,6 @@
  */
 package com.app.project.acropolis.database;
 
-import com.app.project.acropolis.MainActivity;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;

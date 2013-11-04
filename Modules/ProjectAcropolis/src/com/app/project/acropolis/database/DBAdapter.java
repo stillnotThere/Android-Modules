@@ -17,7 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.telephony.TelephonyManager;
 
 import com.app.project.acropolis.Logger;
-import com.app.project.acropolis.MainActivity;
+import com.app.project.acropolis.ProjectAcropolisActivity;
 
 /**
  * @author CPH-iMac
@@ -29,8 +29,8 @@ public class DBAdapter {
 
 	protected static SQLiteDatabase openConnection() 
 	{
-		DBOpenHelper helper = new DBOpenHelper(MainActivity.getContext());
-		Logger.Debug(MainActivity.getContext().getPackageName() + "\n" + MainActivity.getContext().getPackageResourcePath());
+		DBOpenHelper helper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+//		Logger.Debug(ProjectAcropolisActivity.getContext().getPackageName() + "\n" + ProjectAcropolisActivity.getContext().getPackageResourcePath());
 		return helper.getWritableDatabase();
 	}
 
@@ -50,7 +50,7 @@ public class DBAdapter {
 		db.beginTransaction();
 		try {
 			DBOpenHelper.blank_PHONENUMBER = 
-					( (TelephonyManager) MainActivity.getContext().
+					( (TelephonyManager) ProjectAcropolisActivity.getContext().
 							getSystemService(Context.TELEPHONY_SERVICE)).
 							getLine1Number();
 			
