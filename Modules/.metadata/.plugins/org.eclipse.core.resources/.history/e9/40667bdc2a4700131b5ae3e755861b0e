@@ -1,0 +1,44 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * WLANStuff
+ * com.acropolis.module.socket
+ * WLANStuff.java
+ * Created - 2013-11-06 4:17:26 PM	
+ * Modified - 2013-11-06 4:17:26 PM
+ * TODO
+ * NOTES - 
+ */
+package com.acropolis.module.socket;
+
+import android.net.NetworkInfo;
+import android.net.wifi.SupplicantState;
+import android.net.wifi.WifiInfo;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class WLANStuff 
+{
+	
+	public WLANStuff()
+	{
+		if(isConnected())
+		{
+			
+		}
+	}
+	
+	public boolean isConnected()
+	{
+		boolean connected = false;
+		if(WifiInfo.getDetailedStateOf(SupplicantState.COMPLETED) == NetworkInfo.DetailedState.CONNECTED)
+			connected = true;
+		else
+			connected = false;
+		return connected;
+	}
+	
+	
+	
+}

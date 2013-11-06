@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity 
 {
+	public static Context context = null;
+	
 	final static String TAG = "SocketClient@@@@";
 
 	public Handler updateScreen = null;
@@ -35,20 +38,28 @@ public class MainActivity extends Activity
 	public final static int port = 44444;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		context = this.getApplicationContext();
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		updateScreen = new Handler();
-		ServerSock serverSock = new ServerSock();
-		new Thread(serverSock).start();
+//		ServerSock serverSock = new ServerSock();
+//		new Thread(serverSock).start();
 		btn = (Button) findViewById(R.id.button1);
 		txt = (EditText) findViewById(R.id.editText1);
 		serverTxt = (TextView) findViewById(R.id.textView1);
 		msg = txt.getText().toString();
+		new WLANStuff();
 	}
 
+	public static void setMsg(String msg)
+	{
+		serverTxt.setText(msg);
+	}
+	
 	//Button#onClick event
 	public void sendMsg(View view)
 	{
@@ -91,6 +102,11 @@ public class MainActivity extends Activity
 		}
 	}
 
+	public static Context getContext()
+	{
+		return context;
+	}
+	
 	public class ServerSock implements Runnable
 	{
 		ServerSocket serverSocket = null;
