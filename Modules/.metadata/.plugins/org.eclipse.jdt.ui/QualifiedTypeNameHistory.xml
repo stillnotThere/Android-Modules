@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.acropolis.location.module.controller.GetDetails"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.R.id"/>
 <fullyQualifiedTypeName name="com.acropolis.location.module.view.LocationModuleActivity.ScreenLooper"/>
@@ -13,7 +12,6 @@
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.DataInterecptor.DataConnectionState"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor.CallStateListener"/>
-<fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.logger.Logger"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.RadioEngine"/>
@@ -50,7 +48,6 @@
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientConnector"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientConnector.Connector"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.io.OutputStreamWriter"/>
 <fullyQualifiedTypeName name="android.net.wifi.WifiInfo"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.acropolis.module.socket.Logger"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.ProjectAcropolisActivity"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
 </qualifiedTypeNameHistroy>

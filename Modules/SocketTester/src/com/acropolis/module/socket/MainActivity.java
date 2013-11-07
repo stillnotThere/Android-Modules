@@ -20,11 +20,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity 
 {
 	public static Context context = null;
-	
+
 	final static String TAG = "SocketClient@@@@";
 
 	public Handler updateScreen = null;
@@ -42,48 +43,66 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		context = this.getApplicationContext();
+		context = getApplicationContext();
+		WLANStuff.onCPHWLAN();
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		updateScreen = new Handler();
-//		ServerSock serverSock = new ServerSock();
-//		new Thread(serverSock).start();
+		//		ServerSock serverSock = new ServerSock();
+		//		new Thread(serverSock).start();
 		btn = (Button) findViewById(R.id.button1);
 		txt = (EditText) findViewById(R.id.editText1);
 		serverTxt = (TextView) findViewById(R.id.textView1);
 		msg = txt.getText().toString();
-		new WLANStuff();
+	}
+
+	public static void postToast(String msg) 
+	{
+		Toast.makeText(getContext(),msg, Toast.LENGTH_LONG).show();
 	}
 
 	public static void setMsg(String msg)
 	{
 		serverTxt.setText(msg);
 	}
-	
+
 	//Button#onClick event
 	public void sendMsg(View view)
 	{
-		openConnection();
-		msg = txt.getText().toString(); 
-		try {
-			PrintWriter print = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),true);
-			print.println(msg);
-		}  catch (IOException e) {
-			e.printStackTrace();
+		if( openConnection() )
+		{
+			msg = txt.getText().toString(); 
+			try {
+				PrintWriter print = new PrintWriter(
+						new BufferedWriter(
+								new OutputStreamWriter(
+										socket.getOutputStream())),true);
+				print.println(msg);
+			}  catch (IOException e) {
+				e.printStackTrace();
+			}
+			closeConnection();
 		}
-		closeConnection();
 	}
 
-	public static void openConnection()
+	public static boolean openConnection()
 	{
+		boolean connected = false;
 		try
 		{
-			socket = new Socket(ip,port);
+			if(!WLANStuff.onCPHWLAN())
+			{
+				socket = new Socket(ip,port);
+				connected = true;
+			}
+			else
+				connected = false;
 		} catch (UnknownHostException e1) {
 			e1.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
+		return connected;
 	}
 
 	@Override
@@ -106,7 +125,7 @@ public class MainActivity extends Activity
 	{
 		return context;
 	}
-	
+
 	public class ServerSock implements Runnable
 	{
 		ServerSocket serverSocket = null;

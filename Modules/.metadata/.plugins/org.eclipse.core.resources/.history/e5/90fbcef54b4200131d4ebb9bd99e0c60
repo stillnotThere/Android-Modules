@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="app_name">SocketTester</string>
-    <string name="action_settings">Settings</string>
-	<string name="btnTxt">Send now</string>
-    <string name="hint">Type here</string>
-    
-</resources>

@@ -14,6 +14,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -28,7 +29,6 @@ import com.app.project.acropolis.Logger;
  */
 public class SocketClientConnector
 {
-
 	public static Socket clientSocket = null;
 	
 	public static class Connector implements Runnable 
@@ -37,14 +37,18 @@ public class SocketClientConnector
 		{
 			try 
 			{
-				InetAddress clientInet = InetAddress.getByName(GlobalConstants.ServerIP);
-				clientSocket = new Socket(clientInet,GlobalConstants.SocketClientPORT);
-//				clientSocket.setSoLinger
-//				(GlobalConstants.SocketClientLINGER,
-//						GlobalConstants.SocketClientLINGER_TIMEOUT);
-				sendMessage();
-				closeConnection();
-			} catch (UnknownHostException e1) {
+				if(!WLANStuff.onCPHWLAN())
+				{
+					InetAddress clientInet = InetAddress.getByName(GlobalConstants.ServerIP);
+					clientSocket = new Socket(clientInet,GlobalConstants.SocketClientPORT);
+					sendMessage();
+					closeConnection();
+				}
+			} catch (ConnectException e3) {
+				e3.printStackTrace();
+				
+				
+			}catch (UnknownHostException e1) {
 				e1.printStackTrace();
 			} catch (IOException e2) {
 				e2.printStackTrace();

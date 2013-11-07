@@ -13,7 +13,6 @@ package com.acropolis.module.socket;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
@@ -24,11 +23,16 @@ import android.net.wifi.WifiManager;
 public class WLANStuff 
 {
 
-	public WifiManager wifiManager = null;
-	public WifiInfo wifiInfo = null;
+	public static WifiManager wifiManager = null;
+	public static WifiInfo wifiInfo = null;
 
-	public WLANStuff()
+	public static final String CPH_SSID = "\"CPH Inc.\"";
+	public static String SSID = "";
+
+	public static boolean onCPHWLAN()
 	{
+
+		boolean onCPH = false;
 		if(isConnected())
 		{
 			wifiManager = (WifiManager) 
@@ -36,17 +40,23 @@ public class WLANStuff
 					getContext().
 					getSystemService(Context.WIFI_SERVICE);
 			wifiInfo = wifiManager.getConnectionInfo();
-			Logger.Debugger("wifi connected\nSSID::"+wifiInfo.getSSID());
-			MainActivity.setMsg("" +
-					"SSID::"+wifiInfo.getSSID()+
-					"\nBSSID::"+wifiInfo.getBSSID() +
-					"\nNetworkID::"+wifiInfo.getNetworkId()+
-					"\nRSSI::"+wifiInfo.getRssi()+
-					"\nIP::"+wifiInfo.getIpAddress());
+			SSID = wifiInfo.getSSID();
+			Logger.Debugger("SSID::"+SSID);
+			if(SSID.equals((String)CPH_SSID))
+			{
+				onCPH = true;
+				Logger.Debugger("connected to CPH");
+				MainActivity.postToast("cannot connect to server...on CPHInc wifi");
+			}
+			else
+			{
+				onCPH = false;
+			}
 		}
+		return onCPH;
 	}
 
-	public boolean isConnected()
+	public static boolean isConnected()
 	{
 		boolean connected = false;
 		ConnectivityManager connMngr = (ConnectivityManager)
@@ -54,12 +64,12 @@ public class WLANStuff
 				getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMngr.getNetworkInfo(
 				ConnectivityManager.TYPE_WIFI);
-		
+
 		if(networkInfo.isConnected())
 			connected = true;
 		else
 			connected = false;
-		
+
 		return connected;
 	}
 

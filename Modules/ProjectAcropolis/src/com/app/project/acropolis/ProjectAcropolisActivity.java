@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.project.acropolis.controller.ServiceHandler;
 import com.app.project.acropolis.database.DBAdapter;
@@ -36,12 +37,14 @@ public class ProjectAcropolisActivity extends Activity {
 	TextView dataTotal;
 
 	Handler screenHandler = null;
-
+	static Activity activity = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
+		activity = this;
 		DBAdapter.checkDBState();
 		setContentView(R.layout.activity_main);
 
@@ -65,6 +68,23 @@ public class ProjectAcropolisActivity extends Activity {
 		screenHandler.post(refreshScreen);
 	}
 
+	public static Activity getActivity()
+	{
+		return activity;
+	}
+	
+	public static String toastMsg = "";
+	public static void postToast(String msg)
+	{
+		toastMsg = msg;
+		getActivity().runOnUiThread(new Runnable() {
+			public void run()
+			{
+				Toast.makeText(getContext(), toastMsg, Toast.LENGTH_LONG).show();				
+			}
+		});
+	}
+	
 	public Runnable refreshScreen = new Runnable() 
 	{
 		public void run()
