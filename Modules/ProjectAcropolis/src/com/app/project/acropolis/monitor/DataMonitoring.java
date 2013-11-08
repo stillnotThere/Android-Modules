@@ -38,6 +38,9 @@ public class DataMonitoring extends PhoneStateListener
 
 	long incD = 0;
 	long incU = 0;
+	
+	long lastD = 0;
+	long lastU = 0;
 
 	public void onDataActivity(int direction)
 	{
@@ -68,9 +71,10 @@ public class DataMonitoring extends PhoneStateListener
 
 	public void checkDownload()
 	{
-		incD = downloaded - incD;
+		incD = downloaded - lastD;
 		DB_D = DB_D + incD;
-		incD = downloaded;
+		lastD = downloaded;
+		incD=0;
 		
 		ContentValues cvD = new ContentValues();
 		cvD.put(DBOpenHelper.DOWNLOADED, String.valueOf(DB_D));
@@ -80,9 +84,10 @@ public class DataMonitoring extends PhoneStateListener
 	public void checkUpload()
 	{
 		
-		incU = uploaded - incU;
+		incU = uploaded - lastU;
 		DB_U = DB_U + incU;
-		incU = uploaded;
+		lastU = uploaded;
+		incU=0;
 		
 		ContentValues cvU = new ContentValues();
 		cvU.put(DBOpenHelper.UPLOADED, String.valueOf(DB_U));

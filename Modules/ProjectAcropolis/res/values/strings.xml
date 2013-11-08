@@ -25,5 +25,6 @@
     <string name="strDataHeading">Data (kilobytes)</string>
     <string name="strDownloaded">Downloaded</string>
     <string name="strUploaded">Uploaded</string>
+    <string name="menuReset">Reset values</string>
     
 </resources>

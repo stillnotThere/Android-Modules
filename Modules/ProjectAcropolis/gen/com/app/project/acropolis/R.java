@@ -30,6 +30,7 @@ public final class R {
     public static final class id {
         public static final int action_settings=0x7f08001d;
         public static final int dataGrid=0x7f080015;
+        public static final int menu_reset=0x7f08001e;
         public static final int msgGrid=0x7f08000c;
         public static final int space0=0x7f080001;
         public static final int space1=0x7f08000a;
@@ -72,6 +73,7 @@ public final class R {
         /**  Standard constants 
          */
         public static final int fetching=0x7f050003;
+        public static final int menuReset=0x7f05000f;
         public static final int screenHeading=0x7f050002;
         /**  Voice Call 
          */

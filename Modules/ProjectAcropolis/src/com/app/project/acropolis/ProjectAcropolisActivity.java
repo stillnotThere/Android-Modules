@@ -6,12 +6,14 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -217,12 +219,27 @@ public class ProjectAcropolisActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
+		menu.add(R.id.menu_reset);
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+		case R.id.menu_reset:
+		{
+			DBAdapter.resetValues();
+		};
+		}
+		
+		return true;
+	}
+	
 	public static Context getContext()
 	{
 		return context;

@@ -10,6 +10,8 @@
  */
 package com.app.project.acropolis.database;
 
+import java.io.File;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -34,16 +36,56 @@ public class DBAdapter {
 		return helper.getWritableDatabase();
 	}
 
+	protected static boolean dropTables()
+	{
+		DBOpenHelper helper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+		SQLiteDatabase db = helper.getWritableDatabase();
+		helper.dropTables(db);
+		helper.createTables(db);
+		db.close();
+		
+		return true;
+	}
+	
+	public static boolean doesItExist()
+	{
+		boolean exists = false;
+		File file = ProjectAcropolisActivity.getContext().getDatabasePath(DBOpenHelper.DB_NAME);
+		if(file.exists())
+			exists = true;
+		else 
+			exists = false;
+		Logger.Debug(String.valueOf(exists));
+		return exists;
+	}
+	
 	public static void checkDBState()
 	{
-		if(isEmpty())
+		if(doesItExist())
 		{
-			Logger.Debug("inserting blank");
+			if(isEmpty())
+			{
+				Logger.Debug("inserting blank");
+				putBlank();
+			}
+		}
+		else
+		{
+			DBOpenHelper openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+			SQLiteDatabase _db = openHelper.getWritableDatabase();
+			openHelper.createTables(_db);
+			_db.close();
 			putBlank();
 		}
-		
 	}
 
+	public static void resetValues()
+	{
+		dropTables();
+		putBlank();
+		Logger.Debug("Values reset");
+	}
+	
 	private static void putBlank()
 	{
 		SQLiteDatabase db = openConnection();
@@ -132,7 +174,8 @@ public class DBAdapter {
 		return result;
 	}
 
-	public static long delete(){
+	public static long delete()
+	{
 		SQLiteDatabase db = openConnection();
 		db.beginTransaction();
 		try{
