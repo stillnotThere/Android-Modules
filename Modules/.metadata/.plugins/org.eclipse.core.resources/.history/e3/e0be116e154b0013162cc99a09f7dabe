@@ -1,0 +1,51 @@
+package com.tester;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends Activity 
+{
+
+	
+	EditText input = null;
+	TextView output_tu = null;
+	TextView output_ceil = null;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		input = (EditText) findViewById(R.id.inSec);
+		output_tu = (TextView) findViewById(R.id.resultMins_timeunit);
+		output_ceil = (TextView) findViewById(R.id.result_ceil);
+
+		
+		
+	}
+
+	public String convertTU(String sec)
+	{
+		String min="";
+		
+		return min;
+	}
+	
+	public String covertCeil(String sec)
+	{
+		String min="";
+		
+		return min;
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+}

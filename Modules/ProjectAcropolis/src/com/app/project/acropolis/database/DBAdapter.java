@@ -52,10 +52,13 @@ public class DBAdapter {
 		boolean exists = false;
 		File file = ProjectAcropolisActivity.getContext().getDatabasePath(DBOpenHelper.DB_NAME);
 		if(file.exists())
+		{
 			exists = true;
+			Logger.Debug("exists____size::"+file.length());
+		}
 		else 
 			exists = false;
-		Logger.Debug(String.valueOf(exists));
+		
 		return exists;
 	}
 	

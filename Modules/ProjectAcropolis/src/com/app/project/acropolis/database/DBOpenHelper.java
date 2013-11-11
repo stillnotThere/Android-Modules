@@ -58,7 +58,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	{
 
 		db.execSQL(
-				"CREATE TABLE " + TBL + " (" +
+				"CREATE TABLE IF NOT EXISTS " + TBL + " (" +
 						"_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 						"PHONE_NUM TEXT NOT NULL, " +
 						"ROAMING TEXT, " +
