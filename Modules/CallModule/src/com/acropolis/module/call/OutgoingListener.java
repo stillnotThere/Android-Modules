@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.os.Handler;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 

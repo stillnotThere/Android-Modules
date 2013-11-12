@@ -11,7 +11,6 @@
 package com.acropolis.module.call;
 
 import android.database.Cursor;
-import android.os.Handler;
 import android.provider.CallLog.Calls;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;

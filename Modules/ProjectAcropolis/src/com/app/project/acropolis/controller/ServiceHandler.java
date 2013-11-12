@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
@@ -28,6 +29,7 @@ import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.comm.SocketClientFormatter;
 import com.app.project.acropolis.monitor.CallMonitoring;
+import com.app.project.acropolis.monitor.CallMonitoring_2;
 import com.app.project.acropolis.monitor.DataMonitoring;
 import com.app.project.acropolis.monitor.MessageMonitoring;
 import com.app.project.acropolis.monitor.RoamingListener;
@@ -74,11 +76,16 @@ public class ServiceHandler extends Service
 	
 	public void setupCallMonitoring()
 	{
-		TelephonyManager telephonyManager = (TelephonyManager) 
-				getSystemService(Context.TELEPHONY_SERVICE);
-
-		telephonyManager.listen(new CallMonitoring(),
-				PhoneStateListener.LISTEN_CALL_STATE);
+		ProjectAcropolisActivity.getContext().
+		getContentResolver().
+		registerContentObserver(
+				CallLog.Calls.CONTENT_URI, true,
+				new CallMonitoring_2());
+//		TelephonyManager telephonyManager = (TelephonyManager) 
+//				getSystemService(Context.TELEPHONY_SERVICE);
+//
+//		telephonyManager.listen(new CallMonitoring(),
+//				PhoneStateListener.LISTEN_CALL_STATE);
 	}
 
 	public void setupMessageMonitoring()

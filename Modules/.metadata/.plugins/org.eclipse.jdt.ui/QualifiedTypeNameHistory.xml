@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.acropolis.module.listener.minutes.R.id"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor.ServiceStateListener"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.DataInterecptor.DataActivityMonitor"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.DataInterecptor"/>
@@ -21,9 +20,6 @@
 <fullyQualifiedTypeName name="com.app.project.acropolis.MainActivity"/>
 <fullyQualifiedTypeName name="android.database.Cursor"/>
 <fullyQualifiedTypeName name="android.net.Uri"/>
-<fullyQualifiedTypeName name="com.acropolis.module.call.Logger"/>
-<fullyQualifiedTypeName name="android.provider.CallLog"/>
-<fullyQualifiedTypeName name="android.provider.CallLog.Calls"/>
 <fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
 <fullyQualifiedTypeName name="com.acropolis.module.socket.R.id"/>
 <fullyQualifiedTypeName name="java.net.UnknownHostException"/>
@@ -32,13 +28,11 @@
 <fullyQualifiedTypeName name="java.io.PrintWriter"/>
 <fullyQualifiedTypeName name="java.io.BufferedOutputStream"/>
 <fullyQualifiedTypeName name="com.acropolis.module.listener.minutes.R"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="java.util.TimeZone"/>
 <fullyQualifiedTypeName name="java.nio.channels.ClosedByInterruptException"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientFormatter"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.GlobalConstants"/>
-<fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientConnector"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientConnector.Connector"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
@@ -49,15 +43,21 @@
 <fullyQualifiedTypeName name="android.net.NetworkInfo.DetailedState"/>
 <fullyQualifiedTypeName name="com.acropolis.module.socket.Logger"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.ProjectAcropolisActivity"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.layout"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.menu"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 <fullyQualifiedTypeName name="java.lang.Long"/>
 <fullyQualifiedTypeName name="com.tester.R.id"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.acropolis.module.call.Logger"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.ProjectAcropolisActivity"/>
+<fullyQualifiedTypeName name="android.provider.CallLog"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.monitor.CallMonitoring_2"/>
+<fullyQualifiedTypeName name="android.provider.CallLog.Calls"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 </qualifiedTypeNameHistroy>

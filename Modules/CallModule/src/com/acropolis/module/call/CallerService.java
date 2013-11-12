@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.os.Handler;
 import android.os.IBinder;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
@@ -40,15 +41,15 @@ public class CallerService extends Service
 
 	public void onCreate()
 	{
-		setupCallListener();
+		//		setupCallListener();
 		getContentResolver().registerContentObserver(CallLog.Calls.CONTENT_URI,true,outgoingCallObserver);
-//		setupOutgoingListener();
+		//		setupOutgoingListener();
 	}
 
-//	public int onStartCommand(Intent intent,int flags,int startId)
-//	{
-//		return Service.START_STICKY;
-//	}
+	//	public int onStartCommand(Intent intent,int flags,int startId)
+	//	{
+	//		return Service.START_STICKY;
+	//	}
 
 	public void setupCallListener()
 	{
@@ -77,21 +78,23 @@ public class CallerService extends Service
 
 	final ContentObserver outgoingCallObserver = new ContentObserver(null) 
 	{
+		Handler handler = new Handler();
 		final long threshold = 1000; //10,000 milliseconds
 		long lastCall = 0;
 		long nextUpdate = 0;
 
 		public void onChange(boolean selfChange)
 		{
-			Logger.Debug("onChanges");
+			Logger.Debug("onChanges\t"+this.getClass());
 			String[] projection = 
 				{
-//					Calls.DURATION,
-					Calls.TYPE
+					Calls.DURATION,
+					Calls.TYPE,
+					Calls.DATE
 				};
 			String selection = null;
 			String[] selectionArgs = null;
-			String sortOrder = null;//CallLog.Calls.DATE+" DESC";
+			String sortOrder = CallLog.Calls.DATE+" DESC";
 
 			Cursor outCursor = 
 					getContentResolver().query(
@@ -100,29 +103,69 @@ public class CallerService extends Service
 							selection, 
 							selectionArgs,
 							sortOrder);
+			
 			if(outCursor!=null)
 			{
-				if(outCursor.moveToFirst())
-				{
-					int type = outCursor.getInt(outCursor.
-							getColumnIndex(Calls.TYPE));
-					if(type == Calls.OUTGOING_TYPE)
-					{
-						Logger.Debug("Outgoing Call " +
-								"\nNumber:::"+ 
-								outCursor.
-								getString(outCursor.
-										getColumnIndex(Calls.NUMBER))
-										+
-										"\nDuration::"+
-										outCursor.
-										getString(outCursor.
-												getColumnIndex(Calls.DURATION)));
-					}
-				}
+				outCursor.moveToFirst();
+				handler.postDelayed(new LogRunnable(), 30*000);
+//				Logger.Debug("outCursor.getString(Calls.DURATION)::\t"+outCursor.getString(0));
+//				Logger.Debug("outCursor.getString(Calls.TYPE)::\t"+outCursor.getString(1));
+//				Logger.Debug("outCursor.getString(Calls.DATE)::\t"+outCursor.getString(2));
+//				int type = outCursor.getInt(outCursor.
+//						getColumnIndex(Calls.TYPE));
+//				
+//				if(type == Calls.OUTGOING_TYPE)
+//				{
+//					Logger.Debug("Outgoing Call " +
+//							"\nNumber:::"+ 
+//							outCursor.
+//							getString(outCursor.
+//									getColumnIndex(Calls.NUMBER))
+//									+
+//									"\nDuration::"+
+//									outCursor.
+//									getString(outCursor.
+//											getColumnIndex(Calls.DURATION)));
+//				}
 			}
 			outCursor.close();
 		}
 	};
+
+	private long lastCall = 0;
+	private long newCall = 0;
+	private int counter = 0;
+
+
+	private class LogRunnable implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			//			Logger.Debug("Incoming call");
+			// get start of cursor
+			if(counter<1)
+			{
+				Logger.Debug("Getting Log activity...");
+				String[] projection = new String[]{Calls.NUMBER,Calls.DURATION,Calls.TYPE,Calls.DATE};
+				Cursor cur = MainActivity.getContext().getContentResolver().query(Calls.CONTENT_URI, projection, null, null, Calls.DATE +" desc");
+				cur.moveToFirst();
+				String lastCallnumber = cur.getString(0);
+				String lastCallduration = cur.getString(1);
+				String lastCallType = cur.getString(2);
+				lastCall = Long.parseLong(cur.getString(3));
+				Logger.Debug("last callNumber::"+lastCallnumber + 
+						"\nduration::"+lastCallduration +
+						"\ntype::"+lastCallType+
+						"\ntime::"+lastCall);
+				Logger.Debug("counter::\t\t"+counter);
+			}
+			else if(counter<=4)
+			{
+				counter=0;
+			}
+			counter++;
+		}
+	}
 
 }

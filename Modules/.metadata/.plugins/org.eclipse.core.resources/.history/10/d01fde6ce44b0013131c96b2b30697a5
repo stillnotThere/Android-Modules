@@ -1,0 +1,55 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * CallMonitoring_2
+ * com.app.project.acropolis.monitor
+ * CallMonitoring_2.java
+ * Created - 2013-11-12 4:44:33 PM	
+ * Modified - 2013-11-12 4:44:33 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.monitor;
+
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.os.Handler;
+import android.provider.CallLog.Calls;
+
+import com.app.project.acropolis.ProjectAcropolisActivity;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class CallMonitoring_2 extends ContentObserver 
+{
+
+	private Handler logHandler = new Handler();
+
+	private final String[] projection = {Calls.TYPE,Calls.DURATION,Calls.DATE};
+	private final String[] selection = null;
+	private final String[] selectionArgs = null;
+	private final String sortOrder = null;
+	
+	
+	/**
+	 * @param handler
+	 */
+	public CallMonitoring_2() {
+		super(null);
+		
+		Cursor cursor = ProjectAcropolisActivity.getContext().getContentResolver().query(Calls.CONTENT_URI, projection, selection, selectionArgs, sortOrder);
+		
+		
+	}
+	
+	private Runnable checkLog = new Runnable() 
+	{
+		public void run()
+		{
+			
+		}
+	};
+	
+
+}
