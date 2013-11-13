@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.app.project.acropolis.monitor.bill&apos; to &apos;com.app.project.acropolis.monitor.plan&apos;&#x0A;- Original project: &apos;ProjectAcropolis&apos;&#x0A;- Original element: &apos;ProjectAcropolis/src/com.app.project.acropolis.monitor.bill&apos;&#x0A;- Renamed element: &apos;ProjectAcropolis/src/com.app.project.acropolis.monitor.plan&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.app.project.acropolis.monitor.bill&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;com.app.project.acropolis.monitor.bill" name="com.app.project.acropolis.monitor.plan" qualified="false" references="true" stamp="1384373810584" textual="false" version="1.0"/>
+</session>
