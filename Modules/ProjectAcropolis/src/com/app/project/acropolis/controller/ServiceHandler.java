@@ -28,7 +28,6 @@ import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.comm.SocketClientFormatter;
-import com.app.project.acropolis.monitor.CallMonitoring;
 import com.app.project.acropolis.monitor.CallMonitoring_2;
 import com.app.project.acropolis.monitor.DataMonitoring;
 import com.app.project.acropolis.monitor.MessageMonitoring;

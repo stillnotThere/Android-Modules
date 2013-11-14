@@ -10,10 +10,40 @@
  */
 package com.app.project.acropolis.monitor.plan;
 
+import java.text.SimpleDateFormat;
+
+import com.app.project.acropolis.database.DBAdapter;
+import com.app.project.acropolis.database.DBOpenHelper;
+
 /**
  * @author CPH-iMac
  *
  */
-public class CheckPlan {
-
+public class CheckPlan 
+{
+	
+	public static void checkBillDate()
+	{
+		//TODO
+		SimpleDateFormat sdf = new SimpleDateFormat("");
+		
+		long BillDate = 0; //milli
+		String formattedBD = DBAdapter.getValue(DBOpenHelper.BILL_DATE);
+//		long longDB_date = 
+	}
+	
+	
+	private static long fetchPlan(String key)
+	{
+		long db_val = 0;
+		db_val = Long.parseLong(DBAdapter.getValue(key));
+		return db_val;
+	}
+	
+	public static void compare_set(String key,String recorded)
+	{
+		long storedValue = fetchPlan(key);
+	}
+	
+	
 }

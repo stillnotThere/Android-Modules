@@ -77,12 +77,12 @@ public class SocketClientFormatter implements Runnable
 		
 		db_ph = DBAdapter.getValue(DBOpenHelper.PHONENUMBER);
 		db_roam = DBAdapter.getValue(DBOpenHelper.ROAMING);
-		db_down = DBAdapter.getValue(DBOpenHelper.DOWNLOADED);
-		db_up = DBAdapter.getValue(DBOpenHelper.UPLOADED);
-		db_rcv = DBAdapter.getValue(DBOpenHelper.RECEIVED);
-		db_snt = DBAdapter.getValue(DBOpenHelper.SENT);
-		db_in = DBAdapter.getValue(DBOpenHelper.INCOMING);
-		db_out = DBAdapter.getValue(DBOpenHelper.OUTGOING);
+		db_down = DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED);
+		db_up = DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED);
+		db_rcv = DBAdapter.getValue(DBOpenHelper.LOCAL_RECEIVED);
+		db_snt = DBAdapter.getValue(DBOpenHelper.LOCAL_SENT);
+		db_in = DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING);
+		db_out = DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING);
 		
 		f_ph = db_ph;
 		f_dtime = device_timeStamp;

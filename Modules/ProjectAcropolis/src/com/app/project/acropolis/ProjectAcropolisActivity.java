@@ -102,12 +102,12 @@ public class ProjectAcropolisActivity extends Activity {
 
 		synchronized(this)
 		{
-			int in = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.INCOMING));
-			int out = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.OUTGOING));
-			int rcv = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.RECEIVED));
-			int snt = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.SENT));
-			long down = Long.parseLong(DBAdapter.getValue(DBOpenHelper.DOWNLOADED));
-			long up = Long.parseLong(DBAdapter.getValue(DBOpenHelper.UPLOADED));
+			int in = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING));
+			int out = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING));
+			int rcv = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_RECEIVED));
+			int snt = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_SENT));
+			long down = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED));
+			long up = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED));
 
 			int totalV = in + out;
 			int totalM = rcv + snt;
@@ -121,12 +121,12 @@ public class ProjectAcropolisActivity extends Activity {
 				ContentValues cv = new ContentValues();
 				cv.put(DBOpenHelper.PHONENUMBER, phoneNumber);
 				cv.put(DBOpenHelper.ROAMING, "fetching");
-				cv.put(DBOpenHelper.INCOMING, "0");
-				cv.put(DBOpenHelper.OUTGOING, "0");
-				cv.put(DBOpenHelper.RECEIVED, "0");
-				cv.put(DBOpenHelper.SENT, "0");
-				cv.put(DBOpenHelper.DOWNLOADED, "0");
-				cv.put(DBOpenHelper.UPLOADED, "0");
+				cv.put(DBOpenHelper.LOCAL_INCOMING, "0");
+				cv.put(DBOpenHelper.LOCAL_OUTGOING, "0");
+				cv.put(DBOpenHelper.LOCAL_RECEIVED, "0");
+				cv.put(DBOpenHelper.LOCAL_SENT, "0");
+				cv.put(DBOpenHelper.LOCAL_DOWNLOADED, "0");
+				cv.put(DBOpenHelper.LOCAL_UPLOADED, "0");
 				DBAdapter.insert(cv);
 			}
 			else

@@ -102,12 +102,36 @@ public class DBAdapter {
 			ContentValues cv = new ContentValues();			
 			cv.put(DBOpenHelper.PHONENUMBER, DBOpenHelper.blank_PHONENUMBER);
 			cv.put(DBOpenHelper.ROAMING, DBOpenHelper.blank_ROAMING);
-			cv.put(DBOpenHelper.INCOMING, DBOpenHelper.blank_INCOMING);
-			cv.put(DBOpenHelper.OUTGOING, DBOpenHelper.blank_OUTGOING);
-			cv.put(DBOpenHelper.RECEIVED, DBOpenHelper.blank_RECEIVED);
-			cv.put(DBOpenHelper.SENT, DBOpenHelper.blank_SENT);
-			cv.put(DBOpenHelper.DOWNLOADED, DBOpenHelper.blank_DOWNLOADED);
-			cv.put(DBOpenHelper.UPLOADED, DBOpenHelper.blank_UPLOADED);
+			//local
+			cv.put(DBOpenHelper.LOCAL_INCOMING, DBOpenHelper.blank_LOCAL_INCOMING);
+			cv.put(DBOpenHelper.LOCAL_OUTGOING, DBOpenHelper.blank_LOCAL_OUTGOING);
+			cv.put(DBOpenHelper.LOCAL_RECEIVED, DBOpenHelper.blank_LOCAL_RECEIVED);
+			cv.put(DBOpenHelper.LOCAL_SENT, DBOpenHelper.blank_LOCAL_SENT);
+			cv.put(DBOpenHelper.LOCAL_DOWNLOADED, DBOpenHelper.blank_LOCAL_DOWNLOADED);
+			cv.put(DBOpenHelper.LOCAL_UPLOADED, DBOpenHelper.blank_LOCAL_UPLOADED);
+			//roaming
+			cv.put(DBOpenHelper.ROAM_INCOMING, DBOpenHelper.blank_ROAMING_INCOMING);
+			cv.put(DBOpenHelper.ROAM_OUTGOING, DBOpenHelper.blank_ROAMING_OUTGOING);
+			cv.put(DBOpenHelper.ROAM_RECEIVED, DBOpenHelper.blank_ROAMING_RECEIVED);
+			cv.put(DBOpenHelper.ROAM_SENT, DBOpenHelper.blank_ROAMING_SENT);
+			cv.put(DBOpenHelper.ROAM_DOWNLOADED, DBOpenHelper.blank_ROAMING_DOWNLOADED);
+			cv.put(DBOpenHelper.ROAM_UPLOADED, DBOpenHelper.blank_ROAMING_UPLOADED);
+			//plan
+				//local
+			cv.put(DBOpenHelper.PLAN_LOCAL_INCOMING, DBOpenHelper.blank_PLAN_LOCAL_INCOMING);
+			cv.put(DBOpenHelper.PLAN_LOCAL_OUTGOING, DBOpenHelper.blank_PLAN_LOCAL_OUTGOING);
+			cv.put(DBOpenHelper.PLAN_LOCAL_RECEIVED, DBOpenHelper.blank_PLAN_LOCAL_RECEIVED);
+			cv.put(DBOpenHelper.PLAN_LOCAL_SENT, DBOpenHelper.blank_PLAN_LOCAL_SENT);
+			cv.put(DBOpenHelper.PLAN_LOCAL_DOWNLOADED, DBOpenHelper.blank_PLAN_LOCAL_DOWNLOADED);
+			cv.put(DBOpenHelper.PLAN_LOCAL_UPLOADED, DBOpenHelper.blank_PLAN_LOCAL_UPLOADED);
+				//roam
+			cv.put(DBOpenHelper.PLAN_ROAM_INCOMING, DBOpenHelper.blank_PLAN_ROAMING_INCOMING);
+			cv.put(DBOpenHelper.PLAN_ROAM_OUTGOING, DBOpenHelper.blank_PLAN_ROAMING_OUTGOING);
+			cv.put(DBOpenHelper.PLAN_ROAM_RECEIVED, DBOpenHelper.blank_PLAN_ROAMING_RECEIVED);
+			cv.put(DBOpenHelper.PLAN_ROAM_SENT, DBOpenHelper.blank_PLAN_ROAMING_SENT);
+			cv.put(DBOpenHelper.PLAN_ROAM_DOWNLOADED, DBOpenHelper.blank_PLAN_ROAMING_DOWNLOADED);
+			cv.put(DBOpenHelper.PLAN_ROAM_UPLOADED, DBOpenHelper.blank_PLAN_ROAMING_UPLOADED);
+			
 			db.insert(table, null, cv);
 			
 			db.setTransactionSuccessful();

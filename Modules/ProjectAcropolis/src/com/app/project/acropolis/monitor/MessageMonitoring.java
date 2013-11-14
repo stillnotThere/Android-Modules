@@ -57,12 +57,12 @@ public class MessageMonitoring extends ContentObserver
 
 				//				if(dbAdapter.isEmpty())
 				//				{
-				long previous = Long.parseLong(DBAdapter.getValue(DBOpenHelper.RECEIVED));
+				long previous = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_RECEIVED));
 				long newV = incomingCounter;
 				long total = previous + newV;
 
 				ContentValues cv = new ContentValues();
-				cv.put(DBOpenHelper.RECEIVED, String.valueOf(total));
+				cv.put(DBOpenHelper.LOCAL_RECEIVED, String.valueOf(total));
 				DBAdapter.update(cv);
 				//				}
 
@@ -73,12 +73,12 @@ public class MessageMonitoring extends ContentObserver
 				outgoingCounter = outgoingCounter + 1;
 				Logger.Debug("msg sent count::"+outgoingCounter);
 
-				long previous = Long.parseLong(DBAdapter.getValue(DBOpenHelper.SENT));
+				long previous = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_SENT));
 				long newV = outgoingCounter;
 				long total = previous + newV;
 
 				ContentValues cv = new ContentValues();
-				cv.put(DBOpenHelper.SENT, String.valueOf(total));
+				cv.put(DBOpenHelper.LOCAL_SENT, String.valueOf(total));
 				DBAdapter.update(cv);
 			}
 		}

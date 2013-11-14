@@ -30,8 +30,8 @@ public class DataMonitoring extends PhoneStateListener
 	long downloaded = 0;
 	long uploaded = 0;
 
-	long DB_D = Long.parseLong(DBAdapter.getValue(DBOpenHelper.DOWNLOADED));
-	long DB_U = Long.parseLong(DBAdapter.getValue(DBOpenHelper.UPLOADED));
+	long DB_D = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED));
+	long DB_U = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED));
 
 	long tmpD = 0;
 	long tmpU = 0;
@@ -77,7 +77,7 @@ public class DataMonitoring extends PhoneStateListener
 		incD=0;
 		
 		ContentValues cvD = new ContentValues();
-		cvD.put(DBOpenHelper.DOWNLOADED, String.valueOf(DB_D));
+		cvD.put(DBOpenHelper.LOCAL_DOWNLOADED, String.valueOf(DB_D));
 		DBAdapter.update(cvD);
 	}
 
@@ -90,7 +90,7 @@ public class DataMonitoring extends PhoneStateListener
 		incU=0;
 		
 		ContentValues cvU = new ContentValues();
-		cvU.put(DBOpenHelper.UPLOADED, String.valueOf(DB_U));
+		cvU.put(DBOpenHelper.LOCAL_UPLOADED, String.valueOf(DB_U));
 		DBAdapter.update(cvU);
 	}
 

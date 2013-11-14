@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor.ServiceStateListener"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.DataInterecptor.DataActivityMonitor"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.DataInterecptor"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.DataInterecptor.DataConnectionState"/>
@@ -58,6 +57,7 @@
 <fullyQualifiedTypeName name="android.provider.CallLog"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.monitor.CallMonitoring_2"/>
 <fullyQualifiedTypeName name="android.provider.CallLog.Calls"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBAdapter"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 </qualifiedTypeNameHistroy>
