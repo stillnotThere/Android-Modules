@@ -27,8 +27,6 @@ import com.app.project.acropolis.ProjectAcropolisActivity;
  */
 public class DBAdapter {
 
-	final static String table = "MONITORED_VALUES";
-
 	protected static SQLiteDatabase openConnection() 
 	{
 		DBOpenHelper helper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
@@ -43,8 +41,14 @@ public class DBAdapter {
 		helper.dropTables(db);
 		helper.createTables(db);
 		db.close();
-		
 		return true;
+	}
+	
+	public static void deleteDB()
+	{
+		File file = ProjectAcropolisActivity.getContext().
+				getDatabasePath(DBOpenHelper.DB_NAME);
+		Logger.Debug("Deleted::"+file.delete());
 	}
 	
 	public static boolean doesItExist()
@@ -57,29 +61,19 @@ public class DBAdapter {
 			Logger.Debug("exists____size::"+file.length());
 		}
 		else 
+		{
 			exists = false;
-		
+			Logger.Debug("does not exist\nputting blank");
+			putBlank();
+		}
 		return exists;
 	}
 	
 	public static void checkDBState()
 	{
-		if(doesItExist())
-		{
-			if(isEmpty())
-			{
-				Logger.Debug("inserting blank");
-				putBlank();
-			}
-		}
-		else
-		{
-			DBOpenHelper openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
-			SQLiteDatabase _db = openHelper.getWritableDatabase();
-			openHelper.createTables(_db);
-			_db.close();
-			putBlank();
-		}
+		DBOpenHelper _openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+		_openHelper.removeOld(_openHelper.getWritableDatabase());
+		doesItExist();
 	}
 
 	public static void resetValues()
@@ -89,9 +83,11 @@ public class DBAdapter {
 		Logger.Debug("Values reset");
 	}
 	
-	private static void putBlank()
+	public static void putBlank()
 	{
-		SQLiteDatabase db = openConnection();
+		DBOpenHelper openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		openHelper.createTables(db);
 		db.beginTransaction();
 		try {
 			DBOpenHelper.blank_PHONENUMBER = 
@@ -102,6 +98,7 @@ public class DBAdapter {
 			ContentValues cv = new ContentValues();			
 			cv.put(DBOpenHelper.PHONENUMBER, DBOpenHelper.blank_PHONENUMBER);
 			cv.put(DBOpenHelper.ROAMING, DBOpenHelper.blank_ROAMING);
+			cv.put(DBOpenHelper.BILL_DATE, DBOpenHelper.blank_BILL_DATE);
 			//local
 			cv.put(DBOpenHelper.LOCAL_INCOMING, DBOpenHelper.blank_LOCAL_INCOMING);
 			cv.put(DBOpenHelper.LOCAL_OUTGOING, DBOpenHelper.blank_LOCAL_OUTGOING);
@@ -132,40 +129,13 @@ public class DBAdapter {
 			cv.put(DBOpenHelper.PLAN_ROAM_DOWNLOADED, DBOpenHelper.blank_PLAN_ROAMING_DOWNLOADED);
 			cv.put(DBOpenHelper.PLAN_ROAM_UPLOADED, DBOpenHelper.blank_PLAN_ROAMING_UPLOADED);
 			
-			db.insert(table, null, cv);
+			db.insert(DBOpenHelper.TBL, null, cv);
 			
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
+			db.close();
 		}
-	}
-
-	public static boolean isEmpty() 
-	{
-		SQLiteDatabase db = openConnection();
-		boolean result;
-
-		db.beginTransaction();	//EXCLUSIVE
-		try
-		{
-			Cursor cursor = db.query(table, new String[] {"COUNT(*)"}, null, null, null, null, null);
-			cursor.moveToFirst();
-			if(cursor.getInt(0) == 0)
-			{
-				result = true;
-			}
-			else
-			{
-				result = false;
-			}
-			cursor.close();
-
-			db.setTransactionSuccessful();
-		} finally {
-			db.endTransaction();
-			db.close();	
-		}
-		return result;
 	}
 
 	public static long insert(ContentValues values) 
@@ -174,8 +144,8 @@ public class DBAdapter {
 		long result = 0;
 		db.beginTransaction();
 		try{
-			db.delete(table, null, null);
-			result = db.insert(table, null, values);
+			db.delete(DBOpenHelper.TBL, null, null);
+			result = db.insert(DBOpenHelper.TBL, null, values);
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -191,7 +161,7 @@ public class DBAdapter {
 
 		db.beginTransaction();
 		try{
-			result = db.update(table, value, null, null);
+			result = db.update(DBOpenHelper.TBL, value, null, null);
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -206,7 +176,7 @@ public class DBAdapter {
 		SQLiteDatabase db = openConnection();
 		db.beginTransaction();
 		try{
-			db.delete(table, null, null);
+			db.delete(DBOpenHelper.TBL, null, null);
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -222,7 +192,7 @@ public class DBAdapter {
 		SQLiteDatabase db = openConnection();
 		db.beginTransaction();
 		try {
-			cursor = db.query(table, new String[]{column},null, null, null, null, null);
+			cursor = db.query(DBOpenHelper.TBL, new String[]{column},null, null, null, null, null);
 			cursor.moveToFirst();
 			value = cursor.getString(cursor.getColumnIndex(column));
 			db.setTransactionSuccessful();
@@ -243,7 +213,7 @@ public class DBAdapter {
 		Cursor cursor =null;
 		db.beginTransaction();
 		try {
-			cursor = db.query(table, null, null, null, null, null, null);
+			cursor = db.query(DBOpenHelper.TBL, null, null, null, null, null, null);
 			cursor.moveToFirst();
 		} finally {
 			if(cursor!=null)

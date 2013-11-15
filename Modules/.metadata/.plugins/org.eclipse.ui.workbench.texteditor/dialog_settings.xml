@@ -2,29 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
-		<item value="288" key="DIALOG_Y_ORIGIN"/>
+		<item value="225" key="DIALOG_Y_ORIGIN"/>
+		<item value="2145" key="DIALOG_X_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="1727" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="true" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wholeword"/>
-		<item value="DBOpenHelper.LOCAL_" key="selection"/>
+		<item value="DBOpenHelper.TBL" key="selection"/>
 		<list key="findhistory">
+			<item value="table"/>
+			<item value="gmt"/>
 			<item value="DBOpenHelper."/>
 			<item value="UPLOADED"/>
 			<item value="DOWNLOADED"/>
 			<item value="SENT"/>
 			<item value="RECEIVED"/>
 			<item value="OUTGOING"/>
-			<item value="INCOMING"/>
-			<item value="temp"/>
 		</list>
 		<list key="replacehistory">
+			<item value="DBOpenHelper.TBL"/>
 			<item value="DBOpenHelper.LOCAL_"/>
 			<item value="LOCAL_UPLOADED"/>
 			<item value="LOCAL_DOWNLOADED"/>
@@ -32,7 +33,6 @@
 			<item value="LOCAL_RECEIVED"/>
 			<item value="LOCAL_OUTGOING"/>
 			<item value="LOCAL_INCOMING"/>
-			<item value="db_temp"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">

@@ -10,10 +10,7 @@
  */
 package com.app.project.acropolis.database;
 
-import com.app.project.acropolis.Logger;
-
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -35,12 +32,12 @@ public class DBOpenHelper extends SQLiteOpenHelper
 	public static final String LOCAL_SENT = "LOCAL_SENT";
 	public static final String LOCAL_DOWNLOADED = "LOCAL_DOWNLOADED";
 	public static final String LOCAL_UPLOADED = "LOCAL_UPLOADED";
-	public static final String ROAM_INCOMING = "ROAM_INCOMING";
-	public static final String ROAM_OUTGOING = "ROAM_OUTGOING";
-	public static final String ROAM_RECEIVED = "ROAM_RECEIVED";
-	public static final String ROAM_SENT = "ROAM_SENT";
-	public static final String ROAM_DOWNLOADED = "ROAM_DOWNLOADED";
-	public static final String ROAM_UPLOADED = "ROAM_UPLOADED";
+	public static final String ROAM_INCOMING = "ROAMING_INCOMING";
+	public static final String ROAM_OUTGOING = "ROAMING_OUTGOING";
+	public static final String ROAM_RECEIVED = "ROAMING_RECEIVED";
+	public static final String ROAM_SENT = "ROAMING_SENT";
+	public static final String ROAM_DOWNLOADED = "ROAMING_DOWNLOADED";
+	public static final String ROAM_UPLOADED = "ROAMING_UPLOADED";
 	public static final String BILL_DATE = "BILL_DATE";
 	public static final String PLAN_LOCAL_INCOMING = "PLAN_LOCAL_INCOMING";
 	public static final String PLAN_LOCAL_OUTGOING = "PLAN_LOCAL_OUTGOING";
@@ -103,7 +100,7 @@ public class DBOpenHelper extends SQLiteOpenHelper
 			"CREATE TABLE IF NOT EXISTS " + TBL + " (" +
 			"_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			"PHONE_NUM TEXT NOT NULL, " +
-			"ROAMING TEXT, " +
+			"ROAMING TEXT NOT NULL, " +
 			"LOCAL_INCOMING TEXT NOT NULL, " +
 			"LOCAL_OUTGOING TEXT NOT NULL, " +
 			"LOCAL_RECEIVED TEXT NOT NULL, " +
@@ -112,16 +109,17 @@ public class DBOpenHelper extends SQLiteOpenHelper
 			"LOCAL_UPLOADED TEXT NOT NULL," +
 			"ROAMING_INCOMING TEXT NOT NULL, " +
 			"ROAMING_OUTGOING TEXT NOT NULL, " +
-			"ROMAING_RECEIVED TEXT NOT NULL, " +
+			"ROAMING_RECEIVED TEXT NOT NULL, " +
 			"ROAMING_SENT TEXT NOT NULL, " +
 			"ROAMING_DOWNLOADED TEXT NOT NULL, " +
 			"ROAMING_UPLOADED TEXT NOT NULL," +
 			"BILL_DATE TEXT NOT NULL," +
-			"PLAN_INCOMING TEXT NOT NULL," +
-			"PLAN_OUTGOING TEXT NOT NULL," +
-			"PLAN_RECEIVED TEXT NOT NULL," +
-			"PLAN_SENT TEXT NOT NULL," +
-			"PLAN_DOWNLOADED TEXT NOT NULL," +
+			"PLAN_LOCAL_INCOMING TEXT NOT NULL," +
+			"PLAN_LOCAL_OUTGOING TEXT NOT NULL," +
+			"PLAN_LOCAL_RECEIVED TEXT NOT NULL," +
+			"PLAN_LOCAL_SENT TEXT NOT NULL," +
+			"PLAN_LOCAL_DOWNLOADED TEXT NOT NULL," +
+			"PLAN_LOCAL_UPLOADED TEXT NOT NULL," +
 			"PLAN_ROAMING_INCOMING TEXT NOT NULL," +
 			"PLAN_ROAMING_OUTGOING TEXT NOT NULL," +
 			"PLAN_ROAMING_RECEIVED TEXT NOT NULL," +

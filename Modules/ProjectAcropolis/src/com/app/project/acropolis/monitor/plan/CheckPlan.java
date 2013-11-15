@@ -10,10 +10,10 @@
  */
 package com.app.project.acropolis.monitor.plan;
 
-import java.text.SimpleDateFormat;
-
+import com.app.project.acropolis.GlobalConstants;
+import com.app.project.acropolis.comm.DataTumblr;
+import com.app.project.acropolis.comm.SocketClientConnector;
 import com.app.project.acropolis.database.DBAdapter;
-import com.app.project.acropolis.database.DBOpenHelper;
 
 /**
  * @author CPH-iMac
@@ -22,28 +22,50 @@ import com.app.project.acropolis.database.DBOpenHelper;
 public class CheckPlan 
 {
 	
-	public static void checkBillDate()
-	{
-		//TODO
-		SimpleDateFormat sdf = new SimpleDateFormat("");
-		
-		long BillDate = 0; //milli
-		String formattedBD = DBAdapter.getValue(DBOpenHelper.BILL_DATE);
-//		long longDB_date = 
-	}
-	
-	
-	private static long fetchPlan(String key)
+	/**
+	 * Retrieves mobile plan
+	 * @param plan db key
+	 * @return Set plan data for monitored argument
+	 */
+	private static long fetchPlan(String _key)
 	{
 		long db_val = 0;
-		db_val = Long.parseLong(DBAdapter.getValue(key));
+		db_val = Long.parseLong(DBAdapter.getValue(_key));
 		return db_val;
 	}
 	
-	public static void compare_set(String key,String recorded)
+	/**
+	 * Check monitored data against mobile plan, if crossed threshold or exceeded plan
+	 * user will be notified as well CPH server 
+	 * @param _key DB key
+	 * @param _recorded	DB key value
+	 */
+	public static void compare_set(String _key,String _recorded)
 	{
-		long storedValue = fetchPlan(key);
+		long stored = fetchPlan(_key);
+		double recorded = Long.parseLong(_recorded);
+		long threshold = (long) 
+				(recorded * (GlobalConstants.PlanThreshold * 0.01)); 
+		
+		if(stored <= recorded)
+		{
+			if(stored == recorded) 
+			{
+				alertPlanEnding();
+			}
+			else if(recorded >= threshold)
+			{
+				alertPlanEnding();
+			}
+		}
 	}
+	
+	private static void alertPlanEnding()
+	{
+		DataTumblr.setSendClientData("");
+		new Thread(new SocketClientConnector.SokcetClientUrgentConnector()).start();
+	}
+
 	
 	
 }

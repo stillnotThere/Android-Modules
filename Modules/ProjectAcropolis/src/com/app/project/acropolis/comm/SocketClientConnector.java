@@ -30,7 +30,8 @@ import com.app.project.acropolis.Logger;
 public class SocketClientConnector
 {
 	public static Socket clientSocket = null;
-	
+	public static Socket clientUrgentSocket = null;
+
 	public static class Connector implements Runnable 
 	{
 		public void run()
@@ -46,8 +47,8 @@ public class SocketClientConnector
 				}
 			} catch (ConnectException e3) {
 				e3.printStackTrace();
-				
-				
+
+
 			}catch (UnknownHostException e1) {
 				e1.printStackTrace();
 			} catch (IOException e2) {
@@ -72,7 +73,7 @@ public class SocketClientConnector
 			e2.printStackTrace();
 		}
 	}
-	
+
 	public static void sendMessage()
 	{
 		try {
@@ -92,5 +93,43 @@ public class SocketClientConnector
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		} 
+	}
+
+	public static class SokcetClientUrgentConnector implements Runnable
+	{
+		public void run()
+		{
+			try	{
+				InetAddress urgentInet = InetAddress.getByName(GlobalConstants.ServerIP);
+				clientUrgentSocket = new Socket(urgentInet,GlobalConstants.SocketClientPORT);
+				clientUrgentSocket.setKeepAlive(true);
+				sendUrgentMsg();
+			} catch (UnknownHostException e1) {
+				e1.printStackTrace();
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			} finally {
+				try {
+					clientUrgentSocket.close();
+				} catch (UnknownHostException k1) {
+					k1.printStackTrace();
+				} catch(IOException k2) {
+					k2.printStackTrace();
+				}
+			}
+		}
+
+		public void sendUrgentMsg() throws UnknownHostException,IOException
+		{
+			PrintWriter printWriter = new PrintWriter(
+					new BufferedWriter( 
+							new OutputStreamWriter( 
+									clientUrgentSocket.getOutputStream()
+									)
+							)
+					,true);
+			printWriter.println(DataTumblr.getSendUrgent());
+		}
+
 	}
 }

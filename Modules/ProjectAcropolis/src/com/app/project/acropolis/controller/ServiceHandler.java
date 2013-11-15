@@ -32,6 +32,7 @@ import com.app.project.acropolis.monitor.CallMonitoring_2;
 import com.app.project.acropolis.monitor.DataMonitoring;
 import com.app.project.acropolis.monitor.MessageMonitoring;
 import com.app.project.acropolis.monitor.RoamingListener;
+import com.app.project.acropolis.monitor.plan.BillingCycleListener;
 
 /**
  * @author CPH-iMac
@@ -59,6 +60,7 @@ public class ServiceHandler extends Service
 
 	public void onCreate()
 	{
+		setupBillDateListener();
 		setupSocketHandler();
 		setupRoamingChanges();
 		setupCallMonitoring();
@@ -66,6 +68,18 @@ public class ServiceHandler extends Service
 		setupDataMonitoring();
 	}
 
+	/**
+	 * Register BroadcastReceiver 
+	 * {@link BillingCycleListener#onReceive(Context, Intent)} 
+	 * listening for ACTION_TIME_TICK
+	 */
+	public void setupBillDateListener()
+	{
+		Context context = ProjectAcropolisActivity.getContext();
+		IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
+		context.registerReceiver(new BillingCycleListener(), intentFilter,null,null);
+	}
+	
 	public void setupSocketHandler()
 	{
 		Logger.Debug("234231234sdfdfdsg\n\n\n\n\n");

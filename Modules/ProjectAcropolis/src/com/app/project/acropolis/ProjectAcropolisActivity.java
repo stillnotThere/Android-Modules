@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -65,6 +64,8 @@ public class ProjectAcropolisActivity extends Activity {
 		msgTotal = (TextView) findViewById(R.id.valueMTotal);
 		dataTotal = (TextView) findViewById(R.id.valueDTotal);
 
+//		DBAdapter.deleteDB();
+
 		updateScreen();
 		screenHandler = new Handler();
 		screenHandler.post(refreshScreen);
@@ -102,21 +103,22 @@ public class ProjectAcropolisActivity extends Activity {
 
 		synchronized(this)
 		{
-			int in = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING));
-			int out = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING));
-			int rcv = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_RECEIVED));
-			int snt = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_SENT));
-			long down = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED));
-			long up = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED));
+//			DBAdapter.putBlank();
+			int in = 0;
+			int out = 0;
+			int rcv = 0;
+			int snt = 0;
+			long down =0;
+			long up = 0;
 
-			int totalV = in + out;
-			int totalM = rcv + snt;
-			long totalD = down + up;
-
+			int totalV = 0;
+			int totalM = 0;
+			long totalD = 0;
+			
 			roaming.setText("Roaming ::: " + isRoaming());
 
 			String phoneNumber = tm.getLine1Number();
-			if(DBAdapter.isEmpty())
+			if(!DBAdapter.doesItExist())
 			{
 				ContentValues cv = new ContentValues();
 				cv.put(DBOpenHelper.PHONENUMBER, phoneNumber);
@@ -131,6 +133,17 @@ public class ProjectAcropolisActivity extends Activity {
 			}
 			else
 			{
+				in = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING));
+				out = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING));
+				rcv = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_RECEIVED));
+				snt = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_SENT));
+				down = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED));
+				up = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED));
+
+				totalV = in + out;
+				totalM = rcv + snt;
+				totalD = down + up;
+				
 				incoming.setText(String.valueOf(in));
 				outgoing.setText(String.valueOf(out));
 				received.setText(String.valueOf(rcv));
@@ -146,6 +159,7 @@ public class ProjectAcropolisActivity extends Activity {
 				dataTotal.setText(humanReadableByteCount(totalD,true));
 			}
 		}
+
 	}
 
 //	@Override

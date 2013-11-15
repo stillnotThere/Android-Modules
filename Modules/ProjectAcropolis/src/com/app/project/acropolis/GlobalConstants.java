@@ -20,6 +20,8 @@ import android.os.Handler;
  */
 public class GlobalConstants 
 {
+	public static final double PlanThreshold = 0.00;//TODO
+	
 	public static Handler socketClientHandler = new Handler();
 	
 	public final static String[] CAN_OPERATORS = {"Rogers","TELUS","Bell"};
@@ -36,6 +38,7 @@ public class GlobalConstants
 	 */
 	public final static String TIMESTAMP_PATTERN = "yyyyMMddHHmm";
 	public final static String CPH_TIMEZONE = "GMT-5:00";
+	public final static String CPH_PDT_TIMEZONE = "GMT-4:00";
 	public final static TimeZone SERVER_TIMEZONE = 
 			TimeZone.getTimeZone(CPH_TIMEZONE);
 	/**

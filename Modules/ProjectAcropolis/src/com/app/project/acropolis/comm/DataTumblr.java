@@ -21,6 +21,9 @@ public class DataTumblr
 	public static String rcv = "";
 	public static String snd = "";
 	
+	public static String urgentsnd = "";
+	public static String urgentrcv = "";
+	
 	public static  void setReceivedServerData(String msg)
 	{
 		rcv = msg;
@@ -42,4 +45,23 @@ public class DataTumblr
 		return snd;
 	}
 	
+	public static void setSendUrgent(String msg)
+	{
+		urgentsnd = msg;
+	}
+	
+	public static String getSendUrgent()
+	{
+		return urgentsnd;
+	}
+	
+	public static void setReceivedUrgent(String msg)
+	{
+		urgentrcv = msg;
+	}
+	
+	public static String getReceivedUrgent()
+	{
+		return urgentrcv;
+	}
 }
