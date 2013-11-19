@@ -55,7 +55,7 @@ public class BillingCycleListener extends BroadcastReceiver
 	{
 		public void run()
 		{
-			DBAdapter.resetValues();
+//			DBAdapter.resetValues();
 		}
 	};
 	

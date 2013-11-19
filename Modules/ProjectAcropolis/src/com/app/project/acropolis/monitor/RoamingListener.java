@@ -18,6 +18,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
+import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.database.DBAdapter;
 import com.app.project.acropolis.database.DBOpenHelper;
 
@@ -27,50 +28,79 @@ import com.app.project.acropolis.database.DBOpenHelper;
  */
 public class RoamingListener extends BroadcastReceiver
 {
-	public final String[] CAN_OPERATORS = {"Rogers","TELUS"};
-	public boolean roaming = false;
+	public static final String[] CAN_OPERATORS = {"Rogers","TELUS"};
+	public static boolean roaming = false;
 
 	public ConnectivityManager connectivityManager = null;
-	public TelephonyManager telephonyManager = null;
+	public static TelephonyManager telephonyManager = null;
 	public NetworkInfo.State state = null;
 
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		telephonyManager = (TelephonyManager)
-				context.getSystemService(Context.TELEPHONY_SERVICE);
-		//		connectivityManager = (ConnectivityManager) 
-		//				context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		checkRoaming();
+	}
+
+	public static boolean checkRoaming()
+	{
+
 		if(telephonyManager.isNetworkRoaming())
 			changeRoaming();
 		else
-			crossCheck();
+			crossCheck();	
+		
+		return roaming;
 	}
 
-	public void changeRoaming()
+	public static boolean changeRoaming()
 	{
-		if(telephonyManager.getNetworkOperatorName().length()>0)
-		{
-			for(int i=0;i<CAN_OPERATORS.length;i++)
+		try {
+			if(telephonyManager.getNetworkOperatorName().length()>0)
 			{
-				if(!telephonyManager.
-						getNetworkOperatorName().equalsIgnoreCase(CAN_OPERATORS[i]))
+				for(int i=0;i<CAN_OPERATORS.length;i++)
 				{
-					roaming = true;
-					break;
+					if(!telephonyManager.
+							getNetworkOperatorName().equalsIgnoreCase(CAN_OPERATORS[i]))
+					{
+						roaming = true;
+						break;
+					}
+					else
+					{
+						roaming = false;
+					}
+				}
+				ContentValues cv = new ContentValues();
+				cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
+				DBAdapter.update(cv);
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return roaming;
+	}
+
+	public static void crossCheck()
+	{
+		try {
+			if(telephonyManager.getNetworkOperatorName().length()>0)
+			{
+				for(int i=0;i<CAN_OPERATORS.length;i++)
+				{
+					if(!telephonyManager.
+							getNetworkOperatorName().equalsIgnoreCase(CAN_OPERATORS[i]))
+					{
+						roaming = true;
+						break;
+					}
+					else
+					{
+						roaming = false;
+					}
 				}
 			}
-			ContentValues cv = new ContentValues();
-			cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
-			DBAdapter.update(cv);
-		}
-	}
-	
-	public void crossCheck()
-	{
-		if(telephonyManager.getNetworkOperatorName().length()>0)
-		{
-			
+		} catch(NullPointerException e1) {
+
 		}
 	}
 }

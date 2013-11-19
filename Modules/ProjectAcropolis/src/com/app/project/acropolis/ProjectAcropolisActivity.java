@@ -46,7 +46,9 @@ public class ProjectAcropolisActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
 		activity = this;
-		DBAdapter.checkDBState();
+//		DBAdapter.checkDBState();
+//		DBAdapter.deleteDB();
+//		DBAdapter.putBlank();
 		setContentView(R.layout.activity_main);
 
 		Intent serviceIntent = new Intent(this,ServiceHandler.class);
@@ -115,7 +117,7 @@ public class ProjectAcropolisActivity extends Activity {
 			int totalM = 0;
 			long totalD = 0;
 			
-			roaming.setText("Roaming ::: " + isRoaming());
+//			roaming.setText("Roaming ::: " + isRoaming());
 
 			String phoneNumber = tm.getLine1Number();
 			if(!DBAdapter.doesItExist())
@@ -241,18 +243,18 @@ public class ProjectAcropolisActivity extends Activity {
 		return true;
 	}
 
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch(item.getItemId())
-		{
-		case R.id.menu_reset:
-		{
-			DBAdapter.resetValues();
-		};
-		}
-		
-		return true;
-	}
+//	public boolean onOptionsItemSelected(MenuItem item)
+//	{
+//		switch(item.getItemId())
+//		{
+//		case R.id.menu_reset:
+//		{
+//			DBAdapter.resetValues();
+//		};
+//		}
+//		
+//		return true;
+//	}
 	
 	public static Context getContext()
 	{

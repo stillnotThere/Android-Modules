@@ -38,11 +38,11 @@ public class MessageMonitoring extends ContentObserver
 	//TODO
 	public void onChange(boolean selfChange)
 	{
+		super.onChange(selfChange);
 		int outgoingCounter = 0;
 		int incomingCounter = 0;
 		Context context = ProjectAcropolisActivity.getContext();
 
-		super.onChange(selfChange);
 		Cursor smsCursor = context.getContentResolver().query(outUri,
 				new String[]{"type"}, null, null,null);
 
@@ -55,8 +55,6 @@ public class MessageMonitoring extends ContentObserver
 				incomingCounter = incomingCounter + 1;
 				Logger.Debug("msg received count:"+incomingCounter);
 
-				//				if(dbAdapter.isEmpty())
-				//				{
 				long previous = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_RECEIVED));
 				long newV = incomingCounter;
 				long total = previous + newV;

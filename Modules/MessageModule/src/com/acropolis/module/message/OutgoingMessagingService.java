@@ -114,7 +114,7 @@ public class OutgoingMessagingService extends Service
 						Logger.Debug("msg sent count::"+outgoingCounter);
 					}
 				}
-
+				smsCursor.close();
 			}
 
 		});

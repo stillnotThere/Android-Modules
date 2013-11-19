@@ -72,16 +72,16 @@ public class DBAdapter {
 	public static void checkDBState()
 	{
 		DBOpenHelper _openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
-		_openHelper.removeOld(_openHelper.getWritableDatabase());
+//		_openHelper.removeOld(_openHelper.getWritableDatabase());
 		doesItExist();
 	}
 
-	public static void resetValues()
-	{
-		dropTables();
-		putBlank();
-		Logger.Debug("Values reset");
-	}
+//	public static void resetValues()
+//	{
+//		dropTables();
+//		putBlank();
+//		Logger.Debug("Values reset");
+//	}
 	
 	public static void putBlank()
 	{

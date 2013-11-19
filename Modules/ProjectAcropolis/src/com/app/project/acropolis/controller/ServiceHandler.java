@@ -82,7 +82,6 @@ public class ServiceHandler extends Service
 	
 	public void setupSocketHandler()
 	{
-		Logger.Debug("234231234sdfdfdsg\n\n\n\n\n");
 		GlobalConstants.socketClientHandler = new Handler();
 		GlobalConstants.socketClientHandler.post(new SocketClientFormatter());
 	}
