@@ -10,21 +10,22 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
 		<item value="false" key="isRegEx"/>
-		<item value="true" key="casesensitive"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
-		<item value="true" key="wholeword"/>
-		<item value="connected" key="selection"/>
+		<item value="false" key="wholeword"/>
+		<item value="GlobalConstants" key="selection"/>
 		<list key="findhistory">
+			<item value="RoamingListener"/>
+			<item value="wlan"/>
+			<item value="CPH"/>
+			<item value="CPJ"/>
 			<item value="connected"/>
 			<item value="wifi"/>
 			<item value="reset"/>
 			<item value="table"/>
-			<item value="gmt"/>
-			<item value="DBOpenHelper."/>
-			<item value="UPLOADED"/>
-			<item value="DOWNLOADED"/>
 		</list>
 		<list key="replacehistory">
+			<item value="GlobalConstants"/>
 			<item value="DBOpenHelper.TBL"/>
 			<item value="DBOpenHelper.LOCAL_"/>
 			<item value="LOCAL_UPLOADED"/>
@@ -32,7 +33,6 @@
 			<item value="LOCAL_SENT"/>
 			<item value="LOCAL_RECEIVED"/>
 			<item value="LOCAL_OUTGOING"/>
-			<item value="LOCAL_INCOMING"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">

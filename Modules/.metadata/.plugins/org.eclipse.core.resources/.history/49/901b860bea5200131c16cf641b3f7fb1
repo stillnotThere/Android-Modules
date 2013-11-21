@@ -1,0 +1,347 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ProjectAcropolisActivity" >
+
+    <TextView
+        android:id="@+id/strRoaming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:text="@string/roaming" />
+    
+    <Space
+        android:id="@+id/space0"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/strRoaming" />
+
+    <!-- Minutes Section -->
+
+    <TextView
+        android:id="@+id/strVoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/space0"
+        android:layout_centerInParent="true"
+        android:text="@string/strCallHeading" />
+
+    <!-- Minutes Grid -->
+
+    <GridLayout
+        android:id="@+id/voiceGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/strVoice"
+        android:layout_gravity="center_horizontal"
+        android:columnCount="2"
+        android:columnOrderPreserved="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/grid_vertical_margin"
+        android:paddingTop="@dimen/grid_horizontal_margin"
+        android:rowCount="4" >
+
+        <!-- Row 1 -->
+
+        <TextView
+            android:id="@+id/txtIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
+            android:layout_row="0"
+            android:text="@string/strIncoming" />
+
+        <TextView
+            android:id="@+id/valueIn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="0"
+            android:text="@string/fetching" />
+
+        <!-- Row 2 -->
+
+        <TextView
+            android:id="@+id/txtOut"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
+            android:layout_row="1"
+            android:text="@string/strOutgoing" />
+
+        <TextView
+            android:id="@+id/valueOut"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="1"
+            android:text="@string/fetching" />
+
+        <!-- Row 3 -->
+
+        <TextView
+            android:id="@+id/txtVTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
+            android:layout_row="2"
+            android:text="@string/strTotal" />
+
+        <TextView
+            android:id="@+id/valueVTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="2"
+            android:text="@string/fetching" />
+        
+        <!-- Row 4 -->
+        
+        <TextView
+            android:id="@+id/txtRVoice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
+            android:layout_row="3"
+            android:text="@string/strRVTotal" />
+        
+        <TextView 
+            android:id="@+id/valueRVTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_row="3"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_column="1"
+            android:text="@string/fetching" />
+        
+    </GridLayout>
+
+    <Space
+        android:id="@+id/space1"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/voiceGrid" />
+
+    <!-- Messages Section -->
+
+    <TextView
+        android:id="@+id/strMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/space1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/strMessageHeading" />
+
+    <!-- Messages Grid -->
+
+    <GridLayout
+        android:id="@+id/msgGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/strMsg"
+        android:layout_gravity="center_horizontal"
+        android:columnCount="2"
+        android:columnOrderPreserved="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/grid_vertical_margin"
+        android:paddingTop="@dimen/grid_horizontal_margin"
+        android:rowCount="3" >
+
+        <!-- Row 1 -->
+
+        <TextView
+            android:id="@+id/txtRcv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="0"
+            android:text="@string/strReceived" />
+
+        <TextView
+            android:id="@+id/valueRcv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="right|top"
+            android:layout_row="0"
+            android:text="@string/fetching" />
+
+        <!-- Row 2 -->
+
+        <TextView
+            android:id="@+id/txtSnt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:text="@string/strSent" />
+
+        <TextView
+            android:id="@+id/valueSnt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="1"
+            android:text="@string/fetching" />
+
+        <!-- Row 3 -->
+
+        <TextView
+            android:id="@+id/txtMTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:text="@string/strTotal" />
+
+        <TextView
+            android:id="@+id/valueMTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="2"
+            android:text="@string/fetching" />
+    </GridLayout>
+
+    <Space
+        android:id="@+id/space2"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/msgGrid" />
+
+    <!-- Data Section -->
+
+    <TextView
+        android:id="@+id/strData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/space2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/strDataHeading" />
+
+    <!-- Data Grid -->
+
+    <GridLayout
+        android:id="@+id/dataGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/strData"
+        android:layout_gravity="center_horizontal"
+        android:columnCount="2"
+        android:columnOrderPreserved="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/grid_vertical_margin"
+        android:paddingTop="@dimen/grid_horizontal_margin"
+        android:rowCount="4" >
+
+        <!-- Row 1 -->
+
+        <TextView
+            android:id="@+id/txtDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
+            android:layout_row="0"
+            android:text="@string/strDownloaded" />
+
+        <TextView
+            android:id="@+id/valueDown"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="0"
+            android:text="@string/fetching" />
+
+        <!-- Row 2 -->
+
+        <TextView
+            android:id="@+id/txtUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:text="@string/strUploaded" />
+
+        <TextView
+            android:id="@+id/valueUp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="1"
+            android:text="@string/fetching" />
+
+        <!-- Row 3 -->
+
+        <TextView
+            android:id="@+id/txtDTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:text="@string/strTotal" />
+
+        <TextView
+            android:id="@+id/valueDTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_row="2"
+            android:text="@string/fetching" />
+        
+        <!-- Row 4 -->
+        
+        <TextView 
+            android:id="@+id/txtRDTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
+            android:text="@string/strRDTotal" />
+            
+        <TextView
+            android:id="@+id/valueRDTtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:text="@string/fetching" />
+        
+    </GridLayout>
+
+    <Space
+        android:id="@+id/space3"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/dataGrid" />
+
+<!--     <Button
+        android:id="@+id/bttnRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/space3"
+        android:onClick="refreshValues"
+        android:text="@string/btnstrRefresh" /> -->
+
+</RelativeLayout>

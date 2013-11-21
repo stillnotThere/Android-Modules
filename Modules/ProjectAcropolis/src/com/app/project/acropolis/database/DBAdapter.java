@@ -34,6 +34,8 @@ public class DBAdapter {
 		return helper.getWritableDatabase();
 	}
 
+	
+	
 	protected static boolean dropTables()
 	{
 		DBOpenHelper helper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
@@ -49,6 +51,21 @@ public class DBAdapter {
 		File file = ProjectAcropolisActivity.getContext().
 				getDatabasePath(DBOpenHelper.DB_NAME);
 		Logger.Debug("Deleted::"+file.delete());
+	}
+	
+	public static void createDB()
+	{
+		DBOpenHelper dboh = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+		dboh.createTables(dboh.getWritableDatabase());
+		Logger.Debug("DB CREATED");
+		putBlank();
+		checkIntegrity();
+	}
+	
+	public static void checkIntegrity()
+	{
+		Logger.Debug("CHECKING INTEGRITY");
+		getValues();
 	}
 	
 	public static boolean doesItExist()
@@ -71,7 +88,7 @@ public class DBAdapter {
 	
 	public static void checkDBState()
 	{
-		DBOpenHelper _openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+//		DBOpenHelper _openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
 //		_openHelper.removeOld(_openHelper.getWritableDatabase());
 		doesItExist();
 	}
@@ -207,14 +224,24 @@ public class DBAdapter {
 		return value;
 	}
 
-	public static Cursor getValues() 
+	public static String[] getValues() 
 	{
 		SQLiteDatabase db = openConnection();
-		Cursor cursor =null;
+		Cursor cursor=null;
+		String[] all = null;
+		int counter = 0;
 		db.beginTransaction();
 		try {
-			cursor = db.query(DBOpenHelper.TBL, null, null, null, null, null, null);
+			cursor = db.query(DBOpenHelper.TBL,new String[] {"*"}, null, null, null, null, null);
 			cursor.moveToFirst();
+			while(cursor.isLast())
+			{
+//				all[counter] = cursor.getString(counter);
+//				Logger.Debug(all[counter]);
+				++counter;
+				cursor.moveToNext();
+			}
+			Logger.Debug("count::"+counter);
 		} finally {
 			if(cursor!=null)
 			{
@@ -223,6 +250,6 @@ public class DBAdapter {
 			db.endTransaction();
 			db.close();
 		}
-		return cursor;
+		return all;
 	}
 }

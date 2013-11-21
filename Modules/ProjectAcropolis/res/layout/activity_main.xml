@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:text="Roaming::" />
+        android:text="@string/roaming" />
     
     <Space
         android:id="@+id/space0"
@@ -45,7 +45,7 @@
         android:orientation="horizontal"
         android:paddingBottom="@dimen/grid_vertical_margin"
         android:paddingTop="@dimen/grid_horizontal_margin"
-        android:rowCount="3" >
+        android:rowCount="4" >
 
         <!-- Row 1 -->
 
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_gravity="center_horizontal|right"
+            android:layout_gravity="center_horizontal|left"
             android:layout_row="0"
             android:text="@string/strIncoming" />
 
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_column="1"
-            android:layout_gravity="right|top"
+            android:layout_gravity="center_horizontal|right"
             android:layout_row="0"
             android:text="@string/fetching" />
 
@@ -74,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
             android:layout_row="1"
             android:text="@string/strOutgoing" />
 
@@ -93,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
             android:layout_row="2"
             android:text="@string/strTotal" />
 
@@ -104,6 +106,27 @@
             android:layout_gravity="center_horizontal|right"
             android:layout_row="2"
             android:text="@string/fetching" />
+        
+        <!-- Row 4 -->
+        
+        <TextView
+            android:id="@+id/txtRVoice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
+            android:layout_row="3"
+            android:text="@string/strRVTotal" />
+        
+        <TextView 
+            android:id="@+id/valueRVTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_row="3"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_column="1"
+            android:text="@string/fetching" />
+        
     </GridLayout>
 
     <Space
@@ -135,7 +158,7 @@
         android:orientation="horizontal"
         android:paddingBottom="@dimen/grid_vertical_margin"
         android:paddingTop="@dimen/grid_horizontal_margin"
-        android:rowCount="3" >
+        android:rowCount="4" >
 
         <!-- Row 1 -->
 
@@ -144,7 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_gravity="center_horizontal|right"
+            android:layout_gravity="center_horizontal|left"
             android:layout_row="0"
             android:text="@string/strReceived" />
 
@@ -153,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_column="1"
-            android:layout_gravity="right|top"
+            android:layout_gravity="center_horizontal|right"
             android:layout_row="0"
             android:text="@string/fetching" />
 
@@ -163,6 +186,7 @@
             android:id="@+id/txtSnt"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|left"
             android:layout_column="0"
             android:layout_row="1"
             android:text="@string/strSent" />
@@ -182,6 +206,7 @@
             android:id="@+id/txtMTotal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|left"
             android:layout_column="0"
             android:layout_row="2"
             android:text="@string/strTotal" />
@@ -194,6 +219,28 @@
             android:layout_gravity="center_horizontal|right"
             android:layout_row="2"
             android:text="@string/fetching" />
+        
+        <!-- Row 4 -->
+        
+        <TextView
+            android:id="@+id/txtRMTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_row="3"
+            android:layout_gravity="center_horizontal|left"
+            android:text="@string/strRDTotal" />
+        
+        <TextView
+            android:id="@+id/valueRMTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_row="3"
+            android:layout_gravity="center_horizontal|right"
+            android:text="@string/fetching" />
+            
+        
     </GridLayout>
 
     <Space
@@ -225,7 +272,7 @@
         android:orientation="horizontal"
         android:paddingBottom="@dimen/grid_vertical_margin"
         android:paddingTop="@dimen/grid_horizontal_margin"
-        android:rowCount="3" >
+        android:rowCount="4" >
 
         <!-- Row 1 -->
 
@@ -234,7 +281,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_gravity="center_horizontal|right"
+            android:layout_gravity="center_horizontal|left"
             android:layout_row="0"
             android:text="@string/strDownloaded" />
 
@@ -243,7 +290,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_column="1"
-            android:layout_gravity="right|top"
+            android:layout_gravity="center_horizontal|right"
             android:layout_row="0"
             android:text="@string/fetching" />
 
@@ -284,6 +331,27 @@
             android:layout_gravity="center_horizontal|right"
             android:layout_row="2"
             android:text="@string/fetching" />
+        
+        <!-- Row 4 -->
+        
+        <TextView 
+            android:id="@+id/txtRDTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal|left"
+            android:text="@string/strRDTotal" />
+            
+        <TextView
+            android:id="@+id/valueRDTtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|right"
+            android:text="@string/fetching" />
+        
     </GridLayout>
 
     <Space

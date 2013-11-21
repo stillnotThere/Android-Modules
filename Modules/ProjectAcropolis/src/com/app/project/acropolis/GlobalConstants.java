@@ -12,7 +12,16 @@ package com.app.project.acropolis;
 
 import java.util.TimeZone;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
+
+import com.app.project.acropolis.database.DBAdapter;
+import com.app.project.acropolis.database.DBOpenHelper;
 
 /**
  * @author CPH-iMac
@@ -68,5 +77,60 @@ public class GlobalConstants
 	public final static String SENT = "Sent Msgs:";
 	public final static String INCOMING = "Incoming Duration:";
 	public final static String OUTGOING = "Outgoing Duration:";
+	
+	
+	public static boolean roaming = false;
+
+	public ConnectivityManager connectivityManager = null;
+	public NetworkInfo networkInfo = null;
+
+	public static Context _context = null;
+	public static Intent _intent = null;
+	
+	/**
+	 * Checks roaming operator if applicable
+	 * @return true if Roaming, false if Local
+	 */
+	public static boolean checkRoaming()
+	{
+		_context = ProjectAcropolisActivity.getContext();
+		TelephonyManager _tm = (TelephonyManager)
+				_context.getSystemService(Context.TELEPHONY_SERVICE);
+		boolean ret = false;
+		if(String.valueOf(_tm.isNetworkRoaming())!=null)
+			ret = changeRoaming();
+		return ret;
+	}
+
+	public static boolean changeRoaming()
+	{
+		_context = ProjectAcropolisActivity.getContext();
+		TelephonyManager _tm = (TelephonyManager)
+				_context.
+				getSystemService(Context.TELEPHONY_SERVICE);
+		if(_tm.getNetworkOperatorName().length()>0 ||
+				_tm.getNetworkOperatorName()!=null)
+		{
+			for(int i=0;i<CAN_OPERATORS.length;i++)
+			{
+				if(!_tm.
+						getNetworkOperatorName().
+						equalsIgnoreCase(CAN_OPERATORS[i]))
+				{
+					roaming = true;
+					break;
+				}
+				else
+				{
+					roaming = false;
+				}
+			}
+		}
+		ContentValues cv = new ContentValues();
+		cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
+		DBAdapter.update(cv);
+		return roaming;
+	}
+
 	
 }

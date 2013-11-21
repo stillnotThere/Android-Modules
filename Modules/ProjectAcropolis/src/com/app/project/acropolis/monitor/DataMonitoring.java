@@ -17,6 +17,7 @@ import android.net.TrafficStats;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
+import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.database.DBAdapter;
 import com.app.project.acropolis.database.DBOpenHelper;
 
@@ -32,16 +33,20 @@ public class DataMonitoring extends PhoneStateListener
 
 	long DB_D = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED));
 	long DB_U = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED));
-
-	long tmpD = 0;
-	long tmpU = 0;
-
+	long DB_R_D = Long.parseLong(DBAdapter.getValue(DBOpenHelper.ROAM_DOWNLOADED));
+	long DB_R_U = Long.parseLong(DBAdapter.getValue(DBOpenHelper.ROAM_UPLOADED));
+	
+	
 	long incD = 0;
 	long incU = 0;
-	
 	long lastD = 0;
 	long lastU = 0;
 
+	long incRD = 0;
+	long incRU = 0;
+	long lastRD = 0;
+	long lastRU = 0;
+	
 	public void onDataActivity(int direction)
 	{
 
@@ -49,49 +54,72 @@ public class DataMonitoring extends PhoneStateListener
 		{
 		case TelephonyManager.DATA_ACTIVITY_IN:
 			downloaded = TrafficStats.getMobileRxBytes();
-//			Logger.Debug("DATA IN\nbytes::"+downloaded);
+			//			Logger.Debug("DATA IN\nbytes::"+downloaded);
 
 		case TelephonyManager.DATA_ACTIVITY_OUT:
 			uploaded = TrafficStats.getMobileTxBytes();
-//			Logger.Debug("DATA OUT\nbytes::"+uploaded);
+			//			Logger.Debug("DATA OUT\nbytes::"+uploaded);
 
 		case TelephonyManager.DATA_ACTIVITY_INOUT:
 			downloaded = TrafficStats.getMobileRxBytes();
 			uploaded = TrafficStats.getMobileTxBytes();
-//			Logger.Debug("DATA INOUT\nbytes::"+(downloaded + uploaded));
+			//			Logger.Debug("DATA INOUT\nbytes::"+(downloaded + uploaded));
 		}
 
 		checkDownload();
 		checkUpload();
-		
-//		Logger.Debug(
-//				"Downloaded:::"+ humanReadableByteCount(downloaded,true) +
-//				"\nUploaded:::"+ humanReadableByteCount(uploaded,true));
+
+		//		Logger.Debug(
+		//				"Downloaded:::"+ humanReadableByteCount(downloaded,true) +
+		//				"\nUploaded:::"+ humanReadableByteCount(uploaded,true));
 	}
 
 	public void checkDownload()
 	{
-		incD = downloaded - lastD;
-		DB_D = DB_D + incD;
-		lastD = downloaded;
-		incD=0;
-		
-		ContentValues cvD = new ContentValues();
-		cvD.put(DBOpenHelper.LOCAL_DOWNLOADED, String.valueOf(DB_D));
-		DBAdapter.update(cvD);
+		if(GlobalConstants.checkRoaming())
+		{
+			incRD = downloaded - lastRD;
+			DB_R_D = DB_R_D + incRD;
+			lastRD = downloaded;
+			incRD=0;
+			ContentValues cvD = new ContentValues();
+			cvD.put(DBOpenHelper.ROAM_DOWNLOADED, String.valueOf(DB_R_D));
+			DBAdapter.update(cvD);
+		}
+		else
+		{
+			incD = downloaded - lastD;
+			DB_D = DB_D + incD;
+			lastD = downloaded;
+			incD=0;
+			ContentValues cvD = new ContentValues();
+			cvD.put(DBOpenHelper.LOCAL_DOWNLOADED, String.valueOf(DB_D));
+			DBAdapter.update(cvD);
+		}
 	}
 
 	public void checkUpload()
 	{
-		
-		incU = uploaded - lastU;
-		DB_U = DB_U + incU;
-		lastU = uploaded;
-		incU=0;
-		
-		ContentValues cvU = new ContentValues();
-		cvU.put(DBOpenHelper.LOCAL_UPLOADED, String.valueOf(DB_U));
-		DBAdapter.update(cvU);
+		if(GlobalConstants.checkRoaming())
+		{
+			incRU = uploaded - lastRU;
+			DB_R_U = DB_R_U + incRU;
+			lastRU = uploaded;
+			incRU=0;
+			ContentValues cvU = new ContentValues();
+			cvU.put(DBOpenHelper.LOCAL_UPLOADED, String.valueOf(DB_R_U));
+			DBAdapter.update(cvU);
+		}
+		else
+		{
+			incU = uploaded - lastU;
+			DB_U = DB_U + incU;
+			lastU = uploaded;
+			incU=0;
+			ContentValues cvU = new ContentValues();
+			cvU.put(DBOpenHelper.LOCAL_UPLOADED, String.valueOf(DB_U));
+			DBAdapter.update(cvU);
+		}
 	}
 
 	public static String humanReadableByteCount(long bytes, boolean si) {

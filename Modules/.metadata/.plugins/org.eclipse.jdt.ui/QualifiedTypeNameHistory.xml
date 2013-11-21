@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor.CallStateListener"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.logger.Logger"/>
@@ -30,14 +29,12 @@
 <fullyQualifiedTypeName name="java.io.OutputStreamWriter"/>
 <fullyQualifiedTypeName name="android.net.wifi.WifiInfo"/>
 <fullyQualifiedTypeName name="android.net.wifi.SupplicantState"/>
-<fullyQualifiedTypeName name="android.net.NetworkInfo"/>
 <fullyQualifiedTypeName name="android.net.NetworkInfo.DetailedState"/>
 <fullyQualifiedTypeName name="com.acropolis.module.socket.Logger"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.layout"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.menu"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
 <fullyQualifiedTypeName name="java.lang.Long"/>
 <fullyQualifiedTypeName name="com.tester.R.id"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
@@ -47,7 +44,6 @@
 <fullyQualifiedTypeName name="android.provider.CallLog"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.monitor.CallMonitoring_2"/>
 <fullyQualifiedTypeName name="android.provider.CallLog.Calls"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.DataTumblr"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientConnector"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketClientConnector.SokcetClientUrgentConnector"/>
@@ -55,9 +51,13 @@
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.TimeZone"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.GlobalConstants"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBAdapter"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.comm.WLANStuff"/>
+<fullyQualifiedTypeName name="android.net.NetworkInfo"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.ProjectAcropolisActivity"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.GlobalConstants"/>
 </qualifiedTypeNameHistroy>

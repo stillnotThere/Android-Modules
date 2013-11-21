@@ -25,7 +25,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import com.app.project.acropolis.GlobalConstants;
-import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.comm.SocketClientFormatter;
 import com.app.project.acropolis.monitor.CallMonitoring_2;
@@ -95,7 +94,6 @@ public class ServiceHandler extends Service
 				new CallMonitoring_2());
 //		TelephonyManager telephonyManager = (TelephonyManager) 
 //				getSystemService(Context.TELEPHONY_SERVICE);
-//
 //		telephonyManager.listen(new CallMonitoring(),
 //				PhoneStateListener.LISTEN_CALL_STATE);
 	}

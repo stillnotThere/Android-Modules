@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.os.Handler;
 import android.provider.CallLog.Calls;
 
+import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.database.DBAdapter;
@@ -93,20 +94,42 @@ public class CallMonitoring_2 extends ContentObserver
 				if(lastCallType == Calls.INCOMING_TYPE)
 				{
 					Logger.Debug("incoming");
-					int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING));
-					db_temp = (int)convert(lastCallduration) + db_temp;
-					ContentValues cv = new ContentValues();
-					cv.put(DBOpenHelper.LOCAL_INCOMING, String.valueOf(db_temp));
-					DBAdapter.update(cv);
+					if(GlobalConstants.checkRoaming())
+					{
+						int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.ROAM_INCOMING));
+						db_temp = (int)convert(lastCallduration) + db_temp;
+						ContentValues cv = new ContentValues();
+						cv.put(DBOpenHelper.ROAM_INCOMING, String.valueOf(db_temp));
+						DBAdapter.update(cv);
+					}
+					else
+					{
+						int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING));
+						db_temp = (int)convert(lastCallduration) + db_temp;
+						ContentValues cv = new ContentValues();
+						cv.put(DBOpenHelper.LOCAL_INCOMING, String.valueOf(db_temp));
+						DBAdapter.update(cv);
+					}
 				}
 				if(lastCallType == Calls.OUTGOING_TYPE)
 				{
 					Logger.Debug("outgoing");
-					int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING));
-					db_temp = (int)convert(lastCallduration) + db_temp;
-					ContentValues cv = new ContentValues();
-					cv.put(DBOpenHelper.LOCAL_OUTGOING, String.valueOf(db_temp));
-					DBAdapter.update(cv);
+					if(GlobalConstants.checkRoaming())
+					{
+						int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.ROAM_OUTGOING));
+						db_temp = (int)convert(lastCallduration) + db_temp;
+						ContentValues cv = new ContentValues();
+						cv.put(DBOpenHelper.ROAM_OUTGOING, String.valueOf(db_temp));
+						DBAdapter.update(cv);
+					}
+					else
+					{
+						int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING));
+						db_temp = (int)convert(lastCallduration) + db_temp;
+						ContentValues cv = new ContentValues();
+						cv.put(DBOpenHelper.LOCAL_OUTGOING, String.valueOf(db_temp));
+						DBAdapter.update(cv);
+					}
 				}
 			}
 			else if(counter<=4)

@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.os.Handler;
 
 import com.app.project.acropolis.GlobalConstants;
-import com.app.project.acropolis.database.DBAdapter;
 
 /**
  * BroadcastReceiver listening date change against bill date 

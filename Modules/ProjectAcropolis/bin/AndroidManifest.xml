@@ -3,30 +3,34 @@
     package="com.app.project.acropolis"
     android:versionCode="1"
     android:versionName="1.0" >
+
     <uses-feature
         android:name="android.hardware.wifi"
-        android:required="false"
-        />        
+        android:required="false" />
+
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-     <uses-permission android:name="android.permission.WRITE_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-<application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@style/AppTheme">
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.app.project.acropolis.ProjectAcropolisActivity"
-            android:label="@string/app_name" 
-            android:screenOrientation="portrait">
-
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,23 +38,20 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".monitor.RoamingListener">
+        <receiver android:name=".monitor.RoamingListener" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.ACTION_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
-        
-        <receiver android:name=".controller.ScheduledReceiver">
+        <receiver android:name=".controller.ScheduledReceiver" >
             <action android:name="android.intent.action.BOOT_COMPLETED" />
         </receiver>
-        
-        <receiver android:name=".controller.ServiceReceiver">
+        <receiver android:name=".controller.ServiceReceiver" >
         </receiver>
-        
-        <service android:name=".controller.ServiceHandler">
+
+        <service android:name=".controller.ServiceHandler" >
         </service>
-        
     </application>
 
 </manifest>
