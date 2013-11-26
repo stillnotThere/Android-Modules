@@ -13,11 +13,13 @@ package com.app.project.acropolis.monitor;
 import java.util.Locale;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.net.TrafficStats;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import com.app.project.acropolis.GlobalConstants;
+import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.database.DBAdapter;
 import com.app.project.acropolis.database.DBOpenHelper;
 
@@ -27,14 +29,13 @@ import com.app.project.acropolis.database.DBOpenHelper;
  */
 public class DataMonitoring extends PhoneStateListener 
 {
-
 	long downloaded = 0;
 	long uploaded = 0;
-
-	long DB_D = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED));
-	long DB_U = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED));
-	long DB_R_D = Long.parseLong(DBAdapter.getValue(DBOpenHelper.ROAM_DOWNLOADED));
-	long DB_R_U = Long.parseLong(DBAdapter.getValue(DBOpenHelper.ROAM_UPLOADED));
+	final Context _context = ProjectAcropolisActivity.getContext();
+	long DB_D = Long.parseLong(DBAdapter.getValue(_context,DBOpenHelper.LOCAL_DOWNLOADED));
+	long DB_U = Long.parseLong(DBAdapter.getValue(_context,DBOpenHelper.LOCAL_UPLOADED));
+	long DB_R_D = Long.parseLong(DBAdapter.getValue(_context,DBOpenHelper.ROAM_DOWNLOADED));
+	long DB_R_U = Long.parseLong(DBAdapter.getValue(_context,DBOpenHelper.ROAM_UPLOADED));
 	
 	
 	long incD = 0;
@@ -76,7 +77,7 @@ public class DataMonitoring extends PhoneStateListener
 
 	public void checkDownload()
 	{
-		if(GlobalConstants.checkRoaming())
+		if(GlobalConstants.checkRoaming(_context))
 		{
 			incRD = downloaded - lastRD;
 			DB_R_D = DB_R_D + incRD;
@@ -84,7 +85,7 @@ public class DataMonitoring extends PhoneStateListener
 			incRD=0;
 			ContentValues cvD = new ContentValues();
 			cvD.put(DBOpenHelper.ROAM_DOWNLOADED, String.valueOf(DB_R_D));
-			DBAdapter.update(cvD);
+			DBAdapter.update(_context,cvD);
 		}
 		else
 		{
@@ -94,13 +95,13 @@ public class DataMonitoring extends PhoneStateListener
 			incD=0;
 			ContentValues cvD = new ContentValues();
 			cvD.put(DBOpenHelper.LOCAL_DOWNLOADED, String.valueOf(DB_D));
-			DBAdapter.update(cvD);
+			DBAdapter.update(_context,cvD);
 		}
 	}
 
 	public void checkUpload()
 	{
-		if(GlobalConstants.checkRoaming())
+		if(GlobalConstants.checkRoaming(_context))
 		{
 			incRU = uploaded - lastRU;
 			DB_R_U = DB_R_U + incRU;
@@ -108,7 +109,7 @@ public class DataMonitoring extends PhoneStateListener
 			incRU=0;
 			ContentValues cvU = new ContentValues();
 			cvU.put(DBOpenHelper.LOCAL_UPLOADED, String.valueOf(DB_R_U));
-			DBAdapter.update(cvU);
+			DBAdapter.update(_context,cvU);
 		}
 		else
 		{
@@ -118,7 +119,7 @@ public class DataMonitoring extends PhoneStateListener
 			incU=0;
 			ContentValues cvU = new ContentValues();
 			cvU.put(DBOpenHelper.LOCAL_UPLOADED, String.valueOf(DB_U));
-			DBAdapter.update(cvU);
+			DBAdapter.update(_context,cvU);
 		}
 	}
 

@@ -12,7 +12,10 @@ package com.app.project.acropolis.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.app.project.acropolis.GlobalConstants;
 
 /**
  * @author CPH-iMac
@@ -130,38 +133,38 @@ public class DBOpenHelper extends SQLiteOpenHelper
 	
 	public final String DROP_TABLE = "DROP TABLE "+ TBL;
 	public final String DROP_OLD = "DROP TABLE IF EXISTS " + OLD_TBL;
-		
+	
 	public DBOpenHelper(Context context) 
 	{
 		super(context, DB_NAME, null, DB_VERSION);
 	}
 
-	public void createTables(SQLiteDatabase db) 
+	public void createTables() 
 	{
-		db.execSQL(this.QUERY_TBL);
+		this.getReadableDatabase().execSQL(this.QUERY_TBL);
 	}
 
-	public void removeOld(SQLiteDatabase db)
+	public void removeOld()
 	{
-		db.execSQL(DROP_OLD);
+		this.getReadableDatabase().execSQL(DROP_OLD);
 	}
 	
-	public void dropTables(SQLiteDatabase db) 
+	public void dropTables() 
 	{
-		db.execSQL(DROP_TABLE);
+		this.getReadableDatabase().execSQL(DROP_TABLE);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) 
 	{
-		removeOld(db);
-		createTables(db);
+		removeOld();
+		createTables();
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 	{
-		dropTables(db);
-		createTables(db);
+		dropTables();
+		createTables();
 	}
 }

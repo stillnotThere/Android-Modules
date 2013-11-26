@@ -10,6 +10,8 @@
  */
 package com.app.project.acropolis.monitor.plan;
 
+import android.content.Context;
+
 import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.comm.DataTumblr;
 import com.app.project.acropolis.comm.SocketClientConnector;
@@ -21,16 +23,15 @@ import com.app.project.acropolis.database.DBAdapter;
  */
 public class CheckPlan 
 {
-	
 	/**
 	 * Retrieves mobile plan
 	 * @param plan db key
 	 * @return Set plan data for monitored argument
 	 */
-	private static long fetchPlan(String _key)
+	private static long fetchPlan(Context __context,String _key)
 	{
 		long db_val = 0;
-		db_val = Long.parseLong(DBAdapter.getValue(_key));
+		db_val = Long.parseLong(DBAdapter.getValue(__context,_key));
 		return db_val;
 	}
 	
@@ -40,9 +41,9 @@ public class CheckPlan
 	 * @param _key DB key
 	 * @param _recorded	DB key value
 	 */
-	public static void compare_set(String _key,String _recorded)
+	public static void compare_set(Context __context,String _key,String _recorded)
 	{
-		long stored = fetchPlan(_key);
+		long stored = fetchPlan(__context,_key);
 		double recorded = Long.parseLong(_recorded);
 		long threshold = (long) 
 				(recorded * (GlobalConstants.PlanThreshold * 0.01)); 

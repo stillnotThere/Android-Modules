@@ -11,6 +11,7 @@
 package com.app.project.acropolis.monitor;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Handler;
@@ -28,7 +29,6 @@ import com.app.project.acropolis.database.DBOpenHelper;
  */
 public class CallMonitoring_2 extends ContentObserver 
 {
-
 	private Handler logHandler = new Handler();
 	private int counter = 0;
 
@@ -36,10 +36,12 @@ public class CallMonitoring_2 extends ContentObserver
 	private final String selection = null;
 	private final String[] selectionArgs = null;
 	private final String sortOrder = null;
+	private Context _context = null;
 
-	public CallMonitoring_2() 
+	public CallMonitoring_2(Context __context) 
 	{
 		super(null);
+		_context = __context;
 	}
 
 	public void onChange(boolean selfChange)
@@ -94,41 +96,41 @@ public class CallMonitoring_2 extends ContentObserver
 				if(lastCallType == Calls.INCOMING_TYPE)
 				{
 					Logger.Debug("incoming");
-					if(GlobalConstants.checkRoaming())
+					if(GlobalConstants.checkRoaming(_context))
 					{
-						int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.ROAM_INCOMING));
+						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.ROAM_INCOMING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
 						ContentValues cv = new ContentValues();
 						cv.put(DBOpenHelper.ROAM_INCOMING, String.valueOf(db_temp));
-						DBAdapter.update(cv);
+						DBAdapter.update(_context,cv);
 					}
 					else
 					{
-						int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING));
+						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.LOCAL_INCOMING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
 						ContentValues cv = new ContentValues();
 						cv.put(DBOpenHelper.LOCAL_INCOMING, String.valueOf(db_temp));
-						DBAdapter.update(cv);
+						DBAdapter.update(_context,cv);
 					}
 				}
 				if(lastCallType == Calls.OUTGOING_TYPE)
 				{
 					Logger.Debug("outgoing");
-					if(GlobalConstants.checkRoaming())
+					if(GlobalConstants.checkRoaming(_context))
 					{
-						int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.ROAM_OUTGOING));
+						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.ROAM_OUTGOING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
 						ContentValues cv = new ContentValues();
 						cv.put(DBOpenHelper.ROAM_OUTGOING, String.valueOf(db_temp));
-						DBAdapter.update(cv);
+						DBAdapter.update(_context,cv);
 					}
 					else
 					{
-						int db_temp = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING));
+						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.LOCAL_OUTGOING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
 						ContentValues cv = new ContentValues();
 						cv.put(DBOpenHelper.LOCAL_OUTGOING, String.valueOf(db_temp));
-						DBAdapter.update(cv);
+						DBAdapter.update(_context,cv);
 					}
 				}
 			}

@@ -4,13 +4,12 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +44,7 @@ public class ProjectAcropolisActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		init();
 		context = getApplicationContext();
 		activity = this;
 //		DBAdapter.checkDBState();
@@ -80,6 +80,39 @@ public class ProjectAcropolisActivity extends Activity {
 		screenHandler.post(refreshScreen);
 	}
 
+	//	@Override
+	//	protected void onResume() {
+	//		super.onResume();
+	//		bindService(new Intent(this, ServiceHandler.class), mConnection,
+	//				Context.BIND_AUTO_CREATE);
+	//	}
+	//
+	//	@Override
+	//	protected void onPause() {
+	//		super.onPause();
+	//		unbindService(mConnection);
+	//	}
+	//	ServiceHandler s;
+	//	private ServiceConnection mConnection = new ServiceConnection() {
+	//
+	//		public void onServiceConnected(ComponentName className, IBinder binder) {
+	//			s = ((ServiceHandler.ServiceBinder) binder).getService();
+	//			Toast.makeText(ProjectAcropolisActivity.this, "Connected", Toast.LENGTH_SHORT)
+	//			.show();
+	//		}
+	//
+	//		public void onServiceDisconnected(ComponentName className) {
+	//			s = null;
+	//		}
+	//	};
+	
+	private final void init()
+	{
+		GlobalConstants.setGlobalContext(this);
+		ContextWrapper contextWrapper = new ContextWrapper(this);
+		Logger.Debug("init() Context::::\t"+contextWrapper.getApplicationContext().toString());
+	}
+
 	public static Activity getActivity()
 	{
 		return activity;
@@ -89,7 +122,8 @@ public class ProjectAcropolisActivity extends Activity {
 	public static void postToast(String msg)
 	{
 		toastMsg = msg;
-		getActivity().runOnUiThread(new Runnable() {
+		getActivity().runOnUiThread(new Runnable() 
+		{
 			public void run()
 			{
 				Toast.makeText(getContext(), toastMsg, Toast.LENGTH_LONG).show();				
@@ -126,26 +160,26 @@ public class ProjectAcropolisActivity extends Activity {
 			int totalRM = 0;
 			long totalRD = 0;
 			
-//			roaming.setText("Roaming ::: " + isRoaming());
-			in = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING));
-			out = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING));
-			rcv = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_RECEIVED));
-			snt = Integer.parseInt(DBAdapter.getValue(DBOpenHelper.LOCAL_SENT));
-			down = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED));
-			up = Long.parseLong(DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED));
+			roaming.setText("Roaming ::: " + isRoaming());
+			in = Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.LOCAL_INCOMING));
+			out = Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.LOCAL_OUTGOING));
+			rcv = Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.LOCAL_RECEIVED));
+			snt = Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.LOCAL_SENT));
+			down = Long.parseLong(DBAdapter.getValue(this,DBOpenHelper.LOCAL_DOWNLOADED));
+			up = Long.parseLong(DBAdapter.getValue(this,DBOpenHelper.LOCAL_UPLOADED));
 
 			totalRV = 
-					Integer.parseInt(DBAdapter.getValue(DBOpenHelper.ROAM_INCOMING)) 
+					Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.ROAM_INCOMING)) 
 					+
-					Integer.parseInt(DBAdapter.getValue(DBOpenHelper.ROAM_OUTGOING));
+					Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.ROAM_OUTGOING));
 			totalRM = 
-					Integer.parseInt(DBAdapter.getValue(DBOpenHelper.ROAM_SENT)) 
+					Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.ROAM_SENT)) 
 					+
-					Integer.parseInt(DBAdapter.getValue(DBOpenHelper.ROAM_RECEIVED));
+					Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.ROAM_RECEIVED));
 			totalRD = 
-					Long.parseLong(DBAdapter.getValue(DBOpenHelper.ROAM_DOWNLOADED)) 
+					Long.parseLong(DBAdapter.getValue(this,DBOpenHelper.ROAM_DOWNLOADED)) 
 					+
-					Long.parseLong(DBAdapter.getValue(DBOpenHelper.ROAM_UPLOADED));
+					Long.parseLong(DBAdapter.getValue(this,DBOpenHelper.ROAM_UPLOADED));
 			
 			totalV = in + out + totalRV; 
 			totalM = rcv + snt + totalRM;
@@ -201,35 +235,11 @@ public class ProjectAcropolisActivity extends Activity {
 	public String isRoaming()
 	{
 		String roam = "";
-		TelephonyManager telephonyManager = (TelephonyManager)
-				getSystemService(Context.TELEPHONY_SERVICE);
-		ConnectivityManager connectivityManager = (ConnectivityManager)
-				getSystemService(Context.CONNECTIVITY_SERVICE);
-		int state = connectivityManager.getActiveNetworkInfo().
-				getState().compareTo(NetworkInfo.State.CONNECTED);
-//		Logger.Debug("connection state::(=0;connected)"+state);
-
-		if(state==0)
-		{
-			for(int i=0;i<GlobalConstants.CAN_OPERATORS.length;i++)
-			{
-				if(telephonyManager.
-						getNetworkOperatorName().
-						equalsIgnoreCase(GlobalConstants.CAN_OPERATORS[i]))
-				{
-					roam = "NO";
-					break;
-				}
-				else
-					roam = "YES";
-			}
-			roam.concat(" "+state);
-		}
+		if(GlobalConstants.checkRoaming(this))
+			roam = "Yes";
 		else
-		{
-			roam = "No service";
-		}
-		roam.concat("\nState:::"+state);
+			roam = "No";
+		
 		return roam;
 	}
 
@@ -251,18 +261,19 @@ public class ProjectAcropolisActivity extends Activity {
 		return true;
 	}
 
-//	public boolean onOptionsItemSelected(MenuItem item)
-//	{
-//		switch(item.getItemId())
-//		{
-//		case R.id.menu_reset:
-//		{
-//			DBAdapter.resetValues();
-//		};
-//		}
-//		
-//		return true;
-//	}
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+		case R.id.menu_reset:
+		{
+			DBAdapter.resetValues(this);
+			updateScreen();
+		};
+		}
+		
+		return true;
+	}
 	
 	public static Context getContext()
 	{

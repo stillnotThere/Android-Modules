@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;&apos; to &apos;com.app.project.acropolis.ProjectAcropolisActivity.getActivity()&apos;&#x0A;- Original project: &apos;ProjectAcropolis&apos;&#x0A;- Destination element: &apos;com.app.project.acropolis.ProjectAcropolisActivity.getActivity()&apos;&#x0A;- Original element: &apos;com.app.project.acropolis.ProjectAcropolisActivity.init()&apos;&#x0A;- Textual move only&#x0A;- Update references to refactored element" description="Move method" destination="/src&lt;com.app.project.acropolis{ProjectAcropolisActivity.java[ProjectAcropolisActivity~getActivity" element1="/src&lt;com.app.project.acropolis{ProjectAcropolisActivity.java[ProjectAcropolisActivity~init" flags="589830" id="org.eclipse.jdt.ui.move" members="1" policy="org.eclipse.jdt.ui.moveMembers" stamp="1385416863512" version="1.0"/>
+</session>

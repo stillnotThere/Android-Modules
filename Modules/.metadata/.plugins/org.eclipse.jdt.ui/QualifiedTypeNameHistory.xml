@@ -53,11 +53,11 @@
 <fullyQualifiedTypeName name="java.util.TimeZone"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBAdapter"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.WLANStuff"/>
 <fullyQualifiedTypeName name="android.net.NetworkInfo"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.ProjectAcropolisActivity"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.GlobalConstants"/>
 </qualifiedTypeNameHistroy>

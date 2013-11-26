@@ -41,7 +41,7 @@ public class ServiceHandler extends Service
 {
 	final String msgOutUri = "content://sms";
 	Uri outUri = Uri.parse(msgOutUri);
-
+	Context _context = ProjectAcropolisActivity.getContext();
 	public class ServiceBinder extends Binder
 	{
 		public ServiceHandler getService()
@@ -82,7 +82,8 @@ public class ServiceHandler extends Service
 	public void setupSocketHandler()
 	{
 		GlobalConstants.socketClientHandler = new Handler();
-		GlobalConstants.socketClientHandler.post(new SocketClientFormatter());
+		GlobalConstants.socketClientHandler.
+		post(new SocketClientFormatter(ProjectAcropolisActivity.getContext()));
 	}
 	
 	public void setupCallMonitoring()
@@ -91,7 +92,7 @@ public class ServiceHandler extends Service
 		getContentResolver().
 		registerContentObserver(
 				CallLog.Calls.CONTENT_URI, true,
-				new CallMonitoring_2());
+				new CallMonitoring_2(_context));
 //		TelephonyManager telephonyManager = (TelephonyManager) 
 //				getSystemService(Context.TELEPHONY_SERVICE);
 //		telephonyManager.listen(new CallMonitoring(),
@@ -102,7 +103,7 @@ public class ServiceHandler extends Service
 	{
 		ContentResolver contentResolver = ProjectAcropolisActivity.getContext().getContentResolver();
 		contentResolver.registerContentObserver(outUri, true, 
-				new MessageMonitoring());
+				new MessageMonitoring(_context));
 	}
 
 	public void setupDataMonitoring()
@@ -115,7 +116,8 @@ public class ServiceHandler extends Service
 	
 	public void setupRoamingChanges()
 	{
-		Context context = ProjectAcropolisActivity.getContext();
+//		Context context = ProjectAcropolisActivity.getContext();
+		Context context = this.getApplicationContext();
 		IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 		context.registerReceiver(new RoamingListener(),
 				intentFilter,"android.permission.ACCESS_NETWORK_STATE",null);

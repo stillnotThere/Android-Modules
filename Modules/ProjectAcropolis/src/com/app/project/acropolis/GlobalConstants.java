@@ -12,16 +12,12 @@ package com.app.project.acropolis;
 
 import java.util.TimeZone;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
-
-import com.app.project.acropolis.database.DBAdapter;
-import com.app.project.acropolis.database.DBOpenHelper;
 
 /**
  * @author CPH-iMac
@@ -30,18 +26,18 @@ import com.app.project.acropolis.database.DBOpenHelper;
 public class GlobalConstants 
 {
 	public static final double PlanThreshold = 0.00;//TODO
-	
+
 	public static Handler socketClientHandler = new Handler();
-	
+
 	public final static String[] CAN_OPERATORS = {"Rogers","TELUS","Bell"};
 	public final static String ServerIP = "99.229.28.101";
 	public final static int SocketClientPORT = 44444;
-	
+
 	public final static int SocketServerPort = 30000;
-	
+
 	public final static boolean SocketClientLINGER = true;
 	public final static int SocketClientLINGER_TIMEOUT = 10;//10 seconds
-	
+
 	/**
 	 * Timestamp format yyyyMMddHHmm(24hr)
 	 */
@@ -77,60 +73,150 @@ public class GlobalConstants
 	public final static String SENT = "Sent Msgs:";
 	public final static String INCOMING = "Incoming Duration:";
 	public final static String OUTGOING = "Outgoing Duration:";
-	
-	
+
+
 	public static boolean roaming = false;
 
 	public ConnectivityManager connectivityManager = null;
-	public NetworkInfo networkInfo = null;
+	public static NetworkInfo networkInfo = null;
+	public final static String MOBILE_NETWORK = "mobile";
+	public final static String WIFI_NETWORK = "WIFI";
 
+	public static Context globalContext = null;
 	public static Context _context = null;
 	public static Intent _intent = null;
+
+	/**
+	 * @return the globalContext
+	 */
+	public static final Context getGlobalContext()
+	{
+		return globalContext;
+	}
+
+	public static final TelephonyManager getGlobalTM()
+	{
+		return (TelephonyManager) getGlobalContext().getSystemService(Context.TELEPHONY_SERVICE);
+	}
+
+	/**
+	 * @param context the globalContext to set
+	 */
+	public static final void setGlobalContext(Context context) 
+	{
+		GlobalConstants.globalContext = context;
+	}
+
+	public boolean isMobileNetworkType(Context __context)
+	{
+		boolean isMobile = false;
+		Context _context = __context;//ProjectAcropolisActivity.getContext();
+		ConnectivityManager _cm = (ConnectivityManager) 
+				_context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		String type = "";
+		networkInfo = _cm.getActiveNetworkInfo();
+		if(networkInfo.
+				getTypeName().
+				equalsIgnoreCase(GlobalConstants.MOBILE_NETWORK))
+		{
+			isMobile = true;
+		}
+		else 
+		{
+			isMobile = false;
+		}
+		Logger.Debug("Network:::"+type+
+				"\n\t\tisRoaming::::"+networkInfo.isRoaming());
+		return isMobile;
+	}
+	
+	public static boolean isWLANOnRoaming(Context __context)
+	{
+		boolean isWLANonR = false;
+		Context _context = __context;
+			
+		
+		return isWLANonR;
+	}
 	
 	/**
 	 * Checks roaming operator if applicable
 	 * @return true if Roaming, false if Local
 	 */
-	public static boolean checkRoaming()
+	public static boolean checkRoaming(Context __context)
 	{
-		_context = ProjectAcropolisActivity.getContext();
+		_context = __context;//ProjectAcropolisActivity.getContext();
+		ConnectivityManager _cm = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo _ni = _cm.getActiveNetworkInfo();
 		TelephonyManager _tm = (TelephonyManager)
 				_context.getSystemService(Context.TELEPHONY_SERVICE);
 		boolean ret = false;
 		if(String.valueOf(_tm.isNetworkRoaming())!=null)
-			ret = changeRoaming();
+			ret = changeRoaming(_tm,_ni);
 		return ret;
 	}
 
-	public static boolean changeRoaming()
+	private static boolean changeRoaming(TelephonyManager tm,NetworkInfo ni)
 	{
+		roaming = false;
 		_context = ProjectAcropolisActivity.getContext();
-		TelephonyManager _tm = (TelephonyManager)
-				_context.
-				getSystemService(Context.TELEPHONY_SERVICE);
-		if(_tm.getNetworkOperatorName().length()>0 ||
-				_tm.getNetworkOperatorName()!=null)
+		TelephonyManager _tm = tm;
+		NetworkInfo _ni = ni;
+
+		if(_ni.isRoaming() )//|| _tm.isNetworkRoaming())
 		{
+			try {
+				compareOperator(_tm);
+			} catch(NullPointerException npe) {
+				npe.printStackTrace();
+				Logger.Debug(npe.getMessage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			roaming = false;
+		}
+		Logger.Debug("Roaming:::"+roaming+
+				"\nNetworkRoaming():::"+_tm.isNetworkRoaming());
+		return roaming;
+	}
+
+	private static boolean compareOperator(TelephonyManager tm) throws Exception
+	{
+		boolean checkSame = false;
+		TelephonyManager _tm = tm;
+		if(_tm.getNetworkOperatorName().length()>0 && _tm.getNetworkOperatorName()!=null)
 			for(int i=0;i<CAN_OPERATORS.length;i++)
 			{
-				if(!_tm.
+				if(_tm.
 						getNetworkOperatorName().
-						equalsIgnoreCase(CAN_OPERATORS[i]))
+						equalsIgnoreCase(CAN_OPERATORS[i])
+						== false)
 				{
-					roaming = true;
+					checkSame = true;
+					Handler triggerRoaming = new Handler();
+					triggerRoaming.post(new TriggerEvent());
 					break;
 				}
 				else
 				{
-					roaming = false;
+					checkSame = false;
 				}
 			}
-		}
-		ContentValues cv = new ContentValues();
-		cv.put(DBOpenHelper.ROAMING, String.valueOf(roaming));
-		DBAdapter.update(cv);
-		return roaming;
+
+		return checkSame;
 	}
 
+	private static final class TriggerEvent implements Runnable
+	{
+		public void run()
+		{
+			//TODO urgent server comm open if DATA "ON" ROAMING else open socket on WLAN
+			
+		}
+		
+	}
 	
 }

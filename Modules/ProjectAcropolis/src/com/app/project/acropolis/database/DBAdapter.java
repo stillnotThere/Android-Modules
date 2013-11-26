@@ -27,21 +27,21 @@ import com.app.project.acropolis.ProjectAcropolisActivity;
  */
 public class DBAdapter {
 
-	protected static SQLiteDatabase openConnection() 
+	protected static SQLiteDatabase openConnection(Context context) 
 	{
-		DBOpenHelper helper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+		DBOpenHelper helper = new DBOpenHelper(context);
 //		Logger.Debug(ProjectAcropolisActivity.getContext().getPackageName() + "\n" + ProjectAcropolisActivity.getContext().getPackageResourcePath());
 		return helper.getWritableDatabase();
 	}
 
 	
 	
-	protected static boolean dropTables()
+	protected static boolean dropTables(Context context)
 	{
-		DBOpenHelper helper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+		DBOpenHelper helper = new DBOpenHelper(context);
 		SQLiteDatabase db = helper.getWritableDatabase();
-		helper.dropTables(db);
-		helper.createTables(db);
+		helper.dropTables();
+		helper.createTables();
 		db.close();
 		return true;
 	}
@@ -53,22 +53,22 @@ public class DBAdapter {
 		Logger.Debug("Deleted::"+file.delete());
 	}
 	
-	public static void createDB()
+	public static void createDB(Context context)
 	{
-		DBOpenHelper dboh = new DBOpenHelper(ProjectAcropolisActivity.getContext());
-		dboh.createTables(dboh.getWritableDatabase());
+		DBOpenHelper dboh = new DBOpenHelper(context); 
+		dboh.createTables();
 		Logger.Debug("DB CREATED");
-		putBlank();
-		checkIntegrity();
+		putBlank(context);
+		checkIntegrity(context);
 	}
 	
-	public static void checkIntegrity()
+	public static void checkIntegrity(Context context)
 	{
 		Logger.Debug("CHECKING INTEGRITY");
-		getValues();
+		getValues(context);
 	}
 	
-	public static boolean doesItExist()
+	public static boolean doesItExist(Context context)
 	{
 		boolean exists = false;
 		File file = ProjectAcropolisActivity.getContext().getDatabasePath(DBOpenHelper.DB_NAME);
@@ -81,30 +81,30 @@ public class DBAdapter {
 		{
 			exists = false;
 			Logger.Debug("does not exist\nputting blank");
-			putBlank();
+			putBlank(context);
 		}
 		return exists;
 	}
 	
-	public static void checkDBState()
+	public static void checkDBState(Context context)
 	{
-//		DBOpenHelper _openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+//		DBOpenHelper _openHelper = new DBOpenHelper();
 //		_openHelper.removeOld(_openHelper.getWritableDatabase());
-		doesItExist();
+		doesItExist(context);
 	}
 
-//	public static void resetValues()
-//	{
-//		dropTables();
-//		putBlank();
-//		Logger.Debug("Values reset");
-//	}
-	
-	public static void putBlank()
+	public static void resetValues(Context context)
 	{
-		DBOpenHelper openHelper = new DBOpenHelper(ProjectAcropolisActivity.getContext());
+		dropTables(context);
+		putBlank(context);
+		Logger.Debug("Values reset");
+	}
+	
+	public static void putBlank(Context context)
+	{
+		DBOpenHelper openHelper = new DBOpenHelper(context);
 		SQLiteDatabase db = openHelper.getWritableDatabase();
-		openHelper.createTables(db);
+		openHelper.createTables();
 		db.beginTransaction();
 		try {
 			DBOpenHelper.blank_PHONENUMBER = 
@@ -155,9 +155,9 @@ public class DBAdapter {
 		}
 	}
 
-	public static long insert(ContentValues values) 
+	public static long insert(Context context,ContentValues values) 
 	{
-		SQLiteDatabase db = openConnection();
+		SQLiteDatabase db = openConnection(context);
 		long result = 0;
 		db.beginTransaction();
 		try{
@@ -171,9 +171,9 @@ public class DBAdapter {
 		return result;
 	}
 
-	public static long update(ContentValues value)
+	public static long update(Context context,ContentValues value)
 	{
-		SQLiteDatabase db = openConnection();
+		SQLiteDatabase db = openConnection(context);
 		long result=0;
 
 		db.beginTransaction();
@@ -188,9 +188,9 @@ public class DBAdapter {
 		return result;
 	}
 
-	public static long delete()
+	public static long delete(Context context)
 	{
-		SQLiteDatabase db = openConnection();
+		SQLiteDatabase db = openConnection(context);
 		db.beginTransaction();
 		try{
 			db.delete(DBOpenHelper.TBL, null, null);
@@ -202,11 +202,11 @@ public class DBAdapter {
 		return 0;
 	}
 
-	public static String getValue(String column)
+	public static String getValue(Context context,String column)
 	{
 		String value = "";
 		Cursor cursor = null;
-		SQLiteDatabase db = openConnection();
+		SQLiteDatabase db = openConnection(context);
 		db.beginTransaction();
 		try {
 			cursor = db.query(DBOpenHelper.TBL, new String[]{column},null, null, null, null, null);
@@ -224,9 +224,9 @@ public class DBAdapter {
 		return value;
 	}
 
-	public static String[] getValues() 
+	public static String[] getValues(Context context) 
 	{
-		SQLiteDatabase db = openConnection();
+		SQLiteDatabase db = openConnection(context);
 		Cursor cursor=null;
 		String[] all = null;
 		int counter = 0;

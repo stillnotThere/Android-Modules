@@ -14,8 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 
 import com.app.project.acropolis.GlobalConstants;
+import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.database.DBAdapter;
 import com.app.project.acropolis.database.DBOpenHelper;
 
@@ -25,6 +27,7 @@ import com.app.project.acropolis.database.DBOpenHelper;
  */
 public class SocketClientFormatter implements Runnable 
 {
+	Context _context = ProjectAcropolisActivity.getContext();
 	SocketClientConnector clientConnector = new SocketClientConnector();
 	Thread clientConnThread = null;
 	DBAdapter dbAdapter = new DBAdapter();
@@ -47,9 +50,9 @@ public class SocketClientFormatter implements Runnable
 	String db_in = "";
 	
 	String f_ph = "";
+	String f_roam = "";
 	String f_dtime = "";
 	String f_stime = "";
-	String f_roam = "";
 	String f_lat = "";
 	String f_lng = "";
 	String f_acc = "";
@@ -60,11 +63,15 @@ public class SocketClientFormatter implements Runnable
 	String f_in = "";
 	String f_out = "";
 	
+	public SocketClientFormatter(Context context) 
+	{
+		_context = context;
+	}
 	
 	public void run()
 	{
 		collectData();
-		opensendConnection();
+		openClienConnection();
 //		sendData();
 		startLooping();
 	}
@@ -75,19 +82,19 @@ public class SocketClientFormatter implements Runnable
 		server_timeStamp = sdf.format(
 				Calendar.getInstance(GlobalConstants.SERVER_TIMEZONE).getTime());
 		
-		db_ph = DBAdapter.getValue(DBOpenHelper.PHONENUMBER);
-		db_roam = DBAdapter.getValue(DBOpenHelper.ROAMING);
-		db_down = DBAdapter.getValue(DBOpenHelper.LOCAL_DOWNLOADED);
-		db_up = DBAdapter.getValue(DBOpenHelper.LOCAL_UPLOADED);
-		db_rcv = DBAdapter.getValue(DBOpenHelper.LOCAL_RECEIVED);
-		db_snt = DBAdapter.getValue(DBOpenHelper.LOCAL_SENT);
-		db_in = DBAdapter.getValue(DBOpenHelper.LOCAL_INCOMING);
-		db_out = DBAdapter.getValue(DBOpenHelper.LOCAL_OUTGOING);
+		db_ph = DBAdapter.getValue(_context,DBOpenHelper.PHONENUMBER);
+//		db_roam = DBAdapter.getValue(_context,DBOpenHelper.ROAMING);
+		db_down = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_DOWNLOADED);
+		db_up = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_UPLOADED);
+		db_rcv = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_RECEIVED);
+		db_snt = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_SENT);
+		db_in = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_INCOMING);
+		db_out = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_OUTGOING);
 		
+		f_roam = (GlobalConstants.checkRoaming(_context) ? "true" : "false");
 		f_ph = db_ph;
 		f_dtime = device_timeStamp;
 		f_stime = server_timeStamp;
-		f_roam = db_roam;
 		f_lat = GlobalConstants.LAT;
 		f_lng = GlobalConstants.LNG;
 		f_acc = GlobalConstants.ACC;
@@ -108,7 +115,7 @@ public class SocketClientFormatter implements Runnable
 				GlobalConstants.END;
 	}
 	
-	public void opensendConnection()
+	public void openClienConnection()
 	{
 		DataTumblr.setSendClientData(formattedData);
 		clientConnThread = new Thread(new SocketClientConnector.Connector());
