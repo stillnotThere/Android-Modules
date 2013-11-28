@@ -6,8 +6,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -234,13 +237,38 @@ public class ProjectAcropolisActivity extends Activity {
 
 	public String isRoaming()
 	{
-		String roam = "";
-		if(GlobalConstants.checkRoaming(this))
-			roam = "Yes";
-		else
-			roam = "No";
+		boolean roaming = false;
+		ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 		
-		return roam;
+		if(ni.isRoaming())
+		{
+			if(tm.getNetworkOperatorName() != null)
+			{
+				for(int i=0;i<GlobalConstants.CAN_OPERATORS.length;i++)
+				{
+					if(tm.getNetworkOperator().equalsIgnoreCase(GlobalConstants.CAN_OPERATORS[i]))
+					{
+						roaming = true;
+						break;
+					}
+					else
+					{
+						roaming = false;
+					}
+				}
+			}
+			else
+			{
+				roaming = true;
+			}
+		}
+		else
+		{
+			roaming = false;
+		}
+		return ( roaming ? "Yes" : "No");
 	}
 
 	public static String humanReadableByteCount(long bytes, boolean si) 

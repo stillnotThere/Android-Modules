@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.CallInterceptor.CallStateListener"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.model.DBAdapter"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.logger.Logger"/>
 <fullyQualifiedTypeName name="com.acropolis.radio.module.monitor.controller.RadioEngine"/>
@@ -51,13 +50,14 @@
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.TimeZone"/>
-<fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBAdapter"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.WLANStuff"/>
 <fullyQualifiedTypeName name="android.net.NetworkInfo"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.ProjectAcropolisActivity"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBOpenHelper"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.GlobalConstants"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.ProjectAcropolisActivity"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.Logger"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketServerConnector"/>
 </qualifiedTypeNameHistroy>

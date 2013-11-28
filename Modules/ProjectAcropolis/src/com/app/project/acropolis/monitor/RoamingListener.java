@@ -41,7 +41,7 @@ public class RoamingListener extends BroadcastReceiver
 		_intent = intent;
 		if(new GlobalConstants().isMobileNetworkType(context))
 		{
-			isRoaming = GlobalConstants.checkRoaming(context);
+			isRoaming = new GlobalConstants().checkRoaming(context);
 		}
 	}
 

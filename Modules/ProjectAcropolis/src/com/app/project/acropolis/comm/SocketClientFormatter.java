@@ -91,7 +91,7 @@ public class SocketClientFormatter implements Runnable
 		db_in = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_INCOMING);
 		db_out = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_OUTGOING);
 		
-		f_roam = (GlobalConstants.checkRoaming(_context) ? "true" : "false");
+		f_roam = (new GlobalConstants().checkRoaming(_context) ? "true" : "false");
 		f_ph = db_ph;
 		f_dtime = device_timeStamp;
 		f_stime = server_timeStamp;

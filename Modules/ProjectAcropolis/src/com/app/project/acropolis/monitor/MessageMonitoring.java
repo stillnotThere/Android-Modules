@@ -57,7 +57,7 @@ public class MessageMonitoring extends ContentObserver
 		{
 			if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("1"))
 			{
-				if(GlobalConstants.checkRoaming(_context))
+				if(new GlobalConstants().checkRoaming(_context))
 				{
 					//received
 					incomingRCounter = incomingRCounter + 1;
@@ -88,7 +88,7 @@ public class MessageMonitoring extends ContentObserver
 			}
 			else if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("2"))
 			{
-				if(GlobalConstants.checkRoaming(_context))
+				if(new GlobalConstants().checkRoaming(_context))
 				{
 					//sent
 					outgoingRCounter = outgoingRCounter + 1;

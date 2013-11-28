@@ -18,6 +18,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.app.project.acropolis.GlobalConstants;
+import com.app.project.acropolis.Logger;
 
 /**
  * @author CPH-iMac
@@ -75,6 +76,7 @@ public class SocketServerConnector implements Runnable
 			{
 				try {
 					readServerMsg = serverMsgStream.readLine();
+					Logger.Debug(readServerMsg);
 					DataTumblr.setReceivedServerData(readServerMsg);
 				} catch (IOException e) {
 					e.printStackTrace();

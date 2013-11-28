@@ -96,7 +96,7 @@ public class CallMonitoring_2 extends ContentObserver
 				if(lastCallType == Calls.INCOMING_TYPE)
 				{
 					Logger.Debug("incoming");
-					if(GlobalConstants.checkRoaming(_context))
+					if(new GlobalConstants().checkRoaming(_context))
 					{
 						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.ROAM_INCOMING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
@@ -116,7 +116,7 @@ public class CallMonitoring_2 extends ContentObserver
 				if(lastCallType == Calls.OUTGOING_TYPE)
 				{
 					Logger.Debug("outgoing");
-					if(GlobalConstants.checkRoaming(_context))
+					if(new GlobalConstants().checkRoaming(_context))
 					{
 						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.ROAM_OUTGOING));
 						db_temp = (int)convert(lastCallduration) + db_temp;

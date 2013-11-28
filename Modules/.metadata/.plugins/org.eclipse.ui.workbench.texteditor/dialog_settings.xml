@@ -13,26 +13,26 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="new GlobalConstants().checkRoaming" key="selection"/>
 		<list key="findhistory">
-			<item value="wifi"/>
-			<item value="DBOpenHelper(ProjectAcropolisActivity.getContext())"/>
-			<item value="roaming"/>
-			<item value="RoamingListener"/>
-			<item value="wlan"/>
-			<item value="CPH"/>
-			<item value="CPJ"/>
-			<item value="connected"/>
+			<item value="GlobalConstants.checkRoaming"/>
+			<item value="GlobalConstants"/>
+			<item value="context"/>
+			<item value="getValue("/>
+			<item value="update("/>
+			<item value=".getValue("/>
+			<item value="openConnection()"/>
+			<item value="openConnection"/>
 		</list>
 		<list key="replacehistory">
-			<item value="DBOpenHelper()"/>
-			<item value="GlobalConstants"/>
-			<item value="DBOpenHelper.TBL"/>
-			<item value="DBOpenHelper.LOCAL_"/>
-			<item value="LOCAL_UPLOADED"/>
-			<item value="LOCAL_DOWNLOADED"/>
-			<item value="LOCAL_SENT"/>
-			<item value="LOCAL_RECEIVED"/>
+			<item value="new GlobalConstants().checkRoaming"/>
+			<item value="getValue(_context,"/>
+			<item value="update(_context,"/>
+			<item value=".getValue(_context,"/>
+			<item value=".getValue(this,"/>
+			<item value="getValue(context,"/>
+			<item value="update(_context"/>
+			<item value="openConnection(context)"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">

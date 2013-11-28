@@ -77,7 +77,7 @@ public class DataMonitoring extends PhoneStateListener
 
 	public void checkDownload()
 	{
-		if(GlobalConstants.checkRoaming(_context))
+		if(new GlobalConstants().checkRoaming(_context))
 		{
 			incRD = downloaded - lastRD;
 			DB_R_D = DB_R_D + incRD;
@@ -101,7 +101,7 @@ public class DataMonitoring extends PhoneStateListener
 
 	public void checkUpload()
 	{
-		if(GlobalConstants.checkRoaming(_context))
+		if(new GlobalConstants().checkRoaming(_context))
 		{
 			incRU = uploaded - lastRU;
 			DB_R_U = DB_R_U + incRU;

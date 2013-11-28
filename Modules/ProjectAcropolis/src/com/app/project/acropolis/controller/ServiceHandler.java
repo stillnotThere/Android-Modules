@@ -27,6 +27,7 @@ import android.telephony.TelephonyManager;
 import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.comm.SocketClientFormatter;
+import com.app.project.acropolis.comm.SocketServerConnector;
 import com.app.project.acropolis.monitor.CallMonitoring_2;
 import com.app.project.acropolis.monitor.DataMonitoring;
 import com.app.project.acropolis.monitor.MessageMonitoring;
@@ -84,6 +85,12 @@ public class ServiceHandler extends Service
 		GlobalConstants.socketClientHandler = new Handler();
 		GlobalConstants.socketClientHandler.
 		post(new SocketClientFormatter(ProjectAcropolisActivity.getContext()));
+	}
+	
+	public void setupServerSocketHandler()
+	{
+		GlobalConstants.socketServerHandler = new Handler();
+		GlobalConstants.socketServerHandler.post(new SocketServerConnector());
 	}
 	
 	public void setupCallMonitoring()

@@ -28,6 +28,7 @@ public class GlobalConstants
 	public static final double PlanThreshold = 0.00;//TODO
 
 	public static Handler socketClientHandler = new Handler();
+	public static Handler socketServerHandler = new Handler();
 
 	public final static String[] CAN_OPERATORS = {"Rogers","TELUS","Bell"};
 	public final static String ServerIP = "99.229.28.101";
@@ -143,20 +144,37 @@ public class GlobalConstants
 	 * Checks roaming operator if applicable
 	 * @return true if Roaming, false if Local
 	 */
-	public static boolean checkRoaming(Context __context)
+	public boolean checkRoaming(Context __context)
 	{
+		boolean ret = false;
 		_context = __context;//ProjectAcropolisActivity.getContext();
-		ConnectivityManager _cm = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager _cm = (ConnectivityManager) 
+				_context.
+				getSystemService(Context.CONNECTIVITY_SERVICE);
+//		_cm.get
 		NetworkInfo _ni = _cm.getActiveNetworkInfo();
+		if(_ni!=null)
+		{
+			Logger.Debug("");
+		}
+		else
+		{
+			Logger.Debug("networkInfo null");
+		}
+		Logger.Debug("CheckRoaming_context::\t"+_context.toString());
+		Logger.Debug(_ni.getTypeName());
+		if(_ni.isConnected())
+		{
+			Logger.Debug("ni connected");
+		}
 		TelephonyManager _tm = (TelephonyManager)
 				_context.getSystemService(Context.TELEPHONY_SERVICE);
-		boolean ret = false;
 		if(String.valueOf(_tm.isNetworkRoaming())!=null)
 			ret = changeRoaming(_tm,_ni);
 		return ret;
 	}
 
-	private static boolean changeRoaming(TelephonyManager tm,NetworkInfo ni)
+	private boolean changeRoaming(TelephonyManager tm,NetworkInfo ni)
 	{
 		roaming = false;
 		_context = ProjectAcropolisActivity.getContext();
@@ -183,7 +201,7 @@ public class GlobalConstants
 		return roaming;
 	}
 
-	private static boolean compareOperator(TelephonyManager tm) throws Exception
+	private boolean compareOperator(TelephonyManager tm) throws Exception
 	{
 		boolean checkSame = false;
 		TelephonyManager _tm = tm;
@@ -209,7 +227,7 @@ public class GlobalConstants
 		return checkSame;
 	}
 
-	private static final class TriggerEvent implements Runnable
+	private final class TriggerEvent implements Runnable
 	{
 		public void run()
 		{
