@@ -24,6 +24,9 @@ public class DataTumblr
 	public static String urgentsnd = "";
 	public static String urgentrcv = "";
 	
+	public static String errorMsg = "";
+	public static String errorStream = "";
+	
 	public static  void setReceivedServerData(String msg)
 	{
 		rcv = msg;
@@ -64,4 +67,25 @@ public class DataTumblr
 	{
 		return urgentrcv;
 	}
+
+	public static void setErrorMsg(String msg)
+	{
+		errorMsg = msg;
+	}
+	
+	public static String getErrorMsg()
+	{
+		return errorMsg;
+	}
+	
+	public static void setErrorStream(String stream)
+	{
+		errorStream = stream;
+	}
+	
+	public static String getErrorStream()
+	{
+		return errorStream;
+	}
+	
 }

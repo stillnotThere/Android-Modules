@@ -1,0 +1,19 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * SocketErrorClientFormatter
+ * com.app.project.acropolis.comm
+ * SocketErrorClientFormatter.java
+ * Created - 2013-11-29 12:29:58 PM	
+ * Modified - 2013-11-29 12:29:58 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.comm;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class SocketErrorClientFormatter {
+
+}

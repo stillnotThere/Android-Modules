@@ -1,0 +1,36 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * SocketErrorConnector
+ * com.app.project.acropolis.comm
+ * SocketErrorConnector.java
+ * Created - 2013-11-29 1:06:00 PM	
+ * Modified - 2013-11-29 1:06:00 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.comm;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class SocketErrorConnector 
+{
+	
+	Socket errorSocket = new Socket();
+	
+	public static class Connector implements Runnable
+	{
+		public void run()
+		{
+			
+		}
+	}
+	
+	public static void closeConnection()
+	{
+		
+	}
+	
+
+}

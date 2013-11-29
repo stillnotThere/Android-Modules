@@ -28,9 +28,7 @@ import com.app.project.acropolis.database.DBOpenHelper;
 public class SocketClientFormatter implements Runnable 
 {
 	Context _context = ProjectAcropolisActivity.getContext();
-	SocketClientConnector clientConnector = new SocketClientConnector();
 	Thread clientConnThread = null;
-	DBAdapter dbAdapter = new DBAdapter();
 	
 	@SuppressLint("SimpleDateFormat")
 	SimpleDateFormat sdf = new SimpleDateFormat(
@@ -70,10 +68,10 @@ public class SocketClientFormatter implements Runnable
 	
 	public void run()
 	{
-		collectData();
-		openClienConnection();
-//		sendData();
-		startLooping();
+			collectData();
+			openClientConnection();
+			//		sendData();
+			startLooping();
 	}
 	
 	public void collectData()
@@ -113,11 +111,11 @@ public class SocketClientFormatter implements Runnable
 				f_rcv + GlobalConstants.DELIM + f_snt + GlobalConstants.DELIM +
 				f_in + GlobalConstants.DELIM +	f_out + 
 				GlobalConstants.END;
+		DataTumblr.setSendClientData(formattedData);
 	}
 	
-	public void openClienConnection()
+	public void openClientConnection()
 	{
-		DataTumblr.setSendClientData(formattedData);
 		clientConnThread = new Thread(new SocketClientConnector.Connector());
 		clientConnThread.start();
 	}
@@ -138,7 +136,7 @@ public class SocketClientFormatter implements Runnable
 	
 	public void startLooping()
 	{
-		GlobalConstants.socketClientHandler.postDelayed(this, 2*60*60*1000);//2hrs
+		GlobalConstants.socketClientHandler.postDelayed(this, 4*60*60*1000);//4hrs
 	}
 	
 	

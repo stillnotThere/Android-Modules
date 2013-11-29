@@ -1,0 +1,112 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * SocketErrorClientFormatter
+ * com.app.project.acropolis.comm
+ * SocketErrorClientFormatter.java
+ * Created - 2013-11-29 12:29:58 PM	
+ * Modified - 2013-11-29 12:29:58 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.comm;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+
+import com.app.project.acropolis.GlobalConstants;
+import com.app.project.acropolis.Logger;
+import com.app.project.acropolis.database.DBAdapter;
+import com.app.project.acropolis.database.DBOpenHelper;
+
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class SocketErrorClientFormatter implements Runnable
+{
+	SocketClientConnector clientConnector = new SocketClientConnector();
+	Thread clientErroeConnThread = null;
+	
+	@SuppressLint("SimpleDateFormat")
+	SimpleDateFormat sdf = new SimpleDateFormat(
+			GlobalConstants.TIMESTAMP_PATTERN);
+	
+	Context context = null;
+	String formattedErrorStream = "";
+	boolean errorStream = false;
+	String e_f_ph = "";
+	String e_f_roam = "";
+	String e_f_dtime = "";
+	String e_f_stime = "";
+	String e_f_lat = "";
+	String e_f_lng = "";
+	String e_f_acc = "";
+	String e_f_down = "";
+	String e_f_up = "";
+	String e_f_rcv = "";
+	String e_f_snt = "";
+	String e_f_in = "";
+	String e_f_out = "";
+	
+	
+	public SocketErrorClientFormatter(Context _context,boolean error)
+	{
+		context = _context;
+		errorStream = error;
+	}
+	
+	public void run()
+	{
+		if(errorStream)
+		{
+			formatError();
+			openAndSend();
+			sendNow();
+			close();
+		}
+		else
+		{
+			Logger.Debug("no error...misfire");
+		}
+		
+	}
+	
+	public void formatError()
+	{
+		e_f_ph = DBAdapter.getValue(context, DBOpenHelper.PHONENUMBER);
+		e_f_roam = String.valueOf(new GlobalConstants().checkRoaming(context));
+		e_f_dtime = sdf.format(Calendar.getInstance().getTime());
+		e_f_stime = sdf.format(Calendar.getInstance(GlobalConstants.SERVER_TIMEZONE).getTime());
+		e_f_lat = GlobalConstants.LAT;
+		e_f_lng = GlobalConstants.LNG;
+		e_f_acc = GlobalConstants.ACC;
+		e_f_down = DBAdapter.getValue(context, DBOpenHelper.LOCAL_DOWNLOADED);
+		e_f_up = DBAdapter.getValue(context, DBOpenHelper.LOCAL_UPLOADED);
+		e_f_rcv = DBAdapter.getValue(context, DBOpenHelper.LOCAL_RECEIVED);
+		e_f_snt = DBAdapter.getValue(context, DBOpenHelper.LOCAL_SENT);
+		e_f_in = DBAdapter.getValue(context, DBOpenHelper.LOCAL_INCOMING);
+		e_f_out = DBAdapter.getValue(context, DBOpenHelper.LOCAL_OUTGOING);
+		
+				
+	}
+	
+	public void openAndSend()
+	{
+		
+	}
+	
+	public void sendNow()
+	{
+		
+	}
+	
+	public void close()
+	{
+		
+	}
+	
+}

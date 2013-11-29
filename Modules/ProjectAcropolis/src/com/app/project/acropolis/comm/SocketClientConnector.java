@@ -104,6 +104,7 @@ public class SocketClientConnector
 				clientUrgentSocket = new Socket(urgentInet,GlobalConstants.SocketClientPORT);
 				clientUrgentSocket.setKeepAlive(true);
 				sendUrgentMsg();
+				closeUrgentConnection();
 			} catch (UnknownHostException e1) {
 				e1.printStackTrace();
 			} catch (IOException e2) {
@@ -131,5 +132,19 @@ public class SocketClientConnector
 			printWriter.println(DataTumblr.getSendUrgent());
 		}
 
+		public void closeUrgentConnection()
+		{
+			try {
+				clientUrgentSocket.close();
+			} catch (UnknownHostException e0) {
+				e0.printStackTrace();
+				Logger.Debug(e0.getLocalizedMessage());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				Logger.Debug(e1.getLocalizedMessage());
+			}
+		}
+
 	}
+
 }
