@@ -1,10 +1,10 @@
 package com.app.project.acropolis;
 
+import java.io.File;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,8 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.project.acropolis.controller.ServiceHandler;
-import com.app.project.acropolis.database.DBAdapter;
-import com.app.project.acropolis.database.DBOpenHelper;
+import com.app.project.acropolis.database.PersistedData;
 
 public class ProjectAcropolisActivity extends Activity {
 
@@ -50,11 +49,8 @@ public class ProjectAcropolisActivity extends Activity {
 		init();
 		context = getApplicationContext();
 		activity = this;
-//		DBAdapter.checkDBState();
-//		DBAdapter.deleteDB();
-//		DBAdapter.createDB();
-//		DBAdapter.checkIntegrity();
-//		DBAdapter.putBlank();
+
+		
 		setContentView(R.layout.activity_main);
 
 		Intent serviceIntent = new Intent(this,ServiceHandler.class);
@@ -76,11 +72,10 @@ public class ProjectAcropolisActivity extends Activity {
 		msgRTotal = (TextView) findViewById(R.id.valueRMTotal);
 		dataRTotal = (TextView) findViewById(R.id.valueRDTtotal);
 		
-//		DBAdapter.deleteDB();
-
 		updateScreen();
 		screenHandler = new Handler();
 		screenHandler.post(refreshScreen);
+		
 	}
 
 	//	@Override
@@ -109,11 +104,22 @@ public class ProjectAcropolisActivity extends Activity {
 	//		}
 	//	};
 	
+	public boolean deleteSQLDB()
+	{
+		boolean deleted = false;
+		String sqlDBNAME = "PROJECTACROPOLIS_DB";
+		File file = getDatabasePath(sqlDBNAME);
+		if(file.exists())
+			deleted = file.delete();
+		
+		return deleted;
+	}
+	
 	private final void init()
 	{
 		GlobalConstants.setGlobalContext(this);
-		ContextWrapper contextWrapper = new ContextWrapper(this);
-		Logger.Debug("init() Context::::\t"+contextWrapper.getApplicationContext().toString());
+		Logger.Debug("init() Context::::\t"+getApplicationContext().toString());
+		deleteSQLDB();
 	}
 
 	public static Activity getActivity()
@@ -147,7 +153,7 @@ public class ProjectAcropolisActivity extends Activity {
 	{
 		synchronized(this)
 		{
-//			DBAdapter.putBlank();
+//			new DBAdapter().putBlank();
 			int in = 0;
 			int out = 0;
 			int rcv = 0;
@@ -164,25 +170,25 @@ public class ProjectAcropolisActivity extends Activity {
 			long totalRD = 0;
 			
 			roaming.setText("Roaming ::: " + isRoaming());
-			in = Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.LOCAL_INCOMING));
-			out = Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.LOCAL_OUTGOING));
-			rcv = Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.LOCAL_RECEIVED));
-			snt = Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.LOCAL_SENT));
-			down = Long.parseLong(DBAdapter.getValue(this,DBOpenHelper.LOCAL_DOWNLOADED));
-			up = Long.parseLong(DBAdapter.getValue(this,DBOpenHelper.LOCAL_UPLOADED));
+			in = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING));
+			out = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING));
+			rcv = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_RECEIVED));
+			snt = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_SENT));
+			down = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_DOWNLOADED));
+			up = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_UPLOADED));
 
 			totalRV = 
-					Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.ROAM_INCOMING)) 
+					Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_INCOMING)) 
 					+
-					Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.ROAM_OUTGOING));
+					Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING));
 			totalRM = 
-					Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.ROAM_SENT)) 
+					Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_SENT)) 
 					+
-					Integer.parseInt(DBAdapter.getValue(this,DBOpenHelper.ROAM_RECEIVED));
+					Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_RECEIVED));
 			totalRD = 
-					Long.parseLong(DBAdapter.getValue(this,DBOpenHelper.ROAM_DOWNLOADED)) 
+					Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_DOWNLOADED)) 
 					+
-					Long.parseLong(DBAdapter.getValue(this,DBOpenHelper.ROAM_UPLOADED));
+					Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_UPLOADED));
 			
 			totalV = in + out + totalRV; 
 			totalM = rcv + snt + totalRM;
@@ -295,7 +301,7 @@ public class ProjectAcropolisActivity extends Activity {
 		{
 		case R.id.menu_reset:
 		{
-			DBAdapter.resetValues(this);
+			new PersistedData().resetData();
 			updateScreen();
 		};
 		}

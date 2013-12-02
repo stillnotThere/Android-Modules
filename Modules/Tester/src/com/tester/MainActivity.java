@@ -17,7 +17,8 @@ public class MainActivity extends Activity
 	EditText input = null;
 	TextView output_tu = null;
 	TextView output_ceil = null;
-
+	SharedPrefs sp = new SharedPrefs(this);
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -26,6 +27,10 @@ public class MainActivity extends Activity
 		input = (EditText) findViewById(R.id.inSec);
 		output_tu = (TextView) findViewById(R.id.resultMins_timeunit);
 		output_ceil = (TextView) findViewById(R.id.result_ceil);
+		
+		
+		
+		
 	}
 
 	public String convertTU(String sec)
@@ -33,6 +38,7 @@ public class MainActivity extends Activity
 		long min=0;
 		long secs = Long.parseLong(sec);
 		min = TimeUnit.MINUTES.convert(secs, TimeUnit.SECONDS);
+		sp.setData(KEYS[1], (String.valueOf(min)));
 		return String.valueOf(min);
 	}
 	
@@ -50,14 +56,17 @@ public class MainActivity extends Activity
 			Log.v(TAG, String.valueOf(secs%60));
 			min = (long) Math.abs(secs/60) + 1;
 		}
-		
+		sp.setData(KEYS[2], (String.valueOf(min)));
 		return String.valueOf(min);
 	}
 	
+	public final String[] KEYS = {"input","output_tu","output_ceil"};
+	
 	public void convert(View v)
 	{
-		output_tu.setText(convertTU(input.getText().toString()));
-		output_ceil.setText(convertCeil(input.getText().toString()));
+		sp.setData(KEYS[0], input.getText().toString());
+		output_tu.setText(convertTU(sp.getData(KEYS[0])));
+		output_ceil.setText(convertCeil(sp.getData(KEYS[0])));
 	}
 	
 	@Override

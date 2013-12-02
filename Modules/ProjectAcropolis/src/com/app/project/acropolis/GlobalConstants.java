@@ -29,6 +29,44 @@ import com.app.project.acropolis.comm.SocketErrorClientFormatter;
  */
 public class GlobalConstants 
 {
+	
+	public static class PersistenceConstants
+	{
+//		public static final String _DEFAULT_VALUE = "check again later...";
+		public static final String _DEFAULT_VALUE = "0";
+		public static final String _RESET_VALUES = "0";
+		/**
+		 * Columns KEYS
+		 */
+		public static final String PHONENUMBER = "PHONE_NUM";
+		public static final String ROAMING = "ROAMING";
+		public static final String LOCAL_INCOMING = "LOCAL_INCOMING";
+		public static final String LOCAL_OUTGOING = "LOCAL_OUTGOING";
+		public static final String LOCAL_RECEIVED = "LOCAL_RECEIVED";
+		public static final String LOCAL_SENT = "LOCAL_SENT";
+		public static final String LOCAL_DOWNLOADED = "LOCAL_DOWNLOADED";
+		public static final String LOCAL_UPLOADED = "LOCAL_UPLOADED";
+		public static final String ROAM_INCOMING = "ROAMING_INCOMING";
+		public static final String ROAM_OUTGOING = "ROAMING_OUTGOING";
+		public static final String ROAM_RECEIVED = "ROAMING_RECEIVED";
+		public static final String ROAM_SENT = "ROAMING_SENT";
+		public static final String ROAM_DOWNLOADED = "ROAMING_DOWNLOADED";
+		public static final String ROAM_UPLOADED = "ROAMING_UPLOADED";
+		public static final String BILL_DATE = "BILL_DATE";
+		public static final String PLAN_LOCAL_INCOMING = "PLAN_LOCAL_INCOMING";
+		public static final String PLAN_LOCAL_OUTGOING = "PLAN_LOCAL_OUTGOING";
+		public static final String PLAN_LOCAL_RECEIVED = "PLAN_LOCAL_RECEIVED";
+		public static final String PLAN_LOCAL_SENT = "PLAN_LOCAL_SENT";
+		public static final String PLAN_LOCAL_DOWNLOADED = "PLAN_LOCAL_DOWNLOADED";
+		public static final String PLAN_LOCAL_UPLOADED = "PLAN_LOCAL_UPLOADED";
+		public static final String PLAN_ROAM_INCOMING = "PLAN_ROAMING_INCOMING";
+		public static final String PLAN_ROAM_OUTGOING = "PLAN_ROAMING_OUTGOING";
+		public static final String PLAN_ROAM_RECEIVED = "PLAN_ROAMING_RECEIVED";
+		public static final String PLAN_ROAM_SENT = "PLAN_ROAMING_SENT";
+		public static final String PLAN_ROAM_DOWNLOADED = "PLAN_ROAMING_DOWNLOADED";
+		public static final String PLAN_ROAM_UPLOADED = "PLAN_ROAMING_UPLOADED";
+	}
+	
 	public static final double PlanThreshold = 0.00;//TODO
 
 	public static Handler socketClientHandler = new Handler();

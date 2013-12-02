@@ -10,7 +10,6 @@
  */
 package com.app.project.acropolis.monitor;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -19,8 +18,7 @@ import android.net.Uri;
 import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
-import com.app.project.acropolis.database.DBAdapter;
-import com.app.project.acropolis.database.DBOpenHelper;
+import com.app.project.acropolis.database.PersistedData;
 
 /**
  * @author CPH-iMac
@@ -63,13 +61,11 @@ public class MessageMonitoring extends ContentObserver
 					incomingRCounter = incomingRCounter + 1;
 					Logger.Debug("msg received count:"+incomingRCounter);
 
-					long previous = Long.parseLong(DBAdapter.getValue(_context,DBOpenHelper.ROAM_RECEIVED));
+					long previous = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_RECEIVED));
 					long newV = incomingRCounter;
 					long total = previous + newV;
 
-					ContentValues cv = new ContentValues();
-					cv.put(DBOpenHelper.ROAM_RECEIVED, String.valueOf(total));
-					DBAdapter.update(_context,cv);
+					new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_RECEIVED, String.valueOf(total));
 				}
 				else
 				{
@@ -77,13 +73,11 @@ public class MessageMonitoring extends ContentObserver
 					incomingCounter = incomingCounter + 1;
 					Logger.Debug("msg received count:"+incomingCounter);
 
-					long previous = Long.parseLong(DBAdapter.getValue(_context,DBOpenHelper.LOCAL_RECEIVED));
+					long previous = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_RECEIVED));
 					long newV = incomingCounter;
 					long total = previous + newV;
 
-					ContentValues cv = new ContentValues();
-					cv.put(DBOpenHelper.LOCAL_RECEIVED, String.valueOf(total));
-					DBAdapter.update(_context,cv);
+					new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_RECEIVED, String.valueOf(total));
 				}
 			}
 			else if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("2"))
@@ -94,13 +88,11 @@ public class MessageMonitoring extends ContentObserver
 					outgoingRCounter = outgoingRCounter + 1;
 					Logger.Debug("msg sent count::"+outgoingRCounter);
 
-					long previous = Long.parseLong(DBAdapter.getValue(_context,DBOpenHelper.ROAM_SENT));
+					long previous = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_SENT));
 					long newV = outgoingRCounter;
 					long total = previous + newV;
 
-					ContentValues cv = new ContentValues();
-					cv.put(DBOpenHelper.ROAM_SENT, String.valueOf(total));
-					DBAdapter.update(_context,cv);
+					new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_SENT, String.valueOf(total));
 				}
 				else
 				{
@@ -108,13 +100,11 @@ public class MessageMonitoring extends ContentObserver
 					outgoingCounter = outgoingCounter + 1;
 					Logger.Debug("msg sent count::"+outgoingCounter);
 
-					long previous = Long.parseLong(DBAdapter.getValue(_context,DBOpenHelper.LOCAL_SENT));
+					long previous = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_SENT));
 					long newV = outgoingCounter;
 					long total = previous + newV;
 
-					ContentValues cv = new ContentValues();
-					cv.put(DBOpenHelper.LOCAL_SENT, String.valueOf(total));
-					DBAdapter.update(_context,cv);
+					new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_SENT, String.valueOf(total));
 				}
 			}
 		}

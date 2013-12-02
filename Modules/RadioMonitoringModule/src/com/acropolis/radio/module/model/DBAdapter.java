@@ -15,7 +15,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.acropolis.radio.module.RadioModuleActivity;
 import com.acropolis.radio.module.global.DBConstants;
 import com.acropolis.radio.module.logger.Logger;
 

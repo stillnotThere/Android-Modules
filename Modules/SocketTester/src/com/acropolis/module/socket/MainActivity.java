@@ -48,8 +48,8 @@ public class MainActivity extends Activity
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		updateScreen = new Handler();
-		//		ServerSock serverSock = new ServerSock();
-		//		new Thread(serverSock).start();
+		ServerSock serverSock = new ServerSock();
+		new Thread(serverSock).start();
 		btn = (Button) findViewById(R.id.button1);
 		txt = (EditText) findViewById(R.id.editText1);
 		serverTxt = (TextView) findViewById(R.id.textView1);
@@ -137,6 +137,11 @@ public class MainActivity extends Activity
 		{
 			try {
 				serverSocket = new ServerSocket(serverPort);
+				serverSocket.setReuseAddress(true);
+				Logger.Debugger(serverSocket.getLocalSocketAddress().toString()+
+						"\n\t"+serverSocket.isBound() + 
+						"\n\t"+serverSocket.getInetAddress().getCanonicalHostName());
+				Logger.Debugger("Server listening");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

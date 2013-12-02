@@ -68,7 +68,7 @@ public class RadioModuleActivity extends Activity
 		appIntent = getIntent();
 		
 		dbAdapter = new DBAdapter(getApplicationContext());
-//		FirstRunDBSetup();
+		FirstRunDBSetup();
 		RadioEngine.igniteEngine();
 		StartMessagingEngine();
 //		fetchCurrentMonitoredValues();

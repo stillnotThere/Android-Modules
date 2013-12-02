@@ -1,0 +1,47 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * SharedPrefs
+ * com.tester
+ * SharedPrefs.java
+ * Created - 2013-12-02 5:17:47 PM	
+ * Modified - 2013-12-02 5:17:47 PM
+ * TODO
+ * NOTES - 
+ */
+package com.tester;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class SharedPrefs 
+{
+	private Context _context = null;
+	private final String name = "test_sp";
+	
+	public SharedPrefs(Context context)
+	{
+		_context = context;
+	}
+	
+	private SharedPreferences getSharedPrefs()
+	{
+		return _context.getSharedPreferences(name, Context.MODE_PRIVATE|Context.MODE_MULTI_PROCESS);
+	}
+	
+	public static String getData()
+	{
+		String val = "";
+		
+		return val;
+	}
+	
+	public static void setData(String data)
+	{
+		
+	}
+	
+}

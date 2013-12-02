@@ -1,0 +1,47 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * PersistenceData
+ * com.app.project.acropolis.database
+ * PersistenceData.java
+ * Created - 2013-12-02 5:44:24 PM	
+ * Modified - 2013-12-02 5:44:24 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis.database;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.app.project.acropolis.ProjectAcropolisActivity;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class PersistedData
+{
+
+	private Context context = ProjectAcropolisActivity.getContext();
+	
+	private final String NAME = "ProjectAcropolis_SP";
+	
+	private SharedPreferences getAppSharedPreferences()
+	{
+		return context.getSharedPreferences(
+				NAME, Context.MODE_MULTI_PROCESS|Context.MODE_PRIVATE);
+	}
+	
+	public void putData(String key, String data)
+	{
+		SharedPreferences sp = getAppSharedPreferences();
+	}
+	
+	public String fetchData(String key)
+	{
+		String val = "";
+		
+		return val;
+	}
+	
+}

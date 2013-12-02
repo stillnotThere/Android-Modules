@@ -10,7 +10,6 @@
  */
 package com.app.project.acropolis.monitor;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -20,8 +19,7 @@ import android.provider.CallLog.Calls;
 import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
-import com.app.project.acropolis.database.DBAdapter;
-import com.app.project.acropolis.database.DBOpenHelper;
+import com.app.project.acropolis.database.PersistedData;
 
 /**
  * @author CPH-iMac
@@ -98,19 +96,16 @@ public class CallMonitoring_2 extends ContentObserver
 					Logger.Debug("incoming");
 					if(new GlobalConstants().checkRoaming(_context))
 					{
-						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.ROAM_INCOMING));
+						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_INCOMING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
-						ContentValues cv = new ContentValues();
-						cv.put(DBOpenHelper.ROAM_INCOMING, String.valueOf(db_temp));
-						DBAdapter.update(_context,cv);
+						new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_INCOMING, String.valueOf(db_temp));
+						
 					}
 					else
 					{
-						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.LOCAL_INCOMING));
+						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
-						ContentValues cv = new ContentValues();
-						cv.put(DBOpenHelper.LOCAL_INCOMING, String.valueOf(db_temp));
-						DBAdapter.update(_context,cv);
+						new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING, String.valueOf(db_temp));
 					}
 				}
 				if(lastCallType == Calls.OUTGOING_TYPE)
@@ -118,19 +113,15 @@ public class CallMonitoring_2 extends ContentObserver
 					Logger.Debug("outgoing");
 					if(new GlobalConstants().checkRoaming(_context))
 					{
-						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.ROAM_OUTGOING));
+						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
-						ContentValues cv = new ContentValues();
-						cv.put(DBOpenHelper.ROAM_OUTGOING, String.valueOf(db_temp));
-						DBAdapter.update(_context,cv);
+						new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING, String.valueOf(db_temp));
 					}
 					else
 					{
-						int db_temp = Integer.parseInt(DBAdapter.getValue(_context,DBOpenHelper.LOCAL_OUTGOING));
+						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
-						ContentValues cv = new ContentValues();
-						cv.put(DBOpenHelper.LOCAL_OUTGOING, String.valueOf(db_temp));
-						DBAdapter.update(_context,cv);
+						new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING, String.valueOf(db_temp));
 					}
 				}
 			}

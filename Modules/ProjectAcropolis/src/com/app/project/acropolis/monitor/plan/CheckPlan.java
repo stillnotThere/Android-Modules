@@ -15,7 +15,7 @@ import android.content.Context;
 import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.comm.DataTumblr;
 import com.app.project.acropolis.comm.SocketClientConnector;
-import com.app.project.acropolis.database.DBAdapter;
+import com.app.project.acropolis.database.PersistedData;
 
 /**
  * @author CPH-iMac
@@ -31,7 +31,7 @@ public class CheckPlan
 	private static long fetchPlan(Context __context,String _key)
 	{
 		long db_val = 0;
-		db_val = Long.parseLong(DBAdapter.getValue(__context,_key));
+		db_val = Long.parseLong(new PersistedData().fetchData(_key));
 		return db_val;
 	}
 	

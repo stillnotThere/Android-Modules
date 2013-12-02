@@ -60,7 +60,7 @@ public class ServiceHandler extends Service
 
 	public void onCreate()
 	{
-		setupBillDateListener();
+//		setupBillDateListener();
 		setupSocketHandler();
 		setupRoamingChanges();
 		setupCallMonitoring();

@@ -18,8 +18,7 @@ import android.content.Context;
 
 import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.ProjectAcropolisActivity;
-import com.app.project.acropolis.database.DBAdapter;
-import com.app.project.acropolis.database.DBOpenHelper;
+import com.app.project.acropolis.database.PersistedData;
 
 /**
  * @author CPH-iMac
@@ -80,14 +79,14 @@ public class SocketUrgentClientFormatter implements Runnable
 		server_timeStamp = sdf.format(
 				Calendar.getInstance(GlobalConstants.SERVER_TIMEZONE).getTime());
 		
-		db_ph = DBAdapter.getValue(_context,DBOpenHelper.PHONENUMBER);
-//		db_roam = DBAdapter.getValue(_context,DBOpenHelper.ROAMING);
-		db_down = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_DOWNLOADED);
-		db_up = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_UPLOADED);
-		db_rcv = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_RECEIVED);
-		db_snt = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_SENT);
-		db_in = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_INCOMING);
-		db_out = DBAdapter.getValue(_context,DBOpenHelper.LOCAL_OUTGOING);
+		db_ph = new PersistedData().fetchData(GlobalConstants.PersistenceConstants.PHONENUMBER);
+//		db_roam = new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAMING);
+		db_down = new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_DOWNLOADED);
+		db_up = new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_UPLOADED);
+		db_rcv = new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_RECEIVED);
+		db_snt = new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_SENT);
+		db_in = new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING);
+		db_out = new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING);
 		
 		f_roam = (new GlobalConstants().checkRoaming(_context) ? "true" : "false");
 		f_ph = db_ph;
