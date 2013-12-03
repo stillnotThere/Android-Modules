@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.database.ContentObserver"/>
-<fullyQualifiedTypeName name="android.telephony.TelephonyManager"/>
 <fullyQualifiedTypeName name="android.net.TrafficStats"/>
 <fullyQualifiedTypeName name="android.app.Service"/>
 <fullyQualifiedTypeName name="android.telephony.PhoneStateListener"/>
@@ -39,7 +37,6 @@
 <fullyQualifiedTypeName name="java.util.TimeZone"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.WLANStuff"/>
 <fullyQualifiedTypeName name="android.net.NetworkInfo"/>
-<fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.comm.SocketServerConnector"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.database.DBAdapter"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="com.app.project.acropolis.GlobalConstants"/>
 <fullyQualifiedTypeName name="android.content.SharedPreferences.Editor"/>
 <fullyQualifiedTypeName name="com.app.project.acropolis.GlobalConstants.PersistenceConstants"/>
+<fullyQualifiedTypeName name="android.graphics.Typeface"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.R.attr"/>
+<fullyQualifiedTypeName name="com.app.project.acropolis.R.id"/>
 </qualifiedTypeNameHistroy>

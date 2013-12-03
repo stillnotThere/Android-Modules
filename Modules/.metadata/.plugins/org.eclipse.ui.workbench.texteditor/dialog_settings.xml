@@ -3,28 +3,29 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="260" key="DIALOG_Y_ORIGIN"/>
-		<item value="2223" key="DIALOG_X_ORIGIN"/>
 		<item value="397" key="DIALOG_HEIGHT"/>
+		<item value="2223" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="new PersistedData().fetchData(" key="selection"/>
+		<item value="shad" key="selection"/>
 		<list key="findhistory">
+			<item value="shad"/>
+			<item value="scroll"/>
+			<item value="font"/>
+			<item value="fill_parent"/>
 			<item value="new DBAdapter().getValue(__context,"/>
 			<item value="DBOpenHelper"/>
 			<item value="new DBAdapter().getValue(_context,"/>
 			<item value="new DBAdapter().getValue(context,"/>
-			<item value="cv.put"/>
-			<item value="new DBAdapter().getValue(this,"/>
-			<item value="cvU.put"/>
-			<item value="cvD.put"/>
 		</list>
 		<list key="replacehistory">
+			<item value="match_parent"/>
 			<item value="new PersistedData().fetchData("/>
 			<item value="GlobalConstants.PersistenceConstants"/>
 			<item value="editor.putString"/>
@@ -32,7 +33,6 @@
 			<item value="PersistenceConstants"/>
 			<item value="GlobalConstants.PersistenceContants"/>
 			<item value="GlobalConstants.Persistence"/>
-			<item value="new DBAdapter()"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">

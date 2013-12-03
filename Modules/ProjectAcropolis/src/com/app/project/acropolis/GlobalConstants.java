@@ -29,6 +29,23 @@ import com.app.project.acropolis.comm.SocketErrorClientFormatter;
  */
 public class GlobalConstants 
 {
+	public static String FontName = "font/Vera.ttf";
+	public static int BOLD = 1;
+	public static int ITALIC = 2;
+	public static int BOLD_ITALIC = 1 | 2;
+	
+	public static class PlanChargeContants
+	{
+		/*Local Rates*/
+		public final static double LocalVoiceRate = 0.10;		//incoming free(general)
+		public final static double LocalMessageRate = 0.10;	//some plan 250 free after 10cents/msg
+		public final static double LocalDataRate = 0.06;		//500MB free after 6cent/MB
+
+		/*Roaming Rates*/
+		public final static double RoamingVoiceRate = 2.00;
+		public final static double RoamingMessageRate = 0.60;
+		public final static double RoamingDataRate = 5.00;
+	}
 	
 	public static class PersistenceConstants
 	{
@@ -182,14 +199,14 @@ public class GlobalConstants
 		return isMobile;
 	}
 	
-	public static boolean isWLANOnRoaming(Context __context)
-	{
-		boolean isWLANonR = false;
-		Context _context = __context;
-			
-		
-		return isWLANonR;
-	}
+//	public static boolean isWLANOnRoaming(Context __context)
+//	{
+//		boolean isWLANonR = false;
+//		Context _context = __context;
+//			
+//		
+//		return isWLANonR;
+//	}
 	
 	/**
 	 * Checks roaming operator if applicable

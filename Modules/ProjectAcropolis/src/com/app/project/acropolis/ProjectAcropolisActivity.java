@@ -6,6 +6,7 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,6 +25,26 @@ public class ProjectAcropolisActivity extends Activity {
 	public static Context context = null; 
 	final String roamingText = "Roaming ::: ";
 
+	/*Font substitutions*/
+	TextView tvincoming;
+	TextView tvoutgoing;
+	TextView tvvoiceTotal;
+	TextView tvroamvoiceTotal;
+	
+	TextView tvrcv;
+	TextView tvsnt;
+	TextView tvmsgTotal;
+	TextView tvroammsgTotal;
+	
+	TextView tvdown;
+	TextView tvup;
+	TextView tvdataTotal;
+	TextView tvroamdataTotal;
+	
+	TextView tvmonthcharge;
+	TextView tvroamcharge;
+	
+	/*DB Values place-holder*/
 	TextView roaming;
 	TextView incoming;
 	TextView outgoing;
@@ -50,12 +71,26 @@ public class ProjectAcropolisActivity extends Activity {
 		context = getApplicationContext();
 		activity = this;
 
-		
 		setContentView(R.layout.activity_main);
-
 		Intent serviceIntent = new Intent(this,ServiceHandler.class);
 		this.startService(serviceIntent);
 
+		tvincoming = (TextView) findViewById(R.id.txtIn);
+		tvoutgoing = (TextView) findViewById(R.id.txtOut);
+		tvvoiceTotal = (TextView) findViewById(R.id.txtVTotal);
+		tvroamvoiceTotal = (TextView) findViewById(R.id.txtRVoice);
+		tvrcv = (TextView) findViewById(R.id.txtRcv);
+		tvsnt = (TextView) findViewById(R.id.txtSnt);
+		tvmsgTotal = (TextView) findViewById(R.id.txtMTotal);
+		tvroammsgTotal = (TextView) findViewById(R.id.txtRMTotal);
+		tvdown = (TextView) findViewById(R.id.txtDown);
+		tvup = (TextView) findViewById(R.id.txtUpload);
+		tvdataTotal = (TextView) findViewById(R.id.txtDTotal);
+		tvroamdataTotal = (TextView) findViewById(R.id.txtRDTotal);
+
+		tvmonthcharge = (TextView) findViewById(R.id.chargePlan);
+		tvroamcharge = (TextView) findViewById(R.id.chargeRoaming);
+		
 		roaming = (TextView) findViewById(R.id.strRoaming);
 		incoming = (TextView) findViewById(R.id.valueIn);
 		outgoing = (TextView) findViewById(R.id.valueOut);
@@ -78,6 +113,49 @@ public class ProjectAcropolisActivity extends Activity {
 		
 	}
 
+	/**
+	 * Set "Vera.ttf" font
+	 */
+	private void setupApplicationFont()
+	{
+		Typeface tf =
+				Typeface.createFromAsset(getAssets(),
+						GlobalConstants.FontName);
+		
+		tvmonthcharge.setTypeface(tf);
+		tvroamcharge.setTypeface(tf);
+		
+		//strict font substitutions
+		tvincoming.setTypeface(tf);
+		tvoutgoing.setTypeface(tf);
+		tvvoiceTotal.setTypeface(tf,GlobalConstants.BOLD);
+		tvroamvoiceTotal.setTypeface(tf,GlobalConstants.BOLD);
+		tvrcv.setTypeface(tf);
+		tvsnt.setTypeface(tf);
+		tvmsgTotal.setTypeface(tf,GlobalConstants.BOLD);
+		tvroammsgTotal.setTypeface(tf,GlobalConstants.BOLD);
+		tvdown.setTypeface(tf);
+		tvup.setTypeface(tf);
+		tvdataTotal.setTypeface(tf,GlobalConstants.BOLD);
+		tvroamdataTotal.setTypeface(tf,GlobalConstants.BOLD);
+		
+		roaming.setTypeface(tf,GlobalConstants.BOLD_ITALIC);
+		incoming.setTypeface(tf);
+		outgoing.setTypeface(tf);
+		received.setTypeface(tf);
+		sent.setTypeface(tf);
+		downloaded.setTypeface(tf);
+		uploaded.setTypeface(tf);
+		
+		voiceTotal.setTypeface(tf);//,GlobalConstants.BOLD);
+		msgTotal.setTypeface(tf);//,GlobalConstants.BOLD);
+		dataTotal.setTypeface(tf);//,GlobalConstants.BOLD);
+		
+		voiceRTotal.setTypeface(tf);//,GlobalConstants.ITALIC);
+		msgRTotal.setTypeface(tf);//,GlobalConstants.ITALIC);
+		dataRTotal.setTypeface(tf);//,GlobalConstants.ITALIC);
+	}
+	
 	//	@Override
 	//	protected void onResume() {
 	//		super.onResume();
@@ -149,6 +227,11 @@ public class ProjectAcropolisActivity extends Activity {
 		}
 	};
 
+	private void calculateCharges()
+	{
+		
+	}
+	
 	public void updateScreen()
 	{
 		synchronized(this)
@@ -170,6 +253,7 @@ public class ProjectAcropolisActivity extends Activity {
 			long totalRD = 0;
 			
 			roaming.setText("Roaming ::: " + isRoaming());
+			roaming.setTypeface(Typeface.createFromAsset(getAssets(), GlobalConstants.FontName),GlobalConstants.BOLD | GlobalConstants.ITALIC);
 			in = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING));
 			out = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING));
 			rcv = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_RECEIVED));
@@ -211,6 +295,8 @@ public class ProjectAcropolisActivity extends Activity {
 			voiceRTotal.setText(String.valueOf(totalRV));
 			msgRTotal.setText(String.valueOf(totalRM));
 			dataRTotal.setText(humanReadableByteCount(totalRD,true));
+			
+			setupApplicationFont();
 		}
 
 	}

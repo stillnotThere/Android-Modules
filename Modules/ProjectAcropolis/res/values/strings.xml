@@ -7,10 +7,16 @@
     <string name="screenHeading">Monitored Values</string>
     
     <!-- Standard constants -->
-    <string name="roaming">Raoming::</string>
+    <string name="roaming">Roaming::</string>
     <string name="fetching">Fetching values</string>
     <string name="strTotal">Total</string>
     <string name="btnstrRefresh">Refresh</string>
+    
+    <!-- Charges Plan and Roaming -->
+    <string name="strChargeHeading">Running Cost</string>
+    <string name="strChargePlan">Monthly</string>
+    <string name="strChargeRoaming">Roaming</string>
+    
     
     <!-- Voice Call -->
     <string name="strCallHeading">Voice Calls (minutes)</string>
