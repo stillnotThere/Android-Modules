@@ -47,6 +47,15 @@ public class GlobalConstants
 		public final static double RoamingDataRate = 5.00;
 	}
 	
+	public static class LaunchDialogBox
+	{
+		public static final String ApplicationPlanDialogMsg = "";
+		public static final String ApplicationContactCPH = 
+				"Application is designed to work seamlessly while integrating " +
+				"your active mobile plan. To partake in that feature, contact us \n" +
+				"http://www.cphinc.ca";
+	}
+	
 	public static class PersistenceConstants
 	{
 //		public static final String _DEFAULT_VALUE = "check again later...";

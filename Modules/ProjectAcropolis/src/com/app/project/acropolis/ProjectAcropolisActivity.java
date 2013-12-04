@@ -1,6 +1,7 @@
 package com.app.project.acropolis;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -41,8 +42,10 @@ public class ProjectAcropolisActivity extends Activity {
 	TextView tvdataTotal;
 	TextView tvroamdataTotal;
 	
-	TextView tvmonthcharge;
+	TextView tvlocalcharge;
 	TextView tvroamcharge;
+	TextView localCharge;
+	TextView roamCharge;
 	
 	/*DB Values place-holder*/
 	TextView roaming;
@@ -88,8 +91,10 @@ public class ProjectAcropolisActivity extends Activity {
 		tvdataTotal = (TextView) findViewById(R.id.txtDTotal);
 		tvroamdataTotal = (TextView) findViewById(R.id.txtRDTotal);
 
-		tvmonthcharge = (TextView) findViewById(R.id.chargePlan);
+		tvlocalcharge = (TextView) findViewById(R.id.chargePlan);
 		tvroamcharge = (TextView) findViewById(R.id.chargeRoaming);
+		localCharge = (TextView) findViewById(R.id.valueChargePlan);
+		roamCharge = (TextView) findViewById(R.id.valueChargeRoaming);
 		
 		roaming = (TextView) findViewById(R.id.strRoaming);
 		incoming = (TextView) findViewById(R.id.valueIn);
@@ -122,8 +127,10 @@ public class ProjectAcropolisActivity extends Activity {
 				Typeface.createFromAsset(getAssets(),
 						GlobalConstants.FontName);
 		
-		tvmonthcharge.setTypeface(tf);
+		tvlocalcharge.setTypeface(tf);
 		tvroamcharge.setTypeface(tf);
+		localCharge.setTypeface(tf,GlobalConstants.BOLD_ITALIC);
+		roamCharge.setTypeface(tf,GlobalConstants.BOLD_ITALIC);
 		
 		//strict font substitutions
 		tvincoming.setTypeface(tf);
@@ -227,9 +234,55 @@ public class ProjectAcropolisActivity extends Activity {
 		}
 	};
 
-	private void calculateCharges()
+	private void calculateCharges(long[] local,long[] roam)
 	{
+		long localVoice = local[0];
+		long localMessage = local[1];
+		long localData = local[2];
 		
+		long roamVoice = roam[0];
+		long roamMessage = roam[1];
+		long roamData = roam[2];
+		
+		double localVoiceCharge = 0;
+		double localMsgCharge = 0;
+		double localDataCharge = 0;
+		double roamVoiceCharge = 0;
+		double roamMsgCharge = 0;
+		double roamDataCharge = 0;
+		
+		double localCost = 0;
+		double roamCost = 0;
+		
+		DecimalFormat appDecimalFormat = new DecimalFormat("##.00");
+		
+		localVoiceCharge = localVoice * GlobalConstants.PlanChargeContants.LocalVoiceRate;
+		localMsgCharge = localMessage * GlobalConstants.PlanChargeContants.LocalMessageRate;
+		localDataCharge = formatData(localData) * GlobalConstants.PlanChargeContants.LocalDataRate;
+		
+		roamVoiceCharge = roamVoice * GlobalConstants.PlanChargeContants.RoamingVoiceRate;
+		roamMsgCharge = roamMessage * GlobalConstants.PlanChargeContants.RoamingMessageRate;
+		roamDataCharge = formatData(roamData) * GlobalConstants.PlanChargeContants.RoamingDataRate;
+		Logger.Debug("localVoiceCharge:::\t"+appDecimalFormat.format(localVoiceCharge));
+		Logger.Debug("localMsgCharge:::\t"+appDecimalFormat.format(localMsgCharge));
+		Logger.Debug("localDataCharge:::\t"+appDecimalFormat.format(localDataCharge));
+		
+		
+		localCost = localVoiceCharge + localMsgCharge + localDataCharge;
+		roamCost = roamVoiceCharge + roamMsgCharge + roamDataCharge;
+		Logger.Debug("localCost:::\t"+appDecimalFormat.format(localCost));
+		
+		localCharge.setText("$"+appDecimalFormat.format(localCost));
+		roamCharge.setText("$"+appDecimalFormat.format(roamCost));
+	}
+	
+	private double formatData(double bytes)
+	{
+		double formatted = 0;
+		long unit = 1024*1024;
+		formatted = Double.parseDouble(new DecimalFormat("#.00").format(bytes/unit));
+		Logger.Debug(this.getClass().getSimpleName()+"\t\t"+formatted);
+		return formatted;
 	}
 	
 	public void updateScreen()
@@ -248,9 +301,16 @@ public class ProjectAcropolisActivity extends Activity {
 			int totalM = 0;
 			long totalD = 0;
 			
+			long totalLV = 0;
+			long totalLM = 0;
+			long totalLD = 0;
+			
 			int totalRV = 0;
 			int totalRM = 0;
 			long totalRD = 0;
+			
+			long[] planTotal = new long[3];
+			long[] roamTotal = new long[3];
 			
 			roaming.setText("Roaming ::: " + isRoaming());
 			roaming.setTypeface(Typeface.createFromAsset(getAssets(), GlobalConstants.FontName),GlobalConstants.BOLD | GlobalConstants.ITALIC);
@@ -278,6 +338,22 @@ public class ProjectAcropolisActivity extends Activity {
 			totalM = rcv + snt + totalRM;
 			totalD = down + up + totalRD;
 			
+			/*Pass total arrays for cost calculation*/
+			totalLV = in + out; 
+			totalLM = rcv + snt;
+			totalLD = down + up;
+			
+			planTotal[0] = totalLV;
+			planTotal[1] = totalLM;
+			planTotal[2] = totalLD;
+			
+			roamTotal[0] = totalRV;
+			roamTotal[1] = totalRM;
+			roamTotal[2] = totalRD;
+			
+			calculateCharges(planTotal,roamTotal);
+			
+			/*inserting monitored data in TextView*/
 			incoming.setText(String.valueOf(in));
 			outgoing.setText(String.valueOf(out));
 			received.setText(String.valueOf(rcv));
@@ -296,6 +372,7 @@ public class ProjectAcropolisActivity extends Activity {
 			msgRTotal.setText(String.valueOf(totalRM));
 			dataRTotal.setText(humanReadableByteCount(totalRD,true));
 			
+			/* "Vera.ttf" is set throughout */
 			setupApplicationFont();
 		}
 
@@ -376,8 +453,10 @@ public class ProjectAcropolisActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		menu.add(R.id.menu_reset);
+//		menu.add(R.menu.);
+//		menu.add(R.id.menu_reset);
 		getMenuInflater().inflate(R.menu.main, menu);
+//		return super.onCreateOptionsMenu(menu);
 		return true;
 	}
 
@@ -389,10 +468,13 @@ public class ProjectAcropolisActivity extends Activity {
 		{
 			new PersistedData().resetData();
 			updateScreen();
-		};
+			return true;
 		}
-		
-		return true;
+		default :
+		{
+			return super.onOptionsItemSelected(item);			
+		}
+		}
 	}
 	
 	public static Context getContext()
