@@ -77,7 +77,7 @@ public class ServiceHandler extends Service
 	{
 		Context context = ProjectAcropolisActivity.getContext();
 		IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
-		context.registerReceiver(new BillingCycleListener(), intentFilter,null,null);
+		context.registerReceiver(new BillingCycleListener(),intentFilter,null,null);
 	}
 	
 	public void setupSocketHandler()

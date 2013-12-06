@@ -44,6 +44,7 @@ public class CallMonitoring_2 extends ContentObserver
 
 	public void onChange(boolean selfChange)
 	{
+		Logger.Debug(this.getClass().getSimpleName());
 		Cursor cursor = ProjectAcropolisActivity.getContext().
 				getContentResolver().
 				query(
@@ -53,10 +54,11 @@ public class CallMonitoring_2 extends ContentObserver
 						selectionArgs, 
 						sortOrder);
 		cursor.moveToFirst();
-		if(cursor!=null)
-		{
-			logHandler.postDelayed(checkLog, 30*1000);
-		}
+		Logger.Debug(cursor.getClass().toString());
+//		if(cursor!=null)
+//		{
+			logHandler.postDelayed(checkLog, 10*1000);
+//		}
 		cursor.close();
 	}
 
@@ -125,7 +127,7 @@ public class CallMonitoring_2 extends ContentObserver
 					}
 				}
 			}
-			else if(counter<=4)
+			else if(counter<2)
 			{
 				counter=0;
 			}

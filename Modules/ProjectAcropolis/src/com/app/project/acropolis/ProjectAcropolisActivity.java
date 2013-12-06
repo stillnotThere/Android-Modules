@@ -5,8 +5,10 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,6 +25,7 @@ import com.app.project.acropolis.database.PersistedData;
 
 public class ProjectAcropolisActivity extends Activity {
 
+	public static ProjectAcropolisActivity instance = null;
 	public static Context context = null; 
 	final String roamingText = "Roaming ::: ";
 
@@ -63,7 +66,7 @@ public class ProjectAcropolisActivity extends Activity {
 	TextView msgRTotal;
 	TextView dataRTotal;
 	
-	Handler screenHandler = null;
+	static Handler screenHandler = null;
 	static Activity activity = null;
 	
 	@Override
@@ -199,17 +202,55 @@ public class ProjectAcropolisActivity extends Activity {
 		
 		return deleted;
 	}
+	private boolean appInBackground = false;
 	
 	private final void init()
 	{
 		GlobalConstants.setGlobalContext(this);
-		Logger.Debug("init() Context::::\t"+getApplicationContext().toString());
+		ApplicationSwitching();
+		instance = new ProjectAcropolisActivity();
+//		Logger.Debug("init() Context::::\t"+getApplicationContext().toString());
 		deleteSQLDB();
 	}
-
+	
 	public static Activity getActivity()
 	{
 		return activity;
+	}
+	
+	final String bgIntent = "android.intent.action.USER_BACKGROUND";
+	final String fgIntent = "android.intent.action.USER_FOREGROUND";
+	private void ApplicationSwitching()
+	{
+		IntentFilter appSwitcherIF = new IntentFilter();
+		appSwitcherIF.addAction(fgIntent);
+		appSwitcherIF.addAction(bgIntent);
+		registerReceiver(new AppSwitcherReceiver(), appSwitcherIF,null,null);
+	}
+	
+	private class AppSwitcherReceiver extends BroadcastReceiver
+	{
+		/* (non-Javadoc)
+		 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
+		 */
+		@Override
+		public void onReceive(Context context, Intent intent) 
+		{
+			if(intent.getAction().equals(bgIntent))
+			{
+				Logger.Debug("app entered in background");
+				appInBackground = true;
+			}
+			if(intent.getAction().equals(fgIntent))
+			{
+				Logger.Debug("app entered in foreground");
+				if(appInBackground)
+				{
+					new Handler().post(refreshScreen);
+				}
+				appInBackground = false;
+			}
+		}
 	}
 	
 	public static String toastMsg = "";
@@ -263,14 +304,14 @@ public class ProjectAcropolisActivity extends Activity {
 		roamVoiceCharge = roamVoice * GlobalConstants.PlanChargeContants.RoamingVoiceRate;
 		roamMsgCharge = roamMessage * GlobalConstants.PlanChargeContants.RoamingMessageRate;
 		roamDataCharge = formatData(roamData) * GlobalConstants.PlanChargeContants.RoamingDataRate;
-		Logger.Debug("localVoiceCharge:::\t"+appDecimalFormat.format(localVoiceCharge));
-		Logger.Debug("localMsgCharge:::\t"+appDecimalFormat.format(localMsgCharge));
-		Logger.Debug("localDataCharge:::\t"+appDecimalFormat.format(localDataCharge));
+//		Logger.Debug("localVoiceCharge:::\t"+appDecimalFormat.format(localVoiceCharge));
+//		Logger.Debug("localMsgCharge:::\t"+appDecimalFormat.format(localMsgCharge));
+//		Logger.Debug("localDataCharge:::\t"+appDecimalFormat.format(localDataCharge));
 		
 		
 		localCost = localVoiceCharge + localMsgCharge + localDataCharge;
 		roamCost = roamVoiceCharge + roamMsgCharge + roamDataCharge;
-		Logger.Debug("localCost:::\t"+appDecimalFormat.format(localCost));
+//		Logger.Debug("localCost:::\t"+appDecimalFormat.format(localCost));
 		
 		localCharge.setText("$"+appDecimalFormat.format(localCost));
 		roamCharge.setText("$"+appDecimalFormat.format(roamCost));
@@ -281,7 +322,7 @@ public class ProjectAcropolisActivity extends Activity {
 		double formatted = 0;
 		long unit = 1024*1024;
 		formatted = Double.parseDouble(new DecimalFormat("#.00").format(bytes/unit));
-		Logger.Debug(this.getClass().getSimpleName()+"\t\t"+formatted);
+//		Logger.Debug(this.getClass().getSimpleName()+"\t\t"+formatted);
 		return formatted;
 	}
 	

@@ -123,8 +123,9 @@ public class GlobalConstants
 	
 	public static boolean wasRoaming = false;
 	private Handler triggerHandler = new Handler();
-	private final int ROAMING_EXCEPTION = 101; //SOS
-	private final int ROAMING_CHANGE = 202;
+	private final static int ROAMING_EXCEPTION = 101; //SOS
+	private final static int ROAMING_CHANGE = 202;
+	public static final int EXCEPTION_HANDLER = 911; 
 	private String errorMsg = "";
 	
 	/**
@@ -279,92 +280,15 @@ public class GlobalConstants
 		wasRoaming = roaming;
 		return roaming;
 	}
-//		boolean ret = false;
-//		_context = __context;//ProjectAcropolisActivity.getContext();
-//		ConnectivityManager _cm = (ConnectivityManager) 
-//				_context.
-//				getSystemService(Context.CONNECTIVITY_SERVICE);
-////		_cm.get
-//		NetworkInfo _ni = _cm.getActiveNetworkInfo();
-//		if(_ni!=null)
-//		{
-//			Logger.Debug("");
-//		}
-//		else
-//		{
-//			Logger.Debug("networkInfo null");
-//		}
-//		Logger.Debug("CheckRoaming_context::\t"+_context.toString());
-//		Logger.Debug(_ni.getTypeName());
-//		if(_ni.isConnected())
-//		{
-//			Logger.Debug("ni connected");
-//		}
-//		TelephonyManager _tm = (TelephonyManager)
-//				_context.getSystemService(Context.TELEPHONY_SERVICE);
-//		if(String.valueOf(_tm.isNetworkRoaming())!=null)
-//			ret = changeRoaming(_tm,_ni);
-//		return ret;
-//	}
-//	private boolean changeRoaming(TelephonyManager tm,NetworkInfo ni)
-//	{
-//		roaming = false;
-//		_context = ProjectAcropolisActivity.getContext();
-//		TelephonyManager _tm = tm;
-//		NetworkInfo _ni = ni;
-//
-//		if(_ni.isRoaming() )//|| _tm.isNetworkRoaming())
-//		{
-//			try {
-//				compareOperator(_tm);
-//			} catch(NullPointerException npe) {
-//				npe.printStackTrace();
-//				Logger.Debug(npe.getMessage());
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		else
-//		{
-//			roaming = false;
-//		}
-//		Logger.Debug("Roaming:::"+roaming+
-//				"\nNetworkRoaming():::"+_tm.isNetworkRoaming());
-//		return roaming;
-//	}
-//	private boolean compareOperator(TelephonyManager tm) throws Exception
-//	{
-//		boolean checkSame = false;
-//		TelephonyManager _tm = tm;
-//		if(_tm.getNetworkOperatorName().length()>0 && _tm.getNetworkOperatorName()!=null)
-//			for(int i=0;i<CAN_OPERATORS.length;i++)
-//			{
-//				if(_tm.
-//						getNetworkOperatorName().
-//						equalsIgnoreCase(CAN_OPERATORS[i])
-//						== false)
-//				{
-//					checkSame = true;
-//					Handler triggerRoaming = new Handler();
-//					triggerRoaming.post(new TriggerEvent());
-//					break;
-//				}
-//				else
-//				{
-//					checkSame = false;
-//				}
-//			}
-//
-//		return checkSame;
-//	}
 
 	/**
 	 * TODO  == urgent server comm open if ON ROAMING and DATA off then send ASAP on WLAN
 	 */
-	private final class TriggerEvent implements Runnable
+	public static final class TriggerEvent implements Runnable
 	{
 		boolean roamingException = false;
 		boolean roamingON_OFF = false;
+		boolean appException = false;
 		
 		public TriggerEvent(int finger) 
 		{
@@ -374,6 +298,8 @@ public class GlobalConstants
 				roamingON_OFF = true;
 			case ROAMING_EXCEPTION:
 				roamingException = true;
+			case EXCEPTION_HANDLER:
+				appException = true;
 			}
 		}
 		

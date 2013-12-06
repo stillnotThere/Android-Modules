@@ -13,26 +13,26 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="shad" key="selection"/>
+		<item value="appInBackground" key="selection"/>
 		<list key="findhistory">
+			<item value="appbg"/>
+			<item value="ore"/>
+			<item value="Logger"/>
+			<item value="resources"/>
+			<item value="tvmonthcharge"/>
 			<item value="shad"/>
 			<item value="scroll"/>
 			<item value="font"/>
-			<item value="fill_parent"/>
-			<item value="new DBAdapter().getValue(__context,"/>
-			<item value="DBOpenHelper"/>
-			<item value="new DBAdapter().getValue(_context,"/>
-			<item value="new DBAdapter().getValue(context,"/>
 		</list>
 		<list key="replacehistory">
+			<item value="appInBackground"/>
+			<item value="tvlocalcharge"/>
 			<item value="match_parent"/>
 			<item value="new PersistedData().fetchData("/>
 			<item value="GlobalConstants.PersistenceConstants"/>
 			<item value="editor.putString"/>
 			<item value="new PersistedData().putData"/>
 			<item value="PersistenceConstants"/>
-			<item value="GlobalConstants.PersistenceContants"/>
-			<item value="GlobalConstants.Persistence"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">

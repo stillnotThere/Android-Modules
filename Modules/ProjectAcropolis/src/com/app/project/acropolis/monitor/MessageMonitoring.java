@@ -50,7 +50,6 @@ public class MessageMonitoring extends ContentObserver
 		Cursor smsCursor = context.getContentResolver().query(outUri,
 				new String[]{"type"}, null, null,null);
 
-
 		if(smsCursor.moveToFirst())
 		{
 			if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("1"))

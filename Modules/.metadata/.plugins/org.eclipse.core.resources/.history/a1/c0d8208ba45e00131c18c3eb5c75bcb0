@@ -1,0 +1,36 @@
+/**
+ * @author Rohan K.M rohan.mahendroo@gmail.com
+ * AppForeground
+ * com.app.project.acropolis
+ * AppForeground.java
+ * Created - 2013-12-06 12:15:36 PM	
+ * Modified - 2013-12-06 12:15:36 PM
+ * TODO
+ * NOTES - 
+ */
+package com.app.project.acropolis;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+
+/**
+ * @author CPH-iMac
+ *
+ */
+public class AppForeground extends BroadcastReceiver
+{
+	ProjectAcropolisActivity instance;
+	public void onReceive(Context context,Intent intent)
+	{
+		instance = ProjectAcropolisActivity.getInstance();
+		new Handler().post(new Runnable() {
+			public void run()
+			{
+				instance.updateScreen();
+			}
+		});
+	}
+	
+}

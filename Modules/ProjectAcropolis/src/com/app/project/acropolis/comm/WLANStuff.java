@@ -15,7 +15,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 
+import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
 
@@ -28,7 +30,7 @@ public class WLANStuff
 
 	public static WifiManager wifiManager = null;
 	public static WifiInfo wifiInfo = null;
-	
+
 	public static final String CPH_SSID = "\"CPH Inc.\"";
 	public static String SSID = "";
 
@@ -38,7 +40,7 @@ public class WLANStuff
 		SSID = wifiInfo.getSSID();
 		return SSID;
 	}
-	
+
 	public static boolean onCPHWLAN()
 	{
 		boolean onCPH = false;
@@ -53,7 +55,7 @@ public class WLANStuff
 			if(ssid.equalsIgnoreCase(CPH_SSID))
 			{
 				onCPH = true;
-				ProjectAcropolisActivity.postToast("Connecteed to CPH WLAN...cannot communicate to server");
+				ProjectAcropolisActivity.postToast("Connected to CPH WLAN...cannot communicate to server");
 			}
 			else
 			{
@@ -62,21 +64,28 @@ public class WLANStuff
 		}
 		return onCPH;
 	}
-	
+
 	public static boolean isConnected()
 	{
 		boolean connected = false;
-		ConnectivityManager connMngr = (ConnectivityManager)
-				ProjectAcropolisActivity.getContext().
-				getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMngr.getNetworkInfo(
-				ConnectivityManager.TYPE_WIFI);
-		
-		if(networkInfo.isConnected())
-			connected = true;
-		else
-			connected = false;
-		
+		try {
+			ConnectivityManager connMngr = (ConnectivityManager)
+					ProjectAcropolisActivity.getContext().
+					getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connMngr.getNetworkInfo(
+					ConnectivityManager.TYPE_WIFI);
+
+			if(networkInfo.isConnected())
+				connected = true;
+			else
+				connected = false;
+		} catch(Exception e){
+			e.printStackTrace();
+			DataTumblr.setErrorMsg(e.getMessage());
+			new Handler().post(
+					new GlobalConstants.TriggerEvent(
+							GlobalConstants.EXCEPTION_HANDLER));
+		}
 		return connected;
 	}
 
