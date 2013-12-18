@@ -3,6 +3,10 @@ package com.tester;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +28,7 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		checkAppSwitched();
 		input = (EditText) findViewById(R.id.inSec);
 		output_tu = (TextView) findViewById(R.id.resultMins_timeunit);
 		output_ceil = (TextView) findViewById(R.id.result_ceil);
@@ -53,7 +58,7 @@ public class MainActivity extends Activity
 		}
 		else
 		{
-			Log.v(TAG, String.valueOf(secs%60));
+			Log.d(TAG, String.valueOf(secs%60));
 			min = (long) Math.abs(secs/60) + 1;
 		}
 		sp.setData(KEYS[2], (String.valueOf(min)));
@@ -69,6 +74,18 @@ public class MainActivity extends Activity
 		output_ceil.setText(convertCeil(sp.getData(KEYS[0])));
 	}
 	
+	final String bg = "android.intent.action.USER_BACKGROUND";
+	final String fg = "android.intent.action.USER_FOREGROUND";
+	public void checkAppSwitched()
+	{
+		Log.d(TAG, getClass().getSimpleName()+"\tstart");
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(fg);
+		intentFilter.addAction(bg);
+		registerReceiver(new AppSwitcherReceiver(), intentFilter, null, null);
+		Log.d(TAG, getClass().getSimpleName() +"\tendd");
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -76,4 +93,22 @@ public class MainActivity extends Activity
 		return true;
 	}
 
+	public class AppSwitcherReceiver extends BroadcastReceiver
+	{
+
+		@Override
+		public void onReceive(Context context, Intent intent) 
+		{
+			if(intent.getAction().equalsIgnoreCase(bg))
+			{
+				Log.d(TAG, "app in bg\t"+getClass().getSimpleName());
+			}
+			if(intent.getAction().equalsIgnoreCase(fg))
+			{
+				Log.d(TAG, "app in fg\t"+getClass().getSimpleName());
+			}
+		}
+		
+	}
+	
 }
