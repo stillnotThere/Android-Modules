@@ -41,6 +41,7 @@ import com.app.project.acropolis.monitor.plan.BillingCycleListener;
 public class ServiceHandler extends Service 
 {
 	final String msgOutUri = "content://sms";
+	final String hangoutsmsOutUri = "content://sms/inbox";
 	Uri outUri = Uri.parse(msgOutUri);
 	Context _context = ProjectAcropolisActivity.getContext();
 	public class ServiceBinder extends Binder

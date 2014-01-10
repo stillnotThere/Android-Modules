@@ -237,9 +237,10 @@ public class GlobalConstants
 			ConnectivityManager cm = (ConnectivityManager) __context.getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo ni = cm.getActiveNetworkInfo();
 			TelephonyManager tm = (TelephonyManager) __context.getSystemService(Context.TELEPHONY_SERVICE);
-
+			Logger.Debug(this.getClass().getSimpleName());
 			if(ni.isRoaming() && ni.getTypeName().equalsIgnoreCase(MOBILE_NETWORK))
 			{
+				Logger.Debug("NetworkType:::"+ni.getTypeName());
 				if(tm.getNetworkOperatorName() != null)
 				{
 					for(int i=0;i<GlobalConstants.CAN_OPERATORS.length;i++)
@@ -264,6 +265,7 @@ public class GlobalConstants
 			{
 				roaming = false;
 			}
+			Logger.Debug("roaming:::"+roaming);
 		} catch (NullPointerException e1) {
 			e1.getLocalizedMessage();
 			e1.printStackTrace();
@@ -272,19 +274,19 @@ public class GlobalConstants
 			errorMsg = e2.getLocalizedMessage();
 			DataTumblr.setErrorMsg(errorMsg);
 			e2.printStackTrace();
-			triggerHandler.post(new TriggerEvent(ROAMING_EXCEPTION));
+//			triggerHandler.post(new TriggerEvent(ROAMING_EXCEPTION));
 		}
-		if(roaming)
-		{
-			triggerHandler.post(new TriggerEvent(ROAMING_CHANGE));
-		}
-		else
-		{
-			if(wasRoaming)
-			{
-				triggerHandler.post(new TriggerEvent(ROAMING_CHANGE));
-			}
-		}
+//		if(roaming)
+//		{
+//			triggerHandler.post(new TriggerEvent(ROAMING_CHANGE));
+//		}
+//		else
+//		{
+//			if(wasRoaming)
+//			{
+//				triggerHandler.post(new TriggerEvent(ROAMING_CHANGE));
+//			}
+//		}
 		wasRoaming = roaming;
 		return roaming;
 	}

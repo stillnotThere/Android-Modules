@@ -7,17 +7,24 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.view.Menu;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
 
 	static Context context = null;
+	static TextView incomingResult;
+	static TextView outgoingResult;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		incomingResult = (TextView) findViewById(R.id.textIncoming);
+		outgoingResult = (TextView) findViewById(R.id.textOutgoing);
+		
 		context = getApplicationContext();
 //		getEverything();
 //		checkPreReq();
@@ -49,7 +56,6 @@ public class MainActivity extends Activity {
 				logCursor.moveToNext();
 //				i++;
 			}
-			
 		}
 	}
 	
@@ -60,4 +66,14 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	public static void setIncomingMinutes(String inmins)
+	{
+		incomingResult.setText(inmins);
+	}
+	
+	public static void setOutgoingMinutes(String outmins)
+	{
+		outgoingResult.setText(outmins);
+	}
+	
 }

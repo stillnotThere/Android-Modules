@@ -159,6 +159,15 @@ public class CallerService extends Service
 						"\ntype::"+lastCallType+
 						"\ntime::"+lastCall);
 				Logger.Debug("counter::\t\t"+counter);
+				
+				if(lastCallType.equalsIgnoreCase("1"))
+				{
+					MainActivity.setIncomingMinutes(convert(lastCallduration));
+				}
+				if(lastCallType.equalsIgnoreCase("2"))
+				{
+					MainActivity.setOutgoingMinutes(convert(lastCallduration));
+				}
 			}
 			else if(counter<=4)
 			{
@@ -168,4 +177,19 @@ public class CallerService extends Service
 		}
 	}
 
+	public String convert(String sec)
+	{
+		long min=0;
+		long secs=Long.parseLong(sec);
+		if(secs%60==0)
+		{
+			min = secs/60;
+		}
+		else
+		{
+			min = (long) Math.abs(secs/60) + 1;
+		}
+		return String.valueOf(min);
+	}
+	
 }

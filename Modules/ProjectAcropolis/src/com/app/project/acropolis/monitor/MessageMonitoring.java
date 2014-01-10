@@ -42,32 +42,32 @@ public class MessageMonitoring extends ContentObserver
 		super.onChange(selfChange);
 		int outgoingCounter = 0;
 		int incomingCounter = 0;
-		int outgoingRCounter = 0;
-		int incomingRCounter = 0;
+//		int outgoingRCounter = 0;
+//		int incomingRCounter = 0;
 
 		Context context = ProjectAcropolisActivity.getContext();
 
 		Cursor smsCursor = context.getContentResolver().query(outUri,
 				new String[]{"type"}, null, null,null);
-
+		
 		if(smsCursor.moveToFirst())
 		{
 			if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("1"))
 			{
-				if(new GlobalConstants().checkRoaming(_context))
-				{
+//				if(new GlobalConstants().checkRoaming(_context))
+//				{
 					//received
-					incomingRCounter = incomingRCounter + 1;
-					Logger.Debug("msg received count:"+incomingRCounter);
-
-					long previous = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_RECEIVED));
-					long newV = incomingRCounter;
-					long total = previous + newV;
-
-					new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_RECEIVED, String.valueOf(total));
-				}
-				else
-				{
+//					incomingRCounter = incomingRCounter + 1;
+//					Logger.Debug("msg received count:"+incomingRCounter);
+//
+//					long previous = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_RECEIVED));
+//					long newV = incomingRCounter;
+//					long total = previous + newV;
+//
+//					new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_RECEIVED, String.valueOf(total));
+//				}
+//				else
+//				{
 					//received
 					incomingCounter = incomingCounter + 1;
 					Logger.Debug("msg received count:"+incomingCounter);
@@ -77,24 +77,24 @@ public class MessageMonitoring extends ContentObserver
 					long total = previous + newV;
 
 					new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_RECEIVED, String.valueOf(total));
-				}
+//				}
 			}
 			else if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("2"))
 			{
-				if(new GlobalConstants().checkRoaming(_context))
-				{
-					//sent
-					outgoingRCounter = outgoingRCounter + 1;
-					Logger.Debug("msg sent count::"+outgoingRCounter);
-
-					long previous = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_SENT));
-					long newV = outgoingRCounter;
-					long total = previous + newV;
-
-					new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_SENT, String.valueOf(total));
-				}
-				else
-				{
+//				if(new GlobalConstants().checkRoaming(_context))
+//				{
+//					//sent
+//					outgoingRCounter = outgoingRCounter + 1;
+//					Logger.Debug("msg sent count::"+outgoingRCounter);
+//
+//					long previous = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_SENT));
+//					long newV = outgoingRCounter;
+//					long total = previous + newV;
+//
+//					new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_SENT, String.valueOf(total));
+//				}
+//				else
+//				{
 					//sent
 					outgoingCounter = outgoingCounter + 1;
 					Logger.Debug("msg sent count::"+outgoingCounter);
@@ -104,7 +104,7 @@ public class MessageMonitoring extends ContentObserver
 					long total = previous + newV;
 
 					new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_SENT, String.valueOf(total));
-				}
+//				}
 			}
 		}
 		smsCursor.close();
