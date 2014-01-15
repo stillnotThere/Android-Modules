@@ -26,14 +26,14 @@ import com.app.project.acropolis.database.PersistedData;
  */
 public class MessageMonitoring extends ContentObserver 
 {
-	private Context _context = null;
+//	private Context _context = null;
 	final String msgOutUri = "content://sms";
 	Uri outUri = Uri.parse(msgOutUri);
 
 	public MessageMonitoring(Context __context) 
 	{
 		super(null);
-		_context = __context;
+//		_context = __context;
 	}
 
 	//TODO

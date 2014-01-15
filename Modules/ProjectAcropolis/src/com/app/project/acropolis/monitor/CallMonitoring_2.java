@@ -5,7 +5,6 @@
  * CallMonitoring_2.java
  * Created - 2013-11-12 4:44:33 PM	
  * Modified - 2013-11-12 4:44:33 PM
- * TODO
  * NOTES - 
  */
 package com.app.project.acropolis.monitor;
@@ -62,6 +61,22 @@ public class CallMonitoring_2 extends ContentObserver
 		cursor.close();
 	}
 
+	public boolean deliverSelfNotifications()
+	{
+		return true;
+	}
+	
+//	private long oldCall = 0;
+//
+//	private boolean checkRepeatedCalls(long time)
+//	{
+//		boolean repeatCall = false;
+//
+//		oldCall = time;
+//		
+//		return repeatCall;
+//	}
+	
 	private Runnable checkLog = new Runnable() 
 	{
 		@Override
@@ -89,10 +104,12 @@ public class CallMonitoring_2 extends ContentObserver
 				String lastCallnumber = cur.getString(0);
 				int lastCallduration = Integer.parseInt(cur.getString(1));
 				int lastCallType = Integer.parseInt(cur.getString(2));
+				int lastCallTime = Integer.parseInt(cur.getString(3));
 				
 				Logger.Debug("last callNumber::"+lastCallnumber + 
 						"\nduration::"+lastCallduration +
-						"\ntype::"+lastCallType);
+						"\ntype::"+lastCallType +
+						"\ntime::"+lastCallTime);
 				Logger.Debug("counter::\t\t"+counter);
 				
 				if(lastCallType == Calls.INCOMING_TYPE)
@@ -103,7 +120,6 @@ public class CallMonitoring_2 extends ContentObserver
 						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_INCOMING));
 						db_temp = (int)convert(lastCallduration) + db_temp;
 						new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_INCOMING, String.valueOf(db_temp));
-						
 					}
 					else
 					{
