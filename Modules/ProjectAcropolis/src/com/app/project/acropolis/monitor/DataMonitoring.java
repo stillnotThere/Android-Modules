@@ -35,7 +35,6 @@ public class DataMonitoring extends PhoneStateListener
 	long DB_R_D = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_DOWNLOADED));
 	long DB_R_U = Long.parseLong(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_UPLOADED));
 	
-	
 	long incD = 0;
 	long incU = 0;
 	long lastD = 0;
