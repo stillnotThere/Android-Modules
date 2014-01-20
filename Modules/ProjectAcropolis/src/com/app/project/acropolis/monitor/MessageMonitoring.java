@@ -26,7 +26,7 @@ import com.app.project.acropolis.database.PersistedData;
  */
 public class MessageMonitoring extends ContentObserver 
 {
-	private Context _context = ProjectAcropolisActivity.getContext();
+//	private Context _context = ProjectAcropolisActivity.getContext();
 	final String msgOutUri = "content://sms";
 	Uri outUri = Uri.parse(msgOutUri);
 
@@ -56,32 +56,7 @@ public class MessageMonitoring extends ContentObserver
 		{
 			if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("1"))
 			{
-				new Thread(new checkMsgMonitoringRunnable(RECEIVED)).start();
-			}
-			else if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("2"))
-			{
-				new Thread(new checkMsgMonitoringRunnable(SENT)).start();
-			}
-		}
-		smsCursor.close();
-	}
-
-	private class checkMsgMonitoringRunnable implements Runnable
-	{
-		int direction = 0;
-
-		public checkMsgMonitoringRunnable(int _direction)
-		{
-			direction = _direction;
-		}
-
-		public void run()
-		{
-			switch (direction)
-			{
-			case RECEIVED:
-			{
-				if(new GlobalConstants().checkRoaming(_context))
+				if(new GlobalConstants().isRoaming())
 				{
 					//received
 					incomingRCounter = incomingRCounter + 1;
@@ -107,10 +82,10 @@ public class MessageMonitoring extends ContentObserver
 					new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_RECEIVED, String.valueOf(total));
 					incomingCounter = 0;
 				}
-			};
-			case SENT:
+			}
+			else if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("2"))
 			{
-				if(new GlobalConstants().checkRoaming(_context))
+				if(new GlobalConstants().isRoaming())
 				{
 					//sent
 					outgoingRCounter = outgoingRCounter + 1;
@@ -137,9 +112,9 @@ public class MessageMonitoring extends ContentObserver
 
 					outgoingCounter = 0;
 				}
-			};
 			}
 		}
+		smsCursor.close();
 	}
 
 }

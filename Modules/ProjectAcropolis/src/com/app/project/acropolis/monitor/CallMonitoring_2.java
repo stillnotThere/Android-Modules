@@ -27,23 +27,21 @@ import com.app.project.acropolis.database.PersistedData;
 public class CallMonitoring_2 extends ContentObserver 
 {
 	private Handler logHandler = new Handler();
-	private int counter = 0;
 
 	private final String[] projection = {Calls.TYPE,Calls.DURATION,Calls.DATE};
 	private final String selection = null;
 	private final String[] selectionArgs = null;
 	private final String sortOrder = null;
-	private Context _context = null;
 
 	public CallMonitoring_2(Context __context) 
 	{
 		super(null);
-		_context = __context;
 	}
 
 	public void onChange(boolean selfChange)
 	{
 		Logger.Debug(this.getClass().getSimpleName());
+		GlobalConstants.counter++;
 		Cursor cursor = ProjectAcropolisActivity.getContext().
 				getContentResolver().
 				query(
@@ -54,10 +52,7 @@ public class CallMonitoring_2 extends ContentObserver
 						sortOrder);
 		cursor.moveToFirst();
 		Logger.Debug(cursor.getClass().toString());
-//		if(cursor!=null)
-//		{
-			logHandler.postDelayed(checkLog, 10*1000);
-//		}
+		logHandler.postDelayed(checkLog, 10*1000);
 		cursor.close();
 	}
 
@@ -65,93 +60,162 @@ public class CallMonitoring_2 extends ContentObserver
 	{
 		return true;
 	}
-	
-//	private long oldCall = 0;
-//
-//	private boolean checkRepeatedCalls(long time)
-//	{
-//		boolean repeatCall = false;
-//
-//		oldCall = time;
-//		
-//		return repeatCall;
-//	}
+
+	//	private long oldCall = 0;
+	//
+	//	private boolean checkRepeatedCalls(long time)
+	//	{
+	//		boolean repeatCall = false;
+	//
+	//		oldCall = time;
+	//		
+	//		return repeatCall;
+	//	}
+
+	String lastCallnumber;
+	int lastCallduration;
+	int lastCallType;
+	int lastCallTime;
 	
 	private Runnable checkLog = new Runnable() 
 	{
 		@Override
 		public void run()
 		{
-			++counter;
-			Logger.Debug("counter:::"+counter);
-			if(counter<=1)
+			Logger.Debug("Getting Log activity...");
+			String[] projection = new String[]{
+					Calls.NUMBER,
+					Calls.DURATION,
+					Calls.TYPE,
+					Calls.DATE};
+			Cursor cur = ProjectAcropolisActivity.getContext().
+					getContentResolver().
+					query(
+							Calls.CONTENT_URI,
+							projection, 
+							null, 
+							null, 
+							Calls.DATE +" desc");
+			cur.moveToFirst();
+
+			lastCallnumber = cur.getString(0);
+			lastCallduration = Integer.parseInt(cur.getString(1));
+			lastCallType = Integer.parseInt(cur.getString(2));
+			lastCallTime = Integer.parseInt(cur.getString(3));
+
+			if(GlobalConstants.lastCallTime == 0)
 			{
-				Logger.Debug("Getting Log activity...");
-				String[] projection = new String[]{
-						Calls.NUMBER,
-						Calls.DURATION,
-						Calls.TYPE,
-						Calls.DATE};
-				Cursor cur = ProjectAcropolisActivity.getContext().
-						getContentResolver().
-						query(
-								Calls.CONTENT_URI,
-								projection, 
-								null, 
-								null, 
-								Calls.DATE +" desc");
-				cur.moveToFirst();
-				String lastCallnumber = cur.getString(0);
-				int lastCallduration = Integer.parseInt(cur.getString(1));
-				int lastCallType = Integer.parseInt(cur.getString(2));
-				int lastCallTime = Integer.parseInt(cur.getString(3));
-				
-				Logger.Debug("last callNumber::"+lastCallnumber + 
-						"\nduration::"+lastCallduration +
-						"\ntype::"+lastCallType +
-						"\ntime::"+lastCallTime);
-				Logger.Debug("counter::\t\t"+counter);
-				
-				if(lastCallType == Calls.INCOMING_TYPE)
+				GlobalConstants.lastCallTime = lastCallTime;
+				proceed();
+			}
+			else	//may be a repeat or 
+			{
+				if(GlobalConstants.lastCallTime == lastCallTime)
 				{
-					Logger.Debug("incoming");
-					if(new GlobalConstants().checkRoaming(_context))
-					{
-						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_INCOMING));
-						db_temp = (int)convert(lastCallduration) + db_temp;
-						new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_INCOMING, String.valueOf(db_temp));
-					}
-					else
-					{
-						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING));
-						db_temp = (int)convert(lastCallduration) + db_temp;
-						new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING, String.valueOf(db_temp));
-					}
+					//skip
+					Logger.Debug("multiple call instances");
 				}
-				if(lastCallType == Calls.OUTGOING_TYPE)
+				else 
 				{
-					Logger.Debug("outgoing");
-					if(new GlobalConstants().checkRoaming(_context))
-					{
-						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING));
-						db_temp = (int)convert(lastCallduration) + db_temp;
-						new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING, String.valueOf(db_temp));
-					}
-					else
-					{
-						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING));
-						db_temp = (int)convert(lastCallduration) + db_temp;
-						new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING, String.valueOf(db_temp));
-					}
+					GlobalConstants.lastCallTime = lastCallTime;
+					proceed();
 				}
 			}
-			else if(counter>2)
-			{
-				counter=0;
-			}
+
+//			if(storedCallTime!=0)
+//			{
+//				if(storedCallTime != lastCallTime)
+//				{
+//					proceed();
+//					storeLastCall(lastCallTime);
+//				}
+//				else	//redundant data
+//				{
+//					Logger.Debug("Repeated call");
+//				}
+//			}
+//			else	//no previous call times
+//			{
+//				storeLastCall(lastCallTime);
+//
+//				if(lastCallType == Calls.INCOMING_TYPE)
+//				{
+//					Logger.Debug("incoming");
+//					if(new GlobalConstants().isRoaming())
+//					{
+//						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_INCOMING));
+//						db_temp = (int)convert(lastCallduration) + db_temp;
+//						new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_INCOMING, String.valueOf(db_temp));
+//					}
+//					else
+//					{
+//						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING));
+//						db_temp = (int)convert(lastCallduration) + db_temp;
+//						new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING, String.valueOf(db_temp));
+//					}
+//				}
+//				if(lastCallType == Calls.OUTGOING_TYPE)
+//				{
+//					Logger.Debug("outgoing");
+//					if(new GlobalConstants().isRoaming())
+//					{
+//						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING));
+//						db_temp = (int)convert(lastCallduration) + db_temp;
+//						new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING, String.valueOf(db_temp));
+//					}
+//					else
+//					{
+//						int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING));
+//						db_temp = (int)convert(lastCallduration) + db_temp;
+//						new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING, String.valueOf(db_temp));
+//					}
+//				}
+//
+//			}
+
+			Logger.Debug("last callNumber::"+lastCallnumber + 
+					"\nduration::"+lastCallduration +
+					"\ntype::"+lastCallType +
+					"\ntime::"+lastCallTime);
 		}
 	};
 
+	private void proceed()
+	{
+		if(lastCallType == Calls.INCOMING_TYPE)
+		{
+			Logger.Debug("incoming");
+			if(new GlobalConstants().isRoaming())
+			{
+				int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_INCOMING));
+				db_temp = (int)convert(lastCallduration) + db_temp;
+				new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_INCOMING, String.valueOf(db_temp));
+			}
+			else
+			{
+				int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING));
+				db_temp = (int)convert(lastCallduration) + db_temp;
+				new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_INCOMING, String.valueOf(db_temp));
+			}
+		}
+		if(lastCallType == Calls.OUTGOING_TYPE)
+		{
+			Logger.Debug("outgoing");
+			if(new GlobalConstants().isRoaming())
+			{
+				int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING));
+				db_temp = (int)convert(lastCallduration) + db_temp;
+				new PersistedData().putData(GlobalConstants.PersistenceConstants.ROAM_OUTGOING, String.valueOf(db_temp));
+			}
+			else
+			{
+				int db_temp = Integer.parseInt(new PersistedData().fetchData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING));
+				db_temp = (int)convert(lastCallduration) + db_temp;
+				new PersistedData().putData(GlobalConstants.PersistenceConstants.LOCAL_OUTGOING, String.valueOf(db_temp));
+			}
+		}
+	}
+	
 	public long convert(long sec)
 	{
 		long min=0;
@@ -167,5 +231,4 @@ public class CallMonitoring_2 extends ContentObserver
 		return min;
 	}
 
-	
 }

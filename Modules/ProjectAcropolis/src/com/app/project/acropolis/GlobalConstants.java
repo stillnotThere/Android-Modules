@@ -34,6 +34,9 @@ public class GlobalConstants
 	public static int ITALIC = 2;
 	public static int BOLD_ITALIC = 1 | 2;
 
+	public static int counter=0;
+	public static long lastCallTime = 0;
+	
 	public static class PlanChargeContants
 	{
 		/*Local Rates*/
@@ -226,6 +229,33 @@ public class GlobalConstants
 	//		return isWLANonR;
 	//	}
 
+	
+	public boolean isRoaming()
+	{
+		boolean roam = false;
+	
+		try {
+		
+		ConnectivityManager cm = 
+				(ConnectivityManager) 
+				ProjectAcropolisActivity.
+				getContext().
+				getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		
+		if(ni!=null)
+		{
+			roam = ni.isRoaming();
+		}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			roam = true;
+		}
+		return roam;
+	}
+	
+	
 	/**
 	 * Checks roaming operator if applicable
 	 * @return true if Roaming, false if Local
