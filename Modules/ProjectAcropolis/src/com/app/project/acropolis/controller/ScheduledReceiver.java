@@ -25,7 +25,7 @@ import android.content.Intent;
 public class ScheduledReceiver extends BroadcastReceiver  
 {
 	// Restart service every 30 seconds
-	private static final long REPEAT_TIME = 1000 * 30;
+	private static final long REPEAT_TIME = 1000 * 10;
 	
 	/* (non-Javadoc)
 	 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
@@ -46,6 +46,12 @@ public class ScheduledReceiver extends BroadcastReceiver
 		// InexactRepeating allows Android to optimize the energy consumption
 		service.setInexactRepeating(AlarmManager.RTC_WAKEUP,
 				cal.getTimeInMillis(), REPEAT_TIME, pending);
+//		service.
+//		setInexactRepeating(
+//				AlarmManager.ELAPSED_REALTIME_WAKEUP,
+//				SystemClock.currentThreadTimeMillis(),
+//				REPEAT_TIME,
+//				pending);
 	}
 
 	

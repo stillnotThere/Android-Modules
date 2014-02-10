@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="_context" key="selection"/>
+		<item value="shadow" key="selection"/>
 		<list key="findhistory">
+			<item value="shadow"/>
+			<item value="Global"/>
+			<item value="socket"/>
 			<item value="_context"/>
 			<item value="appbg"/>
 			<item value="ore"/>
 			<item value="Logger"/>
 			<item value="resources"/>
-			<item value="tvmonthcharge"/>
-			<item value="shad"/>
-			<item value="scroll"/>
 		</list>
 		<list key="replacehistory">
 			<item value="appInBackground"/>

@@ -25,6 +25,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import com.app.project.acropolis.GlobalConstants;
+import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.comm.SocketClientFormatter;
 import com.app.project.acropolis.comm.SocketServerConnector;
@@ -44,6 +45,9 @@ public class ServiceHandler extends Service
 	final String hangoutsmsOutUri = "content://sms/inbox";
 	Uri outUri = Uri.parse(msgOutUri);
 	Context _context = ProjectAcropolisActivity.getContext();
+
+	final IBinder ibinder = new ServiceBinder();
+	
 	public class ServiceBinder extends Binder
 	{
 		public ServiceHandler getService()
@@ -52,8 +56,6 @@ public class ServiceHandler extends Service
 		}
 	}
 
-	final IBinder ibinder = new ServiceBinder();
-	
 	@Override
 	public IBinder onBind(Intent intent) {
 		return ibinder;
@@ -61,12 +63,16 @@ public class ServiceHandler extends Service
 
 	public void onCreate()
 	{
-//		setupBillDateListener();
-		setupSocketHandler();
-		setupRoamingChanges();
-		setupCallMonitoring();
+		Logger.Debug(this.getClass().getSimpleName());
+		//		setupBillDateListener();
+
 		setupMessageMonitoring();
+		setupCallMonitoring();
 		setupDataMonitoring();
+		setupRoamingChanges();
+//		msgThread.start();
+//		callThread.start();
+//		dataThread.start();
 	}
 
 	/**
@@ -78,40 +84,41 @@ public class ServiceHandler extends Service
 	{
 		Context context = ProjectAcropolisActivity.getContext();
 		IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
+		intentFilter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
 		context.registerReceiver(new BillingCycleListener(),intentFilter,null,null);
 	}
-	
+
 	public void setupSocketHandler()
 	{
-		GlobalConstants.socketClientHandler = new Handler();
-		GlobalConstants.socketClientHandler.
+		Logger.Debug("socket handler");
+		Handler socketClientHandler = new Handler();
+		socketClientHandler.
 		post(new SocketClientFormatter(ProjectAcropolisActivity.getContext()));
 	}
-	
+
 	public void setupServerSocketHandler()
 	{
-		GlobalConstants.socketServerHandler = new Handler();
-		GlobalConstants.socketServerHandler.post(new SocketServerConnector());
+		Handler socketServerHandler = new Handler();
+		socketServerHandler.post(new SocketServerConnector());
 	}
-	
+
 	public void setupCallMonitoring()
 	{
+		Handler callhandler = new Handler();
+		
 		ProjectAcropolisActivity.getContext().
 		getContentResolver().
 		registerContentObserver(
 				CallLog.Calls.CONTENT_URI, true,
-				new CallMonitoring_2(_context));
-//		TelephonyManager telephonyManager = (TelephonyManager) 
-//				getSystemService(Context.TELEPHONY_SERVICE);
-//		telephonyManager.listen(new CallMonitoring(),
-//				PhoneStateListener.LISTEN_CALL_STATE);
+				new CallMonitoring_2(callhandler));
 	}
 
 	public void setupMessageMonitoring()
 	{
+		Logger.Debug("messagemonitoring");
 		ContentResolver contentResolver = ProjectAcropolisActivity.getContext().getContentResolver();
 		contentResolver.registerContentObserver(outUri, true, 
-				new MessageMonitoring(_context));
+				new MessageMonitoring());//_context));
 	}
 
 	public void setupDataMonitoring()
@@ -121,16 +128,16 @@ public class ServiceHandler extends Service
 		telephonyManager.listen(new DataMonitoring(), 
 				PhoneStateListener.LISTEN_DATA_ACTIVITY);
 	}
-	
+
 	public void setupRoamingChanges()
 	{
-//		Context context = ProjectAcropolisActivity.getContext();
-		Context context = this.getApplicationContext();
+		Context context = ProjectAcropolisActivity.getContext();
 		IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		intentFilter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
 		context.registerReceiver(new RoamingListener(),
 				intentFilter,"android.permission.ACCESS_NETWORK_STATE",null);
 	}
-	
+
 	public int onStartCommand(Intent intent,int arg0,int arg1)
 	{
 		return Service.START_NOT_STICKY;

@@ -1,22 +1,19 @@
 package com.app.project.acropolis;
 
-import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,17 +66,39 @@ public class ProjectAcropolisActivity extends Activity {
 	static Handler screenHandler = null;
 	static Activity activity = null;
 	
+	public void testrun()
+	{ 
+		StringBuffer sBuffer = new StringBuffer();
+		Pattern p = Pattern.compile("[0-9]+.[0-9]*|[0-9]*.[0-9]+|[0-9]+");
+		Matcher m = p.matcher("33433433432545");
+		while (m.find()) {
+			sBuffer.append(m.group());
+		}
+		Logger.Debug(sBuffer.toString() + "\t"+Long.parseLong(sBuffer.toString()));
+		
+//		Pattern p = Pattern.compile("[0-9]+");
+//		Matcher m = p.matcher("334334334325");
+//		while (m.find()) {
+//		    int n = Integer.parseInt(m.group());
+//		    // append n to list
+//		    Logger.Debug("fdgdfg"+n);
+//		}
+		
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		init();
 		context = getApplicationContext();
 		activity = this;
 
+//		Logger.Debug("dsfsdf"+( Integer.valueOf("33433432545")));
+		testrun();
+		
 		setContentView(R.layout.activity_main);
 		Intent serviceIntent = new Intent(this,ServiceHandler.class);
-		this.startService(serviceIntent);
+		startService(serviceIntent);
 
 		tvincoming = (TextView) findViewById(R.id.txtIn);
 		tvoutgoing = (TextView) findViewById(R.id.txtOut);
@@ -192,65 +211,9 @@ public class ProjectAcropolisActivity extends Activity {
 	//		}
 	//	};
 	
-	public boolean deleteSQLDB()
-	{
-		boolean deleted = false;
-		String sqlDBNAME = "PROJECTACROPOLIS_DB";
-		File file = getDatabasePath(sqlDBNAME);
-		if(file.exists())
-			deleted = file.delete();
-		
-		return deleted;
-	}
-	private boolean appInBackground = false;
-	
-	private final void init()
-	{
-		GlobalConstants.setGlobalContext(this);
-		ApplicationSwitching();
-		instance = new ProjectAcropolisActivity();
-//		Logger.Debug("init() Context::::\t"+getApplicationContext().toString());
-		deleteSQLDB();
-	}
-	
 	public static Activity getActivity()
 	{
 		return activity;
-	}
-	
-	final String bgIntent = "android.intent.action.USER_BACKGROUND";
-	final String fgIntent = "android.intent.action.USER_FOREGROUND";
-	private void ApplicationSwitching()
-	{
-		IntentFilter appSwitcherIF = new IntentFilter();
-		appSwitcherIF.addAction(fgIntent);
-		appSwitcherIF.addAction(bgIntent);
-		registerReceiver(new AppSwitcherReceiver(), appSwitcherIF,null,null);
-	}
-	
-	private class AppSwitcherReceiver extends BroadcastReceiver
-	{
-		/* (non-Javadoc)
-		 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
-		 */
-		@Override
-		public void onReceive(Context context, Intent intent) 
-		{
-			if(intent.getAction().equals(bgIntent))
-			{
-				Logger.Debug("app entered in background");
-				appInBackground = true;
-			}
-			if(intent.getAction().equals(fgIntent))
-			{
-				Logger.Debug("app entered in foreground");
-				if(appInBackground)
-				{
-					new Handler().post(refreshScreen);
-				}
-				appInBackground = false;
-			}
-		}
 	}
 	
 	public static String toastMsg = "";
@@ -304,14 +267,9 @@ public class ProjectAcropolisActivity extends Activity {
 		roamVoiceCharge = roamVoice * GlobalConstants.PlanChargeContants.RoamingVoiceRate;
 		roamMsgCharge = roamMessage * GlobalConstants.PlanChargeContants.RoamingMessageRate;
 		roamDataCharge = formatData(roamData) * GlobalConstants.PlanChargeContants.RoamingDataRate;
-//		Logger.Debug("localVoiceCharge:::\t"+appDecimalFormat.format(localVoiceCharge));
-//		Logger.Debug("localMsgCharge:::\t"+appDecimalFormat.format(localMsgCharge));
-//		Logger.Debug("localDataCharge:::\t"+appDecimalFormat.format(localDataCharge));
-		
 		
 		localCost = localVoiceCharge + localMsgCharge + localDataCharge;
 		roamCost = roamVoiceCharge + roamMsgCharge + roamDataCharge;
-//		Logger.Debug("localCost:::\t"+appDecimalFormat.format(localCost));
 		
 		localCharge.setText("$"+appDecimalFormat.format(localCost));
 		roamCharge.setText("$"+appDecimalFormat.format(roamCost));
@@ -322,7 +280,6 @@ public class ProjectAcropolisActivity extends Activity {
 		double formatted = 0;
 		long unit = 1024*1024;
 		formatted = Double.parseDouble(new DecimalFormat("#.00").format(bytes/unit));
-//		Logger.Debug(this.getClass().getSimpleName()+"\t\t"+formatted);
 		return formatted;
 	}
 	
@@ -451,31 +408,37 @@ public class ProjectAcropolisActivity extends Activity {
 		ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo ni = cm.getActiveNetworkInfo();
 		TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-		
+		try{
 		if(ni.isRoaming())
 		{
-			if(tm.getNetworkOperatorName() != null)
-			{
-				for(int i=0;i<GlobalConstants.CAN_OPERATORS.length;i++)
-				{
-					if(tm.getNetworkOperator().equalsIgnoreCase(GlobalConstants.CAN_OPERATORS[i]))
-					{
-						roaming = true;
-						break;
-					}
-					else
-					{
-						roaming = false;
-					}
-				}
-			}
-			else
-			{
-				roaming = true;
-			}
+//			if(tm.getNetworkOperatorName() != null)
+//			{
+//				for(int i=0;i<GlobalConstants.CAN_OPERATORS.length;i++)
+//				{
+//					if(tm.getNetworkOperator().equalsIgnoreCase(GlobalConstants.CAN_OPERATORS[i]))
+//					{
+//						roaming = true;
+//						break;
+//					}
+//					else
+//					{
+//						roaming = false;
+//					}
+//				}
+//			}
+//			else
+//			{
+//				roaming = true;
+//			}
+			roaming = true;
 		}
 		else
 		{
+			roaming = false;
+		}
+		} catch(NullPointerException e)
+		{
+			e.printStackTrace();
 			roaming = false;
 		}
 		return ( roaming ? "Yes" : "No");
@@ -490,37 +453,59 @@ public class ProjectAcropolisActivity extends Activity {
 		return String.format(Locale.CANADA,"%.1f %sB", bytes / Math.pow(unit, exp), pre);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-//		menu.add(R.menu.);
-//		menu.add(R.id.menu_reset);
-		getMenuInflater().inflate(R.menu.main, menu);
-//		return super.onCreateOptionsMenu(menu);
-		return true;
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch(item.getItemId())
-		{
-		case R.id.menu_reset:
-		{
-			new PersistedData().resetData();
-			updateScreen();
-			return true;
-		}
-		default :
-		{
-			return super.onOptionsItemSelected(item);			
-		}
-		}
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) 
+//	{
+//		// Inflate the menu; this adds items to the action bar if it is present.
+////		menu.add(R.menu.);
+////		menu.add(R.id.menu_reset);
+//		getMenuInflater().inflate(R.menu.main, menu);
+////		return super.onCreateOptionsMenu(menu);
+//		return true;
+//	}
+//
+//	public boolean onOptionsItemSelected(MenuItem item)
+//	{
+//		switch(item.getItemId())
+//		{
+//		case R.id.menu_reset:
+//		{
+//			new PersistedData().resetData();
+//			updateScreen();
+//			return true;
+//		}
+//		default :
+//		{
+//			return super.onOptionsItemSelected(item);			
+//		}
+//		}
+//	}
 	
 	public static Context getContext()
 	{
 		return context;
 	}
 
+//	private String getMCC()
+//	{
+//		String mcc = "MCC:::";
+//		String both="";
+//		try{
+//			if(getApplicationContext() !=null)
+//				{
+//					TelephonyManager tm = 
+//							(TelephonyManager) 
+//							ProjectAcropolisActivity.getContext().
+//							getSystemService(Context.TELEPHONY_SERVICE);
+//					
+//					both = tm.getNetworkOperator();
+//				}
+//		}
+//		catch(Exception e1)
+//		{
+//			e1.printStackTrace();
+//		}
+//		Logger.Debug("MMC|MNC\t"+both);
+//		return mcc;
+//	}
 }

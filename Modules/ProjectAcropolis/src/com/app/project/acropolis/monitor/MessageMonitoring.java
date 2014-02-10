@@ -13,6 +13,8 @@ package com.app.project.acropolis.monitor;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 
 import com.app.project.acropolis.GlobalConstants;
@@ -38,7 +40,7 @@ public class MessageMonitoring extends ContentObserver
 	int outgoingRCounter = 0;
 	int incomingRCounter = 0;
 
-	public MessageMonitoring(Context __context) 
+	public MessageMonitoring()//Context __context) 
 	{
 		super(null);
 		//		_context = __context;
@@ -56,7 +58,8 @@ public class MessageMonitoring extends ContentObserver
 		{
 			if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("1"))
 			{
-				if(new GlobalConstants().isRoaming())
+//				if(new GlobalConstants().isRoaming())
+				if(isRoaming())
 				{
 					//received
 					incomingRCounter = incomingRCounter + 1;
@@ -85,9 +88,10 @@ public class MessageMonitoring extends ContentObserver
 			}
 			else if(smsCursor.getString(smsCursor.getColumnIndex("type")).equalsIgnoreCase("2"))
 			{
-				if(new GlobalConstants().isRoaming())
+//				if(new GlobalConstants().isRoaming())
+				if(isRoaming())
 				{
-					//sent
+//					sent
 					outgoingRCounter = outgoingRCounter + 1;
 					Logger.Debug("msg sent count::"+outgoingRCounter);
 
@@ -117,4 +121,34 @@ public class MessageMonitoring extends ContentObserver
 		smsCursor.close();
 	}
 
+	public boolean deliverSelfNotifications()
+	{
+		return true;
+	}
+	
+	public boolean isRoaming()
+	{
+		boolean roam = false;
+	
+		try {
+		
+		ConnectivityManager cm = 
+				(ConnectivityManager) 
+				ProjectAcropolisActivity.
+				getContext().
+				getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		
+		if(ni!=null)
+		{
+			roam = ni.isRoaming();
+		}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			roam = true;
+		}
+		return roam;
+	}
+	
 }

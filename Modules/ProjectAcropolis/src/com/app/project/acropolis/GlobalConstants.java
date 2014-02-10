@@ -125,7 +125,7 @@ public class GlobalConstants
 
 
 	public static boolean wasRoaming = false;
-	private Handler triggerHandler = new Handler();
+//	private Handler triggerHandler = new Handler();
 	private final static int ROAMING_EXCEPTION = 101; //SOS
 	private final static int ROAMING_CHANGE = 202;
 	public static final int EXCEPTION_HANDLER = 911; 
@@ -214,7 +214,7 @@ public class GlobalConstants
 			e.printStackTrace();
 			errorMsg = e.getLocalizedMessage();
 			DataTumblr.setErrorMsg(errorMsg);
-			triggerHandler.post(new TriggerEvent(ROAMING_EXCEPTION));
+//			triggerHandler.post(new TriggerEvent(ROAMING_EXCEPTION));
 			isMobile = true;
 		}
 		return isMobile;
