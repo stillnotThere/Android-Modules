@@ -9,9 +9,6 @@
  */
 package com.app.project.acropolis.monitor;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.ContentObserver;
@@ -63,17 +60,6 @@ public class CallMonitoring_2 extends ContentObserver
 		cursor.close();
 	}
 
-	//	private long oldCall = 0;
-	//
-	//	private boolean checkRepeatedCalls(long time)
-	//	{
-	//		boolean repeatCall = false;
-	//
-	//		oldCall = time;
-	//		
-	//		return repeatCall;
-	//	}
-
 	int previousCallTime=0;
 	
 	@SuppressLint("UseValueOf")
@@ -103,12 +89,6 @@ public class CallMonitoring_2 extends ContentObserver
 			lastCallduration = Integer.parseInt(cur.getString(0));
 			lastCallType = Integer.parseInt(cur.getString(1));
 			lastCallTime = Long.parseLong(cur.getString(2).toString());
-			
-//			if(System.currentTimeMillis() == (lastCallTime + 18000))
-//			{
-//				Logger.Debug("proceed");
-//				proceed();
-//			}
 			
 			if(GlobalConstants.lastCallTime == 0)
 			{

@@ -69,8 +69,8 @@ public class SocketClientFormatter implements Runnable
 	{
 			collectData();
 			openClientConnection();
+//			holdOffTime();
 			//		sendData();
-			startLooping();
 	}
 	
 	public void collectData()
@@ -132,11 +132,15 @@ public class SocketClientFormatter implements Runnable
 	{
 		SocketClientConnector.closeConnection();
 	}
-	
-	public void startLooping()
+
+	public void holdOffTime()
 	{
-		GlobalConstants.socketClientHandler.postDelayed(this, 4*60*60*1000);//4hrs
+		try {
+			Thread.sleep(10*1000);	//10 seconds
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
 	
 }

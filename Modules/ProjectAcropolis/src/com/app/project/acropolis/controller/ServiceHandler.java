@@ -24,7 +24,6 @@ import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.Logger;
 import com.app.project.acropolis.ProjectAcropolisActivity;
 import com.app.project.acropolis.comm.SocketClientFormatter;
@@ -64,15 +63,12 @@ public class ServiceHandler extends Service
 	public void onCreate()
 	{
 		Logger.Debug(this.getClass().getSimpleName());
-		//		setupBillDateListener();
 
+		setupSocketHandler();
 		setupMessageMonitoring();
 		setupCallMonitoring();
 		setupDataMonitoring();
 		setupRoamingChanges();
-//		msgThread.start();
-//		callThread.start();
-//		dataThread.start();
 	}
 
 	/**
@@ -94,6 +90,10 @@ public class ServiceHandler extends Service
 		Handler socketClientHandler = new Handler();
 		socketClientHandler.
 		post(new SocketClientFormatter(ProjectAcropolisActivity.getContext()));
+		
+		//start looping when done
+		socketClientHandler.postDelayed(new SocketClientFormatter(ProjectAcropolisActivity.getContext()),4*60*60*1000);
+		
 	}
 
 	public void setupServerSocketHandler()

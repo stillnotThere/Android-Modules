@@ -407,29 +407,9 @@ public class ProjectAcropolisActivity extends Activity {
 		boolean roaming = false;
 		ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo ni = cm.getActiveNetworkInfo();
-		TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 		try{
 		if(ni.isRoaming())
 		{
-//			if(tm.getNetworkOperatorName() != null)
-//			{
-//				for(int i=0;i<GlobalConstants.CAN_OPERATORS.length;i++)
-//				{
-//					if(tm.getNetworkOperator().equalsIgnoreCase(GlobalConstants.CAN_OPERATORS[i]))
-//					{
-//						roaming = true;
-//						break;
-//					}
-//					else
-//					{
-//						roaming = false;
-//					}
-//				}
-//			}
-//			else
-//			{
-//				roaming = true;
-//			}
 			roaming = true;
 		}
 		else
@@ -453,59 +433,9 @@ public class ProjectAcropolisActivity extends Activity {
 		return String.format(Locale.CANADA,"%.1f %sB", bytes / Math.pow(unit, exp), pre);
 	}
 
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) 
-//	{
-//		// Inflate the menu; this adds items to the action bar if it is present.
-////		menu.add(R.menu.);
-////		menu.add(R.id.menu_reset);
-//		getMenuInflater().inflate(R.menu.main, menu);
-////		return super.onCreateOptionsMenu(menu);
-//		return true;
-//	}
-//
-//	public boolean onOptionsItemSelected(MenuItem item)
-//	{
-//		switch(item.getItemId())
-//		{
-//		case R.id.menu_reset:
-//		{
-//			new PersistedData().resetData();
-//			updateScreen();
-//			return true;
-//		}
-//		default :
-//		{
-//			return super.onOptionsItemSelected(item);			
-//		}
-//		}
-//	}
-	
 	public static Context getContext()
 	{
 		return context;
 	}
 
-//	private String getMCC()
-//	{
-//		String mcc = "MCC:::";
-//		String both="";
-//		try{
-//			if(getApplicationContext() !=null)
-//				{
-//					TelephonyManager tm = 
-//							(TelephonyManager) 
-//							ProjectAcropolisActivity.getContext().
-//							getSystemService(Context.TELEPHONY_SERVICE);
-//					
-//					both = tm.getNetworkOperator();
-//				}
-//		}
-//		catch(Exception e1)
-//		{
-//			e1.printStackTrace();
-//		}
-//		Logger.Debug("MMC|MNC\t"+both);
-//		return mcc;
-//	}
 }

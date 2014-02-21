@@ -20,12 +20,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.channels.ClosedByInterruptException;
 
-import android.content.Context;
-import android.telephony.TelephonyManager;
-
 import com.app.project.acropolis.GlobalConstants;
 import com.app.project.acropolis.Logger;
-import com.app.project.acropolis.ProjectAcropolisActivity;
 
 /**
  * @author CPH-iMac
